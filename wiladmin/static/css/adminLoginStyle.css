@@ -103,3 +103,9 @@ h1{
 .loginbutton:focus {
   opacity: .75;
 }
+
+.alert{
+    color: red;
+    text-align: center;
+    margin-bottom: 3px;
+}

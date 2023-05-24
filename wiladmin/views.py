@@ -21,9 +21,9 @@ def adminlogin(request):
         
         if user is not None:
             login(request, user)
-            return redirect('dashboard')
+            return redirect('admindashboard')
         else:
-            messages.info(request, "Invalid Username or Password")
+            messages.success(request, "Invalid Credentials")
             return redirect('adminlogin')
     
     else:
