@@ -15,6 +15,7 @@ h1{
 .loginContainer{
     display: flex;
     justify-content: center;
+    color: #ff0000;
 }
 
 .loginForm{
