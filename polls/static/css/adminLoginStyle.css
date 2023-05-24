@@ -1,0 +1,79 @@
+.header{
+    margin-top: 15rem;
+    text-align: center;
+}
+
+h1{
+    font-family: "Farfetch Basis","Helvetica Neue",Arial,sans-serif;
+}
+
+.loginContainer{
+    display: flex;
+    justify-content: center;
+}
+
+.loginForm{
+    justify-content: center;
+    font-family: "Farfetch Basis","Helvetica Neue",Arial,sans-serif;
+}
+.username{
+    background-image:url('../images/adminLogin/user.png');
+    background-position: left;
+    background-size: 1cm;
+    background-repeat: no-repeat;
+    padding-left: 40px;
+    border-radius: 5px;
+    height: 30px;
+    width: 200px;
+}
+
+.password{
+    background-image:url('../images/adminLogin/pass.png');
+    background-position: left;
+    background-size: .8cm;
+    background-repeat: no-repeat;
+    padding-left: 40px;
+    border-radius: 5px;
+    height: 30px;
+    width: 200px;
+}
+
+.loginbutton2{
+    width: 150px;
+    height: 30px;
+    text-align: center;
+    margin-left: 45px;
+}
+
+.loginbutton{
+  background-color: #222;
+  border-radius: 4px;
+  border-style: none;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  font-family: "Farfetch Basis","Helvetica Neue",Arial,sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.5;
+  margin: 0;
+  max-width: none;
+  min-height: 44px;
+  min-width: 10px;
+  outline: none;
+  overflow: hidden;
+  padding: 9px 20px 8px;
+  position: relative;
+  text-align: center;
+  text-transform: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  width: 100%;
+}
+
+.loginbutton:hover,
+.loginbutton:focus {
+  opacity: .75;
+}
