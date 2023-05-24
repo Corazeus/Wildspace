@@ -23,6 +23,10 @@
     align-items: center;
 }
 
+.log{
+    background-color: aqua;
+}
+
 .button {
     background-color: #222;
     border-radius: 4px;
