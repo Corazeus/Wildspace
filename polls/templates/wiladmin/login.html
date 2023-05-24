@@ -9,32 +9,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Login</title>
-
     <link rel="stylesheet" href="{% static 'css/adminLoginStyle.css' %}">
-    
 </head>
-
 <body>
-        <div class="header">
+    <div class="login">
+            <div class="header">
+                <img src="{% static 'images/WILLOGO.png' %}" alt="WIL LOGO" class="logo" height="150px">
+                <h1> WILDSPACE <h2>  
+            </div>
 
-            <h1> WILDSPACE <h2>
+            <div class="loginContainer">
                 
-        </div>
+                <form class="loginForm">
 
-        <div class="loginContainer">
-            
-            
-            <form class="loginForm">
+                        <label>Username</label><br>
+                        <input type="text" placeholder="Enter username" class="username"><br><br>
+                        <label>Passowrd</lavel><br>
+                        <input type="password" placeholder="Enter password" class="password"><br><br>
+                        <input type="submit" value="LOGIN" class="loginbutton">
 
-                    <label>Username</label><br>
-                    <input type="text" placeholder="Enter username" class="username"><br><br>
-                    <label>Passowrd</lavel><br>
-                    <input type="password" placeholder="Enter password" class="password"><br><br>
-                    <input type="submit" value="LOGIN" class="loginbutton">
+                </form>
 
-            </form>
-
-        </div>
+            </div>
+    </div>
 </body>
 
 </html>

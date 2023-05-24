@@ -1,0 +1,56 @@
+
+<!DOCTYPE html>
+
+{% load static %}
+
+<html lang="en">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+
+    <link rel="stylesheet" href="{% static 'css/walkinDashboard.css' %}">
+    
+</head>
+
+<body>
+
+    <div class="main">
+
+        <div class="header">
+
+            <h1> WALK-IN DASHBOARD <h2>
+                
+        </div>
+
+        <div class="bookingContainer">
+
+            <center>
+                <table>
+                    <tr>
+                    <th>Reference ID</th>
+                    <th>User ID</th>
+                    <th>Schedule</th>
+                    <th>Status</th>
+                    <th></th>
+                    </tr>
+                    <tr>
+                    <td>Test</td>
+                    <td>Test</td>
+                    <td>Test</td>
+                    <td>Test</td>
+                    <td class="actions">
+                        <button type="button" class="book">Book</button>
+                        <button type="button" class="logout">Logout</button>
+                    </td>
+                    </tr>
+                </table>
+                <button type="button" class="return">Return to Dashboard</button>
+            </center>
+
+        </div>
+    </div>
+</body>
+
+</html>

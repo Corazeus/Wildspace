@@ -1,5 +1,10 @@
+body {
+    justify-content: center;
+    overflow: hidden;
+}
+
 .header{
-    margin-top: 15rem;
+    padding-top: 8rem;
     text-align: center;
 }
 

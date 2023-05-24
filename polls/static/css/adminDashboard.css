@@ -1,20 +1,4 @@
-.header {
-    margin-top: 15rem;
-    text-align: center;
-}
-
-h1 {
-    font-family: "Farfetch Basis", "Helvetica Neue", Arial, sans-serif;
-}
-
-.buttonContainer {
-    display: flex;
-    justify-content: center;
-}
-
-
 .button {
-    margin-top: 1rem;
     background-color: #222;
     border-radius: 4px;
     border-style: none;
