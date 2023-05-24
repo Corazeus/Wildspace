@@ -6,7 +6,7 @@ def index(request):
 def index(request):
     return render(request, "wil/base.html", {})
 
-def admindashboard(request):
-    return render(request, "wiladmin/dashboard.html", {})
+def adminlogin(request):
+    return render(request, "wiladmin/login.html", {})
 
 
