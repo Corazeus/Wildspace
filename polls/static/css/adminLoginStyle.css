@@ -1,11 +1,9 @@
 body {
     background-image: url("../images/loginbg.jpg");
-    background-size: cover;
-    background-clip: padding-box;
+    background-size: 2200px;
     justify-content: center;
     overflow: hidden;
     backdrop-filter: blur(2px);
-    height: 100%;
 }
 
 .login {
