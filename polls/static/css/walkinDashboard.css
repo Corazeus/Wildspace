@@ -1,16 +1,28 @@
-
 .main {
   display: block;
   text-align: center;
 }
 
 .header {
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  margin-bottom: -1rem;
+}
+
+.logo{
+  height: 105px;
+  margin-top: 21px;
+  margin-left: 150px;
 }
 
 h1 {
-    font-family: "Farfetch Basis", "Helvetica Neue", Arial, sans-serif;
-    text-align: center;
+  background: #fecc00;
+  padding-top: 30px;
+  height: 75px;
+  width: 75%;
+  font-family: "Farfetch Basis", "Helvetica Neue", Arial, sans-serif;
+  margin-right: 150px;
+  font-weight: 800;
 }
 
 table {
@@ -22,6 +34,11 @@ table {
     margin-left: auto;
     margin-right: auto;
   }
+
+caption {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
 
 td, th {
     border: 1px solid #dddddd;
@@ -49,7 +66,7 @@ tr:nth-child(even) {
     display: inline-block;
     font-family: nunito,roboto,proxima-nova,"proxima nova",sans-serif;
     font-size: 16px;
-    font-weight: 800;
+    font-weight: 900;
     line-height: 16px;
     min-height: 40px;
     height: 20px;
@@ -87,7 +104,7 @@ tr:nth-child(even) {
   display: inline-block;
   font-family: nunito,roboto,proxima-nova,"proxima nova",sans-serif;
   font-size: 16px;
-  font-weight: 700;
+  font-weight: 900;
   line-height: 16px;
   min-height: 40px;
   height: 20px;
