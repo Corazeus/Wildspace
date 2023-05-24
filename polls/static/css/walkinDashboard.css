@@ -1,3 +1,7 @@
+.header{
+  text-align: center;
+}
+
 h1 {
     font-family: "Farfetch Basis", "Helvetica Neue", Arial, sans-serif;
     text-align: center;
@@ -61,11 +65,10 @@ tr:nth-child(even) {
     background-position: 0 0;
     color: #000000;
   }
-  
+
   .book:active {
     opacity: .5;
   }
-  
 
 .logout {
   background: #FF4742;
