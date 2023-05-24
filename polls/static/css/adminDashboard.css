@@ -47,7 +47,7 @@
     user-select: none;
     -webkit-user-select: none;
     touch-action: manipulation;
-    width: 60%;
+    width: 300px;
 }
 
 .button:hover,
