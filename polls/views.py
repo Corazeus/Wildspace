@@ -8,5 +8,7 @@ def index(request):
 
 def adminlogin(request):
     return render(request, "wiladmin/login.html", {})
+def admindashbaord(request):
+    return render(request, "wiladmin/dashboard.html", {})
 
 
