@@ -33,7 +33,7 @@
                         <th></th>
                     </tr>
                 
-                {% for bookings in bookinglist %}
+                {% for bookings in bookings %}
                     <tr>
                         <td>{{ bookings.referenceid }}</td>
                         <td>{{ bookings.userid }}</td>
@@ -44,7 +44,12 @@
                             <td style="color:orange">{{ bookings.status }}</td>
 
                             <td class="actions">
-                                <a href="dashboard"><button type="button" class="book" >Book</button></a>
+
+                                <form action="updatebooking/{{ bookings.bookingid }}" method="POST">
+                                    {% csrf_token %}
+                                    <input type="submit" value="Book" class="book">
+                                </form>
+
                             </td>
 
                         {% else %}
@@ -52,7 +57,12 @@
                             <td style="color:green">{{ bookings.status }}</td>
 
                             <td class="actions">
-                                <a href="dashboard"><button type="button" class="logout">Logout</button></a>
+                                
+                                <form action="deletebooking/{{ bookings.bookingid }}" method="POST">
+                                    {% csrf_token %}
+                                    <input type="submit" value="Logout" class="logout">
+                                </form>
+
                             </td>
 
                         {% endif %}

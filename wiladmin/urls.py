@@ -22,4 +22,6 @@ urlpatterns = [
     path('wiladmin/login', views.adminlogin, name='adminlogin'),
     path('wiladmin/dashboard', views.admindashbaord, name='admindashboard'),
     path('wiladmin/walkindashboard', views.walkindashboard.as_view(), name='walkindashboard'),
+    path('wiladmin/updatebooking/<int:bookingid>', views.walkindashboard.as_view(), name='updatebooking'),
+    path('wiladmin/deletebooking/<int:bookingid>', views.walkindashboard.as_view(), name='deletebooking'),
 ]
