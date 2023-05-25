@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
+from .models import User, WalkinBooking
+from django.views import View
 
 # Create your views here.
 #def adminlogin(request):
@@ -9,8 +11,8 @@ from django.contrib import messages
 def admindashbaord(request):
     return render(request, "wiladmin/dashboard.html", {})
 
-def walkindashboard(request):
-    return render(request, "wiladmin/walkindashboard.html", {})
+#def walkindashboard(request):
+#    return render(request, "wiladmin/walkindashboard.html", {})
 
 def adminlogin(request):
     
@@ -28,3 +30,9 @@ def adminlogin(request):
     
     else:
         return render (request, "wiladmin/login.html", {})
+    
+class walkindashboard(View):
+    
+    def get(self, request):
+        bookinglist = WalkinBooking.objects.all().order_by('-status')
+        return render(request, "wiladmin/walkindashboard.html", {'bookinglist': bookinglist})

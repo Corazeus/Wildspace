@@ -21,5 +21,5 @@ urlpatterns = [
     path('wiladmin/index', views.adminlogin, name='index'),
     path('wiladmin/login', views.adminlogin, name='adminlogin'),
     path('wiladmin/dashboard', views.admindashbaord, name='admindashboard'),
-    path('wiladmin/walkindashboard', views.walkindashboard, name='walkindashboard'),
+    path('wiladmin/walkindashboard', views.walkindashboard.as_view(), name='walkindashboard'),
 ]

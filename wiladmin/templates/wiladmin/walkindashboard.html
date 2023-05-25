@@ -26,26 +26,43 @@
                 <table>
                     <caption>Booking List</caption>
                     <tr>
-                    <th>Reference ID</th>
-                    <th>User ID</th>
-                    <th>Schedule</th>
-                    <th>Status</th>
-                    <th></th>
+                        <th>Reference ID</th>
+                        <th>User ID</th>
+                        <th>Schedule</th>
+                        <th>Status</th>
+                        <th></th>
                     </tr>
+                
+                {% for bookings in bookinglist %}
                     <tr>
-                    <td>Test</td>
-                    <td>Test</td>
-                    <td>Test</td>
-                    <td>Test</td>
-                    <td class="actions">
-                        <a href="dashboard"><button type="button" class="book" >Book</button></a>
-                        <a href="dashboard"><button type="button" class="logout">Logout</button></a>
-                    </td>
+                        <td>{{ bookings.referenceid }}</td>
+                        <td>{{ bookings.userid }}</td>
+                        <td>{{ bookings.schedule }}</td>
+
+                        {% if bookings.status == 'Pending' %}
+
+                            <td style="color:orange">{{ bookings.status }}</td>
+
+                            <td class="actions">
+                                <a href="dashboard"><button type="button" class="book" >Book</button></a>
+                            </td>
+
+                        {% else %}
+
+                            <td style="color:green">{{ bookings.status }}</td>
+
+                            <td class="actions">
+                                <a href="dashboard"><button type="button" class="logout">Logout</button></a>
+                            </td>
+
+                        {% endif %}
+                        
                     </tr>
+
+                {% endfor %}
                 </table>
 
                 <a href="dashboard"><button type="button" class="return">Return to Dashboard</button></a>
-
         </div>
     </div>
 </body>

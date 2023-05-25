@@ -1,4 +1,4 @@
-.content{
+.content {
     font-family: "Farfetch Basis", "Helvetica Neue", Arial, sans-serif;
     max-width: fit-content;
     margin: auto;
@@ -9,7 +9,7 @@
     width: 150px;
 }
 
-.header{
+.header {
     margin-top: 6rem;
     display: flex;
     flex-direction: column;
@@ -23,7 +23,7 @@
     align-items: center;
 }
 
-.log{
+.log {
     background-color: aqua;
 }
 
