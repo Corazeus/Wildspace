@@ -15,10 +15,20 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from .views import insert_into_database
+
 from . import views
 
+
 urlpatterns = [
-    
     path('admin/', admin.site.urls),
-    path('', views.index, name='index'), 
+    path('', views.index, name='index'),
+    path('area_button_click/', views.area_button_click, name='area_button_click'),
+    path('location/', views.location, name='location'),
+    path('timer/', views.timer, name='timer'),
+    path('timer/', views.timer_view, name='timer'),
+    path('insert-into-database/', insert_into_database, name='insert_into_database'),
+
+
+
 ]
