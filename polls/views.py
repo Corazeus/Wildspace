@@ -37,21 +37,6 @@ def area_button_click(request):
     # Return the response with the reference number
     return JsonResponse({'reference_number': reference_number})
 
-class assign_area(View):
-    
-    def post(self, request):
-        area_id = "A1"
-        reference_number = generate_reference_number(area_id)
-        
-        #Generate the reference number here
-        user_id = '18-0107-262'
-        schedule = datetime.now().strftime("%d/%m/%Y, %H:%M:%S")
-        status = "Pending"
-        Booking = WalkinBooking(reference_number, user_id, schedule, status)
-        Booking.save()
-        return redirect('')
-    
-
 def generate_reference_number(area_id):
     reference_number = area_id.upper() + str(random.randint(100, 999))
     return reference_number
