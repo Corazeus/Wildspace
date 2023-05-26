@@ -1,10 +1,14 @@
 import random
+from django.db import connection
 
 from django.http import JsonResponse
-from django.shortcuts import render
+from django.shortcuts import redirect, render
+from django.views import View
 from django.views.decorators.csrf import csrf_exempt
 
 from polls.models import Reference
+from wiladmin.models import WalkinBooking
+from datetime import datetime
 
 
 def index(request):
@@ -12,6 +16,9 @@ def index(request):
 
 
 def area_button_click(request):
+    
+    cursor = connection.cursor()
+    
     area_id = request.GET.get('area_id')
 
     # Generate the reference number here
@@ -20,10 +27,30 @@ def area_button_click(request):
     # Insert the reference number and area ID into the database
     reference = Reference(reference_number=reference_number, area_id=area_id)
     reference.save()
+    
+    user_id = '18-0107-262'
+    schedule = datetime.now().strftime("%d/%m/%Y, %H:%M:%S")
+    status = "Pending"
+    
+    cursor.execute("INSERT INTO wiladmin_walkinbooking (referenceid, userid, schedule, status) VALUES ('"+reference_number+"', '"+user_id+"','"+schedule+"','"+status+"');")
 
     # Return the response with the reference number
     return JsonResponse({'reference_number': reference_number})
 
+class assign_area(View):
+    
+    def post(self, request):
+        area_id = "A1"
+        reference_number = generate_reference_number(area_id)
+        
+        #Generate the reference number here
+        user_id = '18-0107-262'
+        schedule = datetime.now().strftime("%d/%m/%Y, %H:%M:%S")
+        status = "Pending"
+        Booking = WalkinBooking(reference_number, user_id, schedule, status)
+        Booking.save()
+        return redirect('')
+    
 
 def generate_reference_number(area_id):
     reference_number = area_id.upper() + str(random.randint(100, 999))
