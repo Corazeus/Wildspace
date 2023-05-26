@@ -79,7 +79,7 @@ WSGI_APPLICATION = 'wil.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'wildspacedb',
+        'NAME': 'wildspacedbtest',
         'Username': 'admin',
         'Password': 'admin',
         'host': '127.0.0.1',
