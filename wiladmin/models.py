@@ -23,7 +23,7 @@ class Logs(models.Model):
     logid = models.AutoField(primary_key=True);
     referenceid = models.CharField(max_length=20);
     userid = models.CharField(max_length=20);
-    date = models.CharField(max_length=20);
+    datetime = models.CharField(max_length=20);
     status = models.CharField(max_length=20);
         
     def __str__(self):
