@@ -63,8 +63,10 @@ class reportlogs(View):
     
 def exportlogs(request):
     
+    request.session
+    
     response = HttpResponse(content_type="text/csv")
-    response['Content-Disposition'] = 'attachment; filename=WILReportLogs'+str(datetime.now())+'.csv'
+    response['Content-Disposition'] = 'attachment; filename=WILReportLogs '+str(datetime.now().strftime("%d/%m/%Y"))+'.csv'
                 
     writer = csv.writer(response)
     writer.writerow(['Log Number','Reference ID','User ID','Date and Time','Status'])
@@ -75,7 +77,5 @@ def exportlogs(request):
         
     cursor = connection.cursor()
     cursor.execute("DELETE FROM wiladmin_logs")
-    
-    redirect('logs')
     
     return response
