@@ -2,7 +2,7 @@ body{
 font-family: "Farfetch Basis", "Helvetica Neue", Arial, sans-serif;
 }
 .area-container {
-  width: 300px; S
+  width: 300px;
   height: 360px;
   background-color: #a5a5a5;
   margin: 0 auto;
@@ -16,7 +16,7 @@ font-family: "Farfetch Basis", "Helvetica Neue", Arial, sans-serif;
   height: 305px;
   background-color: #a5a5a5;
   margin: 0 auto;
-  padding: 20px;
+  padding:10px;
   border-radius: 20px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 
@@ -26,7 +26,7 @@ font-family: "Farfetch Basis", "Helvetica Neue", Arial, sans-serif;
   height: 190px;
   background-color: #D9D9D9;
   margin: 0 auto;
-  padding: 20px;
+  padding: 15px;
   font-style: normal;
   text-align: left;
   border-radius: 20px;
@@ -37,15 +37,14 @@ font-family: "Farfetch Basis", "Helvetica Neue", Arial, sans-serif;
   height: 50px;
   background-color: #2C3E50;
   margin: 0 auto ;
-  padding: 4px;
+
   color: white;
-  text-align: right;
   font-style: normal;
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 .time-container {
-  width: 290px;
+  width: 270px;
   height: 50px;
   background-color: #D9D9D9;
   margin: 0 auto ;
@@ -62,7 +61,7 @@ font-family: "Farfetch Basis", "Helvetica Neue", Arial, sans-serif;
   height: 185px;
   background-color: #FFFFFF;
   margin: 0 auto;
-  padding: 20px;
+  padding: 10px;
   font-style: normal;
   text-align: left;
   border: 2px solid #000000;
@@ -104,7 +103,7 @@ font-family: "Farfetch Basis", "Helvetica Neue", Arial, sans-serif;
 }
 .location-container {
   width: 320px;
-  height: 220px;
+  height: 240px;
   background-color: #D9D9D9;
   margin: 0 auto;
   margin-top: 6px;
@@ -129,22 +128,24 @@ font-family: "Farfetch Basis", "Helvetica Neue", Arial, sans-serif;
 .button-green {
   width: 10px;
   height: 10px;
+  position:absolute;
   background-color: #83CD56;
   border: 1px solid #000000;
   border-radius: 50%;
-  cursor: pointer;
-  text-align: center;
+
+
 
 }
 .button-red {
   width: 10px;
   height: 10px;
+  left:5%;
+  position:absolute;
   background-color: #FF0000;
   border: 1px solid #000000;
   border-radius: 50%;
-  cursor: pointer;
   margin-left:65px;
-  text-align: center;
+
 
 }
 .right{
@@ -167,6 +168,7 @@ font-family: "Farfetch Basis", "Helvetica Neue", Arial, sans-serif;
   height: 25px;
   cursor: pointer;
 }
+
 .area2-button {
   position: absolute;
   top: 38%;
@@ -261,7 +263,7 @@ font-family: "Farfetch Basis", "Helvetica Neue", Arial, sans-serif;
         background-color: #A5A5A5;}
 
 .end-button {
-        width: 290px;
+        width: 300px;
         height: 60px;
         border-radius:10px;
         color: white;
@@ -269,6 +271,67 @@ font-family: "Farfetch Basis", "Helvetica Neue", Arial, sans-serif;
         border: 2px solid ;
         cursor: pointer;
         background-color: #000000;}
+
+.area11-button {
+  position: absolute;
+  top: 18%;
+  left: 27%;
+  transform: translate(-50%, -50%);
+  background-color: transparent;
+  border: none;
+  font-family: "Font Awesome 5 Free";
+  font-weight: 1000;
+  font-size: 35px;
+  color: #FF0000;
+}
+.area22-button {
+  position: absolute;
+  top: 33%;
+  left: 80%;
+  transform: translate(-50%, -50%);
+  background-color: transparent;
+  border: none;
+  font-family: "Font Awesome 5 Free";
+  font-weight: 1000;
+  font-size: 35px;
+  color: #FF0000;
+}
+.area33-button {
+  position: absolute;
+  top: 47%;
+  left: 64%;
+  transform: translate(-50%, -50%);
+  background-color: transparent;
+  border: none;
+  font-family: "Font Awesome 5 Free";
+  font-weight: 1000;
+  font-size: 35px;
+  color: #FF0000;
+}
+.area44-button {
+  position: absolute;
+  top: 69%;
+  left: 73%;
+  transform: translate(-50%, -50%);
+  background-color: transparent;
+  border: none;
+  font-family: "Font Awesome 5 Free";
+  font-weight: 1000;
+  font-size: 35px;
+  color: #FF0000;
+}
+.area55-button {
+  position: absolute;
+  top: 68%;
+  left: 44%;
+  transform: translate(-50%, -50%);
+  background-color: transparent;
+  border: none;
+  font-family: "Font Awesome 5 Free";
+  font-weight: 1000;
+  font-size: 35px;
+  color: #FF0000;
+}
 
 
 

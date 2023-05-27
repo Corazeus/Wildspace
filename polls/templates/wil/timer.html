@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+<div class="name-container">
+    <div class="button-overlay">
+        <div class="mobile-buttons">
+            <h4>Welcome James Cobord!</h4>
+        </div>
+        <div class="image-container">
+        </div>
+    </div>
+</div>
+<br>
+<div class="reminders-container">
+    <div class="button-overlay">
+        <div class="mobile-buttons">
+            <h4 STYLE="text-align: left;">Reminders for WILDSPACE:</h4>
+        </div>
+        <h5>•Always be mindful of your surroundings and others around you.</h5>
+        <h5>•Stay on the area you are assigned to.</h5>
+        <h5>•Once your time is up, proceed to the front desk for end session confirmation.</h5>
+        <div class="image-container">
+        </div>
+    </div>
+</div>
+<br>
+<div class="information-container">
+    <div class="mobile-screen">
+        {% block content %}
+        {% endblock %}
+    </div>
+    <h3 style="text-align:center;">WILDSPACE INFORMATION</h3>
+    <br>
+    <div>
+        <h4>Booking Reference Number:</h4>
+        <h4>Assigned Area:</h4>
+        <h4>Date of Use:</h4>
+        <h4>Time Start:</h4>
+        <h4>Time End:</h4>
+        <h4>Booking type: Walk-in</h4>
+    </div>
+    <br>
+    <br>
+    <br>
+    <div class="time-container">
+        <h4 id="timer">23:00</h4>
+    </div>
+    <br>
+    <br>
+    <br>
+    <button class="end-button" onclick="endSession()">END SESSION</button>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.all.min.js"></script>
+
+<script>
+  var timerElement = document.getElementById('timer');
+  var minutes = 30;
+  var seconds = 0;
+  var sessionEnded = false; // Track session status
+
+  function updateTimer() {
+    if (sessionEnded) {
+      // Session already ended, stop the timer
+      return;
+    }
+
+    if (seconds > 0) {
+      seconds--;
+    } else if (minutes > 0) {
+      minutes--;
+      seconds = 59;
+    } else {
+      // Time's up, perform end session actions
+      endSession();
+      return;
+    }
+
+    var formattedTime = padNumber(minutes) + ':' + padNumber(seconds);
+    timerElement.textContent = formattedTime;
+    setTimeout(updateTimer, 1000);
+  }
+
+  function padNumber(number) {
+    return number.toString().padStart(2, '0');
+  }
+
+  updateTimer();
+
+  // End session functionality
+  function endSession() {
+    if (sessionEnded) {
+      // Session already ended, return
+      return;
+    }
+
+    sessionEnded = true; // Update session status
+
+    var confirmEnd = confirm('Are you sure you want to end the session?');
+    if (confirmEnd) {
+      // Set the timer to '00:00'
+      timerElement.textContent = '00:00';
+
+      // Perform actions to end the session
+      alert('Session ended.');
+
+      // Additional actions as needed
+    }
+  }
+</script>
+
+</body>
+</html>
+

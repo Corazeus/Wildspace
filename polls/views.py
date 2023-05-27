@@ -1,14 +1,12 @@
+from datetime import datetime
 import random
 from django.db import connection
 
 from django.http import JsonResponse
-from django.shortcuts import redirect, render
-from django.views import View
+from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 
 from polls.models import Reference
-from wiladmin.models import WalkinBooking
-from datetime import datetime
 
 
 def index(request):
@@ -16,7 +14,6 @@ def index(request):
 
 
 def area_button_click(request):
-    
     cursor = connection.cursor()
     
     area_id = request.GET.get('area_id')
@@ -37,13 +34,24 @@ def area_button_click(request):
     # Return the response with the reference number
     return JsonResponse({'reference_number': reference_number})
 
+
 def generate_reference_number(area_id):
     reference_number = area_id.upper() + str(random.randint(100, 999))
     return reference_number
 
 
 def location(request):
-    return render(request, "wil/location.html", {})
+    try:
+        reference = Reference.objects.latest('id')
+        area_id = reference.area_id
+    except Reference.DoesNotExist:
+        area_id = None
+
+    context = {
+        'area_id': area_id,
+    }
+
+    return render(request, "wil/location.html", context)
 
 
 def timer(request):
@@ -69,6 +77,9 @@ def insert_into_database(request):
 
     # Return an error response for other request methods
     return JsonResponse({'error': 'Invalid request method.'}, status=400)
+
+
+
 
 
 
