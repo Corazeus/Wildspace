@@ -4,8 +4,8 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
-from django.urls import reverse
 from .models import WalkinBooking, Logs
+from django.contrib.auth.decorators import login_required
 from django.views import View
 from datetime import datetime
 
@@ -28,7 +28,7 @@ def adminlogin(request):
     
     else:
         return render (request, "wiladmin/login.html", {})
-    
+
 class walkindashboard(View):
     
     def get(self, request):
@@ -59,7 +59,6 @@ class reportlogs(View):
     def get(self, request):
         logs = Logs.objects.all().order_by('-logid')
         return render(request, "wiladmin/logs.html", {'logs': logs})
-    
     
 def exportlogs(request):
     
