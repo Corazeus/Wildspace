@@ -1,4 +1,4 @@
-<!-- original.html -->
+
 <!DOCTYPE html>
 {% load static %}
 <html lang="en">
@@ -17,7 +17,7 @@
         <div class="button-overlay">
             <div class="mobile-buttons">
                 {% if area_id %}
-                <h3>ASSIGNED AREA: {{ area_id }}</h3>
+                <h3>ASSIGNED AREA: <span style="color: red; text-decoration: underline;">{{ area_id }}</span></h3>
                 {% else %}
                 <h4>Assigned Area: N/A</h4>
                 {% endif %}
@@ -62,8 +62,6 @@
         </div>
 
     </div>
-
-
 
 
     <script>

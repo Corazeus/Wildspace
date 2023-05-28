@@ -28,7 +28,6 @@ urlpatterns = [
     path('timer/', views.timer, name='timer'),
     path('timer/', views.timer_view, name='timer'),
     path('insert-into-database/', insert_into_database, name='insert_into_database'),
-
-
+    path('login/', views.login, name='login'),
 
 ]

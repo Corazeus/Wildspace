@@ -6,18 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" />
     {% block extra_css %}{% endblock %}
 </head>
 <body>
+<a href="{% url 'location' %}" class="left-button"><i class="fas fa-arrow-left"></i></a>
 <div class="name-container">
-    <div class="button-overlay">
-        <div class="mobile-buttons">
-            <h4>Welcome James Cobord!</h4>
-        </div>
-        <div class="image-container">
-        </div>
-    </div>
+  <div>
+    <h4>Welcome James Cobord!</h4>
+  </div>
+  <div class="button-overlay"></div>
 </div>
+
 <br>
 <div class="reminders-container">
     <div class="button-overlay">
@@ -40,16 +40,16 @@
     <h3 style="text-align:center;">WILDSPACE INFORMATION</h3>
     <br>
     <div>
-        <h4>Booking Reference Number:</h4>
-        <h4>Assigned Area:</h4>
-        <h4>Date of Use:</h4>
-        <h4>Time Start:</h4>
-        <h4>Time End:</h4>
-        <h4>Booking type: Walk-in</h4>
+        <h4>User Id: <span style="color: red; text-decoration: underline;">{{ id_number }}</span></h4>
+        <h4>Booking Reference Number: <span style="color: red; text-decoration: underline;">{{ booking_reference_number }}</span></h4>
+        <h4>Assigned Area: <span style="color: red; text-decoration: underline;">{{ assigned_area }}</span></h4>
+        <h4>Date of Use: <span style="color: red; text-decoration: underline;">{{ date_of_use }}</span></h4>
+        <h4>Booking type: <span style="color: red; text-decoration: underline;">Walk-in</span></h4>
+
     </div>
     <br>
-    <br>
-    <br>
+
+
     <div class="time-container">
         <h4 id="timer">23:00</h4>
     </div>
@@ -59,17 +59,27 @@
     <button class="end-button" onclick="endSession()">END SESSION</button>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.all.min.js"></script>
+<div id="confirmation-dialog" class="confirmation-dialog">
+  <h2>Confirmation</h2>
+  <p>Are you sure you want to end the session?</p>
+  <div class="button-container">
+    <button id="confirm-button">Yes</button>
+    <button id="cancel-button">No</button>
+  </div>
+</div>
+<div id="overlay" class="overlay"></div>
+
 
 <script>
+
   var timerElement = document.getElementById('timer');
   var minutes = 30;
   var seconds = 0;
-  var sessionEnded = false; // Track session status
+  var sessionEnded = false;
 
   function updateTimer() {
     if (sessionEnded) {
-      // Session already ended, stop the timer
+
       return;
     }
 
@@ -79,7 +89,7 @@
       minutes--;
       seconds = 59;
     } else {
-      // Time's up, perform end session actions
+
       endSession();
       return;
     }
@@ -95,27 +105,69 @@
 
   updateTimer();
 
-  // End session functionality
-  function endSession() {
-    if (sessionEnded) {
-      // Session already ended, return
-      return;
-    }
 
-    sessionEnded = true; // Update session status
+function endSession() {
+  if (sessionEnded) {
 
-    var confirmEnd = confirm('Are you sure you want to end the session?');
-    if (confirmEnd) {
-      // Set the timer to '00:00'
-      timerElement.textContent = '00:00';
-
-      // Perform actions to end the session
-      alert('Session ended.');
-
-      // Additional actions as needed
-    }
+    return;
   }
+
+
+  var confirmationDialog = document.getElementById('confirmation-dialog');
+  var overlay = document.getElementById('overlay');
+  confirmationDialog.style.display = 'block';
+  overlay.style.display = 'block';
+
+  var confirmButton = document.getElementById('confirm-button');
+  var cancelButton = document.getElementById('cancel-button');
+
+  confirmButton.addEventListener('click', function() {
+
+    timerElement.textContent = '00:00';
+
+
+    confirmationDialog.style.display = 'none';
+    overlay.style.display = 'none';
+
+
+    var messageOverlay = document.createElement('div');
+    messageOverlay.classList.add('message-overlay');
+
+    var messageBox = document.createElement('div');
+    messageBox.classList.add('message-box');
+
+    var messageHeader = document.createElement('h2');
+    messageHeader.textContent = 'Session Ended';
+
+    var messageContent = document.createElement('p');
+    messageContent.innerHTML = 'Reference Number: {{ booking_reference_number }}';
+
+    var additionalText = document.createElement('p');
+    additionalText.textContent = 'To avoid overstaying charges, please go to the front desk and present your reference number to confirm that your alloted time has ended.';
+
+    messageBox.appendChild(messageHeader);
+    messageBox.appendChild(messageContent);
+    messageBox.appendChild(additionalText);
+
+    messageOverlay.appendChild(messageBox);
+
+    document.body.appendChild(messageOverlay);
+
+
+    sessionEnded = true;
+  });
+
+  cancelButton.addEventListener('click', function() {
+
+    confirmationDialog.style.display = 'none';
+    overlay.style.display = 'none';
+  });
+}
+
+
 </script>
+
+
 
 </body>
 </html>
