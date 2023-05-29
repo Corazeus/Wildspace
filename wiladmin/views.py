@@ -34,7 +34,7 @@ class walkindashboard(View):
         else:
             booking.delete()
             
-            date_time = datetime.now().strftime("%d/%m/%Y, %H:%M:%S")
+            date_time = datetime.now().strftime("%d/%m/%Y, %H:%M")
             
             cursor.execute("INSERT INTO wiladmin_logs (referenceid, userid, datetime, status) VALUES ('"+booking.referenceid+"', '"+booking.userid+"','"+date_time+"', 'Logged Out');")
             return redirect('walkindashboard')
