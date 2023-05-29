@@ -8,26 +8,6 @@ from django.urls import reverse
 from .models import WalkinBooking, Logs
 from django.views import View
 from datetime import datetime
-
-def admindashbaord(request):
-    return render(request, "wiladmin/dashboard.html", {})
-
-def adminlogin(request):
-    
-    if request.method == "POST":
-        username = request.POST['username']
-        password = request.POST['password']
-        user = authenticate(request, username=username, password=password)
-        
-        if user is not None:
-            login(request, user)
-            return redirect('admindashboard')
-        else:
-            messages.success(request, "Invalid Credentials")
-            return redirect('adminlogin')
-    
-    else:
-        return render (request, "wiladmin/login.html", {})
     
 class walkindashboard(View):
     
@@ -79,3 +59,23 @@ def exportlogs(request):
     cursor.execute("DELETE FROM wiladmin_logs")
     
     return response
+
+def admindashbaord(request):
+    return render(request, "wiladmin/dashboard.html", {})
+
+def adminlogin(request):
+    
+    if request.method == "POST":
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+        
+        if user is not None:
+            login(request, user)
+            return redirect('admindashboard')
+        else:
+            messages.success(request, "Invalid Credentials")
+            return redirect('adminlogin')
+    
+    else:
+        return render (request, "wiladmin/login.html", {})
