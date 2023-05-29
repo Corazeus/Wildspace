@@ -25,6 +25,9 @@ class WalkinBooking(models.Model):
     def getWalkinBookingDetails(self):
         return self.bookingid, self.referenceid, self.userid, self.schedule, self.status;
     
+    def getWalkingBookings(self):
+        return self.bookingid, self.referenceid, self.userid, self.schedule, self.status;
+    
 class Logs(models.Model):
     logid = models.AutoField(primary_key=True);
     referenceid = models.CharField(max_length=20);

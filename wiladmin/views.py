@@ -4,15 +4,16 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
-from django.urls import reverse
 from .models import WalkinBooking, Logs
+from django.contrib.auth.decorators import login_required
 from django.views import View
 from datetime import datetime
-    
+
+
 class walkindashboard(View):
     
     def get(self, request):
-        bookings = WalkinBooking.objects.all().order_by('-status')
+        bookings = WalkinBooking.objects.all().order_by('-status','-bookingid')
         return render(request, "wiladmin/walkindashboard.html", {'bookings': bookings})
     
     def post(self, request, bookingid):
@@ -29,7 +30,7 @@ class walkindashboard(View):
         else:
             booking.delete()
             
-            date_time = datetime.now().strftime("%d/%m/%Y, %H:%M:%S")
+            date_time = datetime.now().strftime("%d/%m/%Y, %H:%M")
             
             cursor.execute("INSERT INTO wiladmin_logs (referenceid, userid, datetime, status) VALUES ('"+booking.referenceid+"', '"+booking.userid+"','"+date_time+"', 'Logged Out');")
             return redirect('walkindashboard')
@@ -39,7 +40,6 @@ class reportlogs(View):
     def get(self, request):
         logs = Logs.objects.all().order_by('-logid')
         return render(request, "wiladmin/logs.html", {'logs': logs})
-    
     
 def exportlogs(request):
     
@@ -59,9 +59,6 @@ def exportlogs(request):
     cursor.execute("DELETE FROM wiladmin_logs")
     
     return response
-
-def admindashbaord(request):
-    return render(request, "wiladmin/dashboard.html", {})
 
 def adminlogin(request):
     

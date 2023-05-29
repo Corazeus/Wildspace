@@ -28,7 +28,7 @@ def area_button_click(request):
     reference.save()
     
     user_id = '18-0107-262'
-    schedule = datetime.now().strftime("%d/%m/%Y, %H:%M:%S")
+    schedule = datetime.now().strftime("%d/%m/%Y, %H:%M")
     status = "Pending"
     
     cursor.execute("INSERT INTO wiladmin_walkinbooking (referenceid, userid, schedule, status) VALUES ('"+reference_number+"', '"+user_id+"','"+schedule+"','"+status+"');")
