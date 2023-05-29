@@ -9,25 +9,10 @@ from django.contrib.auth.decorators import login_required
 from django.views import View
 from datetime import datetime
 
-def admindashbaord(request):
-    return render(request, "wiladmin/dashboard.html", {})
+class admindashboard(View):
 
-def adminlogin(request):
-    
-    if request.method == "POST":
-        username = request.POST['username']
-        password = request.POST['password']
-        user = authenticate(request, username=username, password=password)
-        
-        if user is not None:
-            login(request, user)
-            return redirect('admindashboard')
-        else:
-            messages.success(request, "Invalid Credentials")
-            return redirect('adminlogin')
-    
-    else:
-        return render (request, "wiladmin/login.html", {})
+    def get(self, request):
+        return render(request, "wiladmin/dashboard.html", {})
 
 class walkindashboard(View):
     
@@ -78,3 +63,20 @@ def exportlogs(request):
     cursor.execute("DELETE FROM wiladmin_logs")
     
     return response
+
+def adminlogin(request):
+    
+    if request.method == "POST":
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+        
+        if user is not None:
+            login(request, user)
+            return redirect('admindashboard')
+        else:
+            messages.success(request, "Invalid Credentials")
+            return redirect('adminlogin')
+    
+    else:
+        return render (request, "wiladmin/login.html", {})
