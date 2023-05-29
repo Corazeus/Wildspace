@@ -39,7 +39,7 @@ class walkindashboard(View):
         if(booking.status == "Pending"):
             booking.status = 'Booked'
             booking.save()
-            
+
             cursor.execute("INSERT INTO wiladmin_logs (referenceid, userid, datetime, status) VALUES ('"+booking.referenceid+"', '"+booking.userid+"','"+booking.schedule+"', 'Booked');")
             return redirect('walkindashboard')
         else:

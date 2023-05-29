@@ -53,5 +53,8 @@ class Logs(models.Model):
     def getLogDetails(self):
         return self.logid, self.referenceid, self.userid, self.datetime, self.status;
     
-    def deleteLogs(self):
+    def deleteLog(self):
         self.delete();
+        
+    def createLog(self):
+        self.save();
