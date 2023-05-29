@@ -32,7 +32,7 @@ def adminlogin(request):
 class walkindashboard(View):
     
     def get(self, request):
-        bookings = WalkinBooking.objects.all().order_by('-status')
+        bookings = WalkinBooking.objects.all().order_by('-status','-bookingid')
         return render(request, "wiladmin/walkindashboard.html", {'bookings': bookings})
     
     def post(self, request, bookingid):

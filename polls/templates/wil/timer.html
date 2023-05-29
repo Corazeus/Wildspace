@@ -140,7 +140,7 @@ function endSession() {
     messageHeader.textContent = 'Session Ended';
 
     var messageContent = document.createElement('p');
-    messageContent.innerHTML = 'Reference Number: {{ booking_reference_number }}';
+    messageContent.innerHTML ='Reference Number: {{ booking_reference_number }}';
 
     var additionalText = document.createElement('p');
     additionalText.textContent = 'To avoid overstaying charges, please go to the front desk and present your reference number to confirm that your alloted time has ended.';
