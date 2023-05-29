@@ -16,6 +16,17 @@ class admindashboard(View):
 
 class walkindashboard(View):
     
+    def getAllBookings(self, request):
+        bookings = WalkinBooking.objects.all()
+        return render(request, "wiladmin/walkindashboard.html", {'bookings': bookings})
+    
+    def deleteAllBookings(self, request):
+        bookings = WalkinBooking.objects.all()
+        for booking in bookings:
+            booking.delete()
+        messages.success(request, 'All bookings deleted successfully')
+        return redirect('wiladmin:walkindashboard')
+    
     def get(self, request):
         bookings = WalkinBooking.objects.all().order_by('-status','-bookingid')
         return render(request, "wiladmin/walkindashboard.html", {'bookings': bookings})
@@ -40,6 +51,10 @@ class walkindashboard(View):
             return redirect('walkindashboard')
         
 class reportlogs(View):
+    
+    def getAllLogs(self, request):
+        logs = Logs.objects.all()
+        return render(request, "wiladmin/reportlogs.html", {'logs': logs})
     
     def get(self, request):
         logs = Logs.objects.all().order_by('-logid')
