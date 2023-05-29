@@ -35,5 +35,5 @@ class Logs(models.Model):
     def __str__(self):
         return self.userid+"-"+self.referenceid+"-"+self.status;
     
-    def getLogs(self):
+    def getLogDetails(self):
         return self.logid, self.referenceid, self.userid, self.datetime, self.status;
