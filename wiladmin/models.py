@@ -58,3 +58,6 @@ class Logs(models.Model):
         
     def createLog(self):
         self.save();
+        
+    def getAllLogs(self):
+        return Logs.objects.all().order_by('logid');
