@@ -12,6 +12,12 @@ class User(models.Model):
     def getUserDetails(self):
         return self.username, self.password, self.type;
     
+    def createUser(self):
+        self.save();
+        
+    def deleteUser(self):
+        self.delete();
+    
 class WalkinBooking(models.Model):
     bookingid = models.AutoField(primary_key=True);
     referenceid = models.CharField(max_length=20);
@@ -28,6 +34,12 @@ class WalkinBooking(models.Model):
     def getWalkingBookings(self):
         return self.bookingid, self.referenceid, self.userid, self.schedule, self.status;
     
+    def createWalkinBooking(self):
+        self.save();
+        
+    def deleteWalkinBooking(self):
+        self.delete();
+    
 class Logs(models.Model):
     logid = models.AutoField(primary_key=True);
     referenceid = models.CharField(max_length=20);
@@ -40,3 +52,6 @@ class Logs(models.Model):
     
     def getLogDetails(self):
         return self.logid, self.referenceid, self.userid, self.datetime, self.status;
+    
+    def deleteLogs(self):
+        self.delete();
