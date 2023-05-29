@@ -9,10 +9,6 @@ from django.contrib.auth.decorators import login_required
 from django.views import View
 from datetime import datetime
 
-class admindashboard(View):
-
-    def get(self, request):
-        return render(request, "wiladmin/dashboard.html", {})
 
 class walkindashboard(View):
     

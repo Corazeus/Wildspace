@@ -21,6 +21,9 @@ class WalkinBooking(models.Model):
         
     def __str__(self):
         return self.userid+"-"+self.referenceid;
+
+    def getWalkinBookingDetails(self):
+        return self.bookingid, self.referenceid, self.userid, self.schedule, self.status;
     
     def getWalkingBookings(self):
         return self.bookingid, self.referenceid, self.userid, self.schedule, self.status;
