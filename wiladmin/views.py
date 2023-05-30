@@ -14,25 +14,13 @@ class admindashboard(View):
     def get(self, request):
         return render(request, "wiladmin/dashboard.html", {})
 
-class walkindashboard(View):
-    
-    def getAllBookings(self, request):
-        bookings = WalkinBooking.objects.all()
-        return render(request, "wiladmin/walkindashboard.html", {'bookings': bookings})
-    
-    def deleteAllBookings(self, request):
-        bookings = WalkinBooking.objects.all()
-        for booking in bookings:
-            booking.delete()
-        messages.success(request, 'All bookings deleted successfully')
-        return redirect('wiladmin:walkindashboard')
+class AdminWalkinDashboardController(View):
     
     def get(self, request):
         bookings = WalkinBooking.objects.all().order_by('-status','-bookingid')
         return render(request, "wiladmin/walkindashboard.html", {'bookings': bookings})
     
-    def post(self, request, bookingid):
-        
+    def handleBookButton(self, bookingid):
         cursor = connection.cursor()
         booking = WalkinBooking.objects.get(pk=int(bookingid))
         
@@ -49,6 +37,9 @@ class walkindashboard(View):
             
             cursor.execute("INSERT INTO wiladmin_logs (referenceid, userid, datetime, status) VALUES ('"+booking.referenceid+"', '"+booking.userid+"','"+date_time+"', 'Logged Out');")
             return redirect('walkindashboard')
+    
+    def post(self, request, bookingid):
+        self.handleBookButton(self);
         
 class reportlogs(View):
     
