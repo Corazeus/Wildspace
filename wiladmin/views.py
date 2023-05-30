@@ -79,7 +79,7 @@ class AdminReportLogsController(View):
                 writer.writerow([log.logid, log.referenceid, log.userid, log.datetime, log.status])
 
             cursor = connection.cursor()
-            cursor.execute("DELETE FROM wiladmin_logs")
+            cursor.execute("DELETE FROM wiladmin_AdminReportLogs")
 
             return response
     
