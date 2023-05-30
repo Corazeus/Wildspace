@@ -20,7 +20,7 @@ class AdminWalkinDashboardController(View):
         bookings = WalkinBooking.objects.all().order_by('-status','-bookingid')
         return render(request, "wiladmin/walkindashboard.html", {'bookings': bookings})
     
-    def handleBookButton(self, bookingid):
+    def post(self, request, bookingid):
         cursor = connection.cursor()
         booking = WalkinBooking.objects.get(pk=int(bookingid))
         
@@ -37,14 +37,15 @@ class AdminWalkinDashboardController(View):
             
             cursor.execute("INSERT INTO wiladmin_logs (referenceid, userid, datetime, status) VALUES ('"+booking.referenceid+"', '"+booking.userid+"','"+date_time+"', 'Logged Out');")
             return redirect('walkindashboard')
-    
-    def post(self, request, bookingid):
-        self.handleBookButton(self);
         
-class reportlogs(View):
+class ReportLogsController(View):
+    
+    def getAllReportLogs(self):
+        logs = Logs.objects.all().order_by('-logid')
+        return logs
     
     def get(self, request):
-        logs = Logs.objects.all().order_by('-logid')
+        logs = self.getAllReportLogs;
         return render(request, "wiladmin/logs.html", {'logs': logs})
     
 def exportlogs(request):
