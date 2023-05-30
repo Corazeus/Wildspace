@@ -25,5 +25,6 @@ urlpatterns = [
     path('wiladmin/walkindashboard', views.AdminWalkinDashboardController.as_view(), name='walkindashboard'),
     path('wiladmin/updatebooking/<int:bookingid>', views.AdminWalkinDashboardController.as_view(), name='updatebooking'),
     path('wiladmin/deletebooking/<int:bookingid>', views.AdminWalkinDashboardController.as_view(), name='deletebooking'),
+    path('wiladmin/bookguest', views.BookGuestController.as_view(), name='bookguest'),
     path('wiladmin/exportlogs', views.exportlogs, name='exportlogs'),
 ]
