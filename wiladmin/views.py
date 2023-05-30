@@ -8,6 +8,25 @@ from .models import WalkinBooking, Logs
 from django.views import View
 from datetime import datetime
 
+class AdminLoginController(View):
+    
+    def handleLogin(self, request):
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('admindashboard')
+        else:
+            messages.error(request, 'Invalid Username or Password')
+            return redirect('adminlogin')
+    
+    def get(self, request):
+        return render(request, "wiladmin/login.html", {})
+    
+    def post(self, request):
+        return self.handleLogin(request)
+
 class AdminDashboardController(View):
     def get(self, request):
         return render(request, "wiladmin/dashboard.html", {})
@@ -74,25 +93,6 @@ class AdminReportLogsController(View):
     
     def post(self, request):
         return self.exportlogs(request)
-    
-class AdminLoginController(View):
-    
-    def handleLogin(self, request):
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-        user = authenticate(username=username, password=password)
-        if user is not None:
-            login(request, user)
-            return redirect('admindashboard')
-        else:
-            messages.error(request, 'Invalid Username or Password')
-            return redirect('adminlogin')
-    
-    def get(self, request):
-        return render(request, "wiladmin/login.html", {})
-    
-    def post(self, request):
-        return self.handleLogin(request)
         
 class BookGuestController(View):
     
