@@ -4,7 +4,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
-from .models import WalkinBooking, Logs
+from .models import WalkinBooking, AdminReportLogs
 from django.views import View
 from datetime import datetime
 
@@ -39,12 +39,12 @@ class AdminWalkinDashboardController(View):
         if(booking.status == "Pending"):
             booking.status = 'Booked'
             booking.save()
-            log = Logs(referenceid = booking.referenceid, userid = booking.userid, datetime = booking.schedule, status = booking.status)
+            log = AdminReportLogs(referenceid = booking.referenceid, userid = booking.userid, datetime = booking.schedule, status = booking.status)
             log.save()
         
         else:
             booking.delete()
-            log = Logs(referenceid = booking.referenceid, userid = booking.userid, datetime = booking.schedule, status = 'Logged Out')
+            log = AdminReportLogs(referenceid = booking.referenceid, userid = booking.userid, datetime = booking.schedule, status = 'Logged Out')
             log.save()
             
     def get(self, request):
@@ -61,7 +61,7 @@ class AdminReportLogsController(View):
 
     def exportlogs(self, request):
         
-        logs = Logs.objects.all()
+        logs = AdminReportLogs.objects.all()
         
         if logs.count() == 0:
             
@@ -84,7 +84,7 @@ class AdminReportLogsController(View):
             return response
     
     def getAllReportLogs(self):
-        logs = Logs.objects.all().order_by('-logid')
+        logs = AdminReportLogs.objects.all().order_by('-logid')
         return logs
     
     def get(self, request):

@@ -1,10 +1,9 @@
 from django.db import models
 
 # Create your models here.
-class User(models.Model):
+class AdminAccount(models.Model):
     username = models.CharField(max_length=20);
     password = models.CharField(max_length=20);
-    type = models.CharField(max_length=10);
         
     def __str__(self):
         return self.username;
@@ -19,7 +18,7 @@ class WalkinBooking(models.Model):
     def __str__(self):
         return self.userid+"-"+self.referenceid;
     
-class Logs(models.Model):
+class AdminReportLogs(models.Model):
     logid = models.AutoField(primary_key=True);
     referenceid = models.CharField(max_length=20);
     userid = models.CharField(max_length=20);
