@@ -43,10 +43,6 @@ class AdminWalkinDashboardController(View):
         
 class reportlogs(View):
     
-    def getAllLogs(self, request):
-        logs = Logs.objects.all()
-        return render(request, "wiladmin/reportlogs.html", {'logs': logs})
-    
     def get(self, request):
         logs = Logs.objects.all().order_by('-logid')
         return render(request, "wiladmin/logs.html", {'logs': logs})
