@@ -39,23 +39,30 @@ class AdminWalkinDashboardController(View):
         return redirect('walkindashboard')
         
 class AdminReportLogsController(View):
-    
-    def exportlogs(self):
+
+    def exportlogs(self, request):
         
-        response = HttpResponse(content_type="text/csv")
-        response['Content-Disposition'] = 'attachment; filename=WILReportLogs '+str(datetime.now().strftime("%d/%m/%Y"))+'.csv'
-                    
-        writer = csv.writer(response)
-        writer.writerow(['Log Number','Reference ID','User ID','Date and Time','Status'])
-                
         logs = Logs.objects.all()
-        for log in logs:
-            writer.writerow([log.logid, log.referenceid, log.userid, log.datetime, log.status])
-            
-        cursor = connection.cursor()
-        cursor.execute("DELETE FROM wiladmin_logs")
         
-        return response
+        if logs.count() == 0:
+            
+            messages.error(request, "No Logs Found")
+            return render(request, "wiladmin/logs.html", {'logs': logs})
+            
+        else:
+            response = HttpResponse(content_type="text/csv")
+            response['Content-Disposition'] = 'attachment; filename=WILReportLogs '+str(datetime.now().strftime("%d/%m/%Y"))+'.csv'
+
+            writer = csv.writer(response)
+            writer.writerow(['Log Number','Reference ID','User ID','Date and Time','Status'])
+
+            for log in logs:
+                writer.writerow([log.logid, log.referenceid, log.userid, log.datetime, log.status])
+
+            cursor = connection.cursor()
+            cursor.execute("DELETE FROM wiladmin_logs")
+
+            return response
     
     def getAllReportLogs(self):
         logs = Logs.objects.all().order_by('-logid')
@@ -66,8 +73,7 @@ class AdminReportLogsController(View):
         return render(request, "wiladmin/logs.html", {'logs': logs})
     
     def post(self, request):
-        self.exportlogs()
-        return redirect('reportlogs')
+        return self.exportlogs(request)
     
 class AdminLoginController(View):
     
@@ -86,17 +92,8 @@ class AdminLoginController(View):
         return render(request, "wiladmin/login.html", {})
     
     def post(self, request):
+        return self.handleLogin(request)
         
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-        user = authenticate(username=username, password=password)
-        if user is not None:
-            login(request, user)
-            return redirect('admindashboard')
-        else:
-            messages.error(request, 'Invalid Username or Password')
-            return redirect('adminlogin')
-            
 class BookGuestController(View):
     
     def CreateNewBooking(self):
@@ -113,23 +110,3 @@ class BookGuestController(View):
     def post(self, rquest):
         self.CreateNewBooking()
         return redirect('bookguest')
-        
-def exportlogs(request):
-    
-        request.session
-        
-        response = HttpResponse(content_type="text/csv")
-        response['Content-Disposition'] = 'attachment; filename=WILReportLogs '+str(datetime.now().strftime("%d/%m/%Y"))+'.csv'
-                    
-        writer = csv.writer(response)
-        writer.writerow(['Log Number','Reference ID','User ID','Date and Time','Status'])
-                
-        logs = Logs.objects.all()
-        
-        for log in logs:
-            writer.writerow([log.logid, log.referenceid, log.userid, log.datetime, log.status])
-            
-        cursor = connection.cursor()
-        cursor.execute("DELETE FROM wiladmin_logs")
-        
-        return response
