@@ -1,0 +1,67 @@
+.content {
+    font-family: "Farfetch Basis", "Helvetica Neue", Arial, sans-serif;
+    max-width: fit-content;
+    margin: auto;
+}
+
+.logo {
+    height: 150px;
+    width: 150px;
+}
+
+.header {
+    margin-top: 3rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: auto;
+}
+
+.buttonContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.button {
+    background-color: #222;
+    border-radius: 4px;
+    border-style: none;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    font-family: "Farfetch Basis", "Helvetica Neue", Arial, sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.5;
+    max-width: none;
+    min-height: 44px;
+    min-width: 10px;
+    outline: none;
+    overflow: hidden;
+    padding: 9px 20px 8px;
+    position: relative;
+    text-align: center;
+    text-transform: none;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    width: 250px;
+}
+
+.button:hover,
+.button:focus {
+    opacity: .75;
+}
+
+.username{
+    background-image:url('../images/adminLogin/user.png');
+    background-position: left;
+    background-size: 1cm;
+    background-repeat: no-repeat;
+    padding-left: 40px;
+    border-radius: 5px;
+    height: 35px;
+    width: 200px;
+}
