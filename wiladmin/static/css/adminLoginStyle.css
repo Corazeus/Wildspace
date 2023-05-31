@@ -2,15 +2,11 @@ body {
     background-image: url("../images/loginbg.jpg");
     background-size: 2200px;
     justify-content: center;
-    overflow: hidden;
-    backdrop-filter: blur(2px);
+    padding-top: 100px;
 }
 
 .login {
     opacity: 95%;
-    margin-top: 8rem;
-    margin-left: auto;
-    margin-right: auto;
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -20,6 +16,7 @@ body {
     background-color: white;
     border-radius: 30px;
     border:5px solid transparent black;
+    margin: auto;
 }
 
 .header{
