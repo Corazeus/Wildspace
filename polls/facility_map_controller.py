@@ -30,8 +30,9 @@ class FacilityMapController:
         user_id = '18-0107-262'
         schedule = datetime.now().strftime("%d/%m/%Y, %H:%M")
         status = "Pending"
-
-        cursor.execute("INSERT INTO wiladmin_walkinbooking (referenceid, userid, schedule, status) VALUES (%s, %s, %s, %s)", (reference_number, user_id, schedule, status))
+        
+        booking = WalkinBooking(referenceid = reference_number, userid=user_id, schedule=schedule, status=status)
+        booking.save()
 
         return JsonResponse({'reference_number': reference_number})
 
