@@ -4,7 +4,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
-from .models import WalkinBooking, AdminReportLogs
+from .models import WalkinBookingModel, AdminReportLogsModel
 from django.views import View
 from datetime import datetime
 
@@ -34,21 +34,21 @@ class AdminDashboardController(View):
 class AdminWalkinDashboardController(View):
     
     def updateBookingStatus(self, bookingid):
-        booking = WalkinBooking.objects.get(pk=int(bookingid))
+        booking = WalkinBookingModel.objects.get(pk=int(bookingid))
         
         if(booking.status == "Pending"):
             booking.status = 'Booked'
             booking.save()
-            log = AdminReportLogs(referenceid = booking.referenceid, userid = booking.userid, datetime = booking.schedule, status = booking.status)
+            log = AdminReportLogsModel(referenceid = booking.referenceid, userid = booking.userid, datetime = booking.schedule, status = booking.status)
             log.save()
         
         else:
             booking.delete()
-            log = AdminReportLogs(referenceid = booking.referenceid, userid = booking.userid, datetime = booking.schedule, status = 'Logged Out')
+            log = AdminReportLogsModel(referenceid = booking.referenceid, userid = booking.userid, datetime = booking.schedule, status = 'Logged Out')
             log.save()
             
     def get(self, request):
-        bookings = WalkinBooking.objects.all().order_by('-status','-bookingid')
+        bookings = WalkinBookingModel.objects.all().order_by('-status','-bookingid')
         return render(request, "wiladmin/walkindashboard.html", {'bookings': bookings})
     
     def post(self, request, bookingid):
@@ -61,7 +61,7 @@ class AdminReportLogsController(View):
 
     def exportlogs(self, request):
         
-        logs = AdminReportLogs.objects.all()
+        logs = AdminReportLogsModel.objects.all()
         
         if logs.count() == 0:
             
@@ -84,7 +84,7 @@ class AdminReportLogsController(View):
             return response
     
     def getAllReportLogs(self):
-        logs = AdminReportLogs.objects.all().order_by('-logid')
+        logs = AdminReportLogsModel.objects.all().order_by('-logid')
         return logs
     
     def get(self, request):
@@ -101,7 +101,7 @@ class BookGuestController(View):
         userid = '18-0107-262'
         schedule = str(datetime.now().strftime("%d/%m/%Y, %H:%M"))
         status = 'Pending'
-        booking = WalkinBooking(referenceid = referenceid, userid = userid, schedule = schedule, status = status)
+        booking = WalkinBookingModel(referenceid = referenceid, userid = userid, schedule = schedule, status = status)
         booking.save()
     
     def get(self, request):

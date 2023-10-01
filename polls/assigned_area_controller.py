@@ -2,7 +2,7 @@ from django.shortcuts import render
 from polls.models import AssignedArea
 
 class AssignedAreaController:
-    def location(self, request):
+    def getAssignedArea(self, request):
         try:
             reference = AssignedArea.objects.latest('id')
             area_id = reference.area_id

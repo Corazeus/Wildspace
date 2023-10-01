@@ -1,11 +1,11 @@
 from django.shortcuts import render
 from polls.models import AssignedArea
-from wiladmin.models import WalkinBooking
+from wiladmin.models import WalkinBookingModel
 
 
 class TimeMonitoringController:
-    def timer(self, request):
-        walkinbooking = WalkinBooking.objects.latest('bookingid')
+    def getTimer(self, request):
+        walkinbooking = WalkinBookingModel.objects.latest('bookingid')
         reference = AssignedArea.objects.latest('id')
 
         context = {

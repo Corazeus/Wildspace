@@ -1,7 +1,7 @@
 from django.contrib import admin
-from .models import AdminAccount, WalkinBooking, AdminReportLogs
+from .models import AdminAccountModel, WalkinBookingModel, AdminReportLogsModel
 
 # Register your models here.
-admin.site.register(AdminAccount)
-admin.site.register(WalkinBooking)
-admin.site.register(AdminReportLogs)
+admin.site.register(AdminAccountModel)
+admin.site.register(WalkinBookingModel)
+admin.site.register(AdminReportLogsModel)
