@@ -1,14 +1,14 @@
 from django.db import models
 
 # Create your models here.
-class AdminAccount(models.Model):
+class AdminAccountModel(models.Model):
     username = models.CharField(max_length=20);
     password = models.CharField(max_length=20);
         
     def __str__(self):
         return self.username;
     
-class WalkinBooking(models.Model):
+class WalkinBookingModel(models.Model):
     bookingid = models.AutoField(primary_key=True);
     referenceid = models.CharField(max_length=20);
     userid = models.CharField(max_length=20);
@@ -18,7 +18,7 @@ class WalkinBooking(models.Model):
     def __str__(self):
         return self.userid+"-"+self.referenceid;
     
-class AdminReportLogs(models.Model):
+class AdminReportLogsModel(models.Model):
     logid = models.AutoField(primary_key=True);
     referenceid = models.CharField(max_length=20);
     userid = models.CharField(max_length=20);
