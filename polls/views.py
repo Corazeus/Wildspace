@@ -1,15 +1,17 @@
-from django.shortcuts import render
-
+from django.shortcuts import redirect, render
+from django.contrib.auth import authenticate, login, logout
 from polls.user_login_controller import UserLoginController
 from .assigned_area_controller import AssignedAreaController
 from polls.models import AssignedArea
 from polls.time_monitoring import TimeMonitoringController
 from wiladmin.models import WalkinBookingModel
 from .facility_map_controller import FacilityMapController
-from django.http import JsonResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 from .user_login_controller import UserLoginController
 from django.contrib.auth.forms import AuthenticationForm
+from django.shortcuts import render
+from polls.user_login_controller import UserLoginController, user_logout
 
 facility_controller = FacilityMapController()
 assigned_area_controller = AssignedAreaController()
@@ -36,8 +38,12 @@ def timer(request):
     return render(request, "wil/timer.html", context)
 
 def user_login(request):
-    form = AuthenticationForm()
-    return render(request, "wil/userlogin.html", {'form': form})
+    return user_login_controller.as_view()(request)
+
+def user_logout(request):
+    logout(request)
+    return redirect('user_login')
+
 
 def user_dashboard(request):
     return render(request, "wil/userdashboard.html", {})
