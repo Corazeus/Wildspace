@@ -16,13 +16,13 @@
 <body>
 
     <div class="main">
+
         <div class="header">
             <a href="dashboard"><img src="{% static 'images/WILLOGO.png' %}" alt="WIL LOGO" class="logo" height="50px"></a>
             <h1> REPORT LOGS <h2>
         </div>
 
         <div class="logsContainer">
-
                 <table>
                     <caption></caption>
                     <tr>
@@ -30,8 +30,7 @@
                         <th>User ID</th>
                         <th>Date and Time</th>
                         <th>Status</th>
-                    </tr>
-                
+                    </tr> 
                 {% for logs in logs %}
                     <tr>
                         <td>{{ logs.referenceid }}</td>
@@ -51,14 +50,25 @@
                     </tr>
 
                 {% endfor %}
+
                 </table>
 
                 <div class="features">
-                    <a href="dashboard"><button type="button" class="return">Return to Dashboard</button></a>
-                    <a href="{% url 'exportlogs' %}"><button type="button" class="export">Export Logs</button></a>
+                    <a href="walkindashboard"><button type="button" class="return">Return to Dashboard</button></a>
+
+                    <form method="post">
+                        {% csrf_token %}
+                        <input type="submit" value="Export Logs" class="export" onClick="refreshPage()"/>
+                    </form>
                 </div>
         </div>
     </div>
 </body>
 
 </html>
+
+<script>
+    function refreshPage() {
+        location.reload();
+      }
+</script>

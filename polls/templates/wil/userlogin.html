@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Login</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/adminLoginStyle.css' %}">
+    <link rel="icon" type="image/x-icon" href="{% static 'images/WILLOGO.png' %}">
+</head>
+<body>
+    <div class="login" style="background-color: #FFFF00">
+        <div class="header">
+            <img src="{% static 'images/WILLOGO.png' %}" alt="WIL LOGO" class="logo" height="150px">
+            <h1> LOGIN <br> WILDSPACE </h1> 
+        </div>
+
+        <div class="loginContainer">
+            <form class="loginForm" method="post">
+                {% csrf_token %}
+                
+                <label class="lblusername">Username</label><br>
+                        <input type="text" name="username" placeholder="Enter Username" class="username"><br><br>
+
+                        <label class="lblpassowrd">Passowrd</lavel><br>
+                        <input type="password" name="password" placeholder="Enter Password" class="password"><br><br>
+                
+                        {% for msg in messages %}
+                        <div class="alert" style="color:red; text-align:center; margin-bottom:5px; margin-top:-10px">
+                            {{msg}}
+                        </div>
+                    {% endfor %}
+                
+                <input type="submit" value="LOGIN" class="loginbutton">
+            </form>
+        </div>
+    </div>
+</body>
+</html>
+
+

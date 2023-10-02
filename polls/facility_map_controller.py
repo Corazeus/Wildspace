@@ -4,7 +4,7 @@ from django.db import connection
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from polls.models import AssignedArea
-from wiladmin.models import WalkinBooking
+from wiladmin.models import WalkinBookingModel
 
 class FacilityMapController:
     @csrf_exempt
@@ -18,7 +18,6 @@ class FacilityMapController:
         return JsonResponse({'message': 'Show message operation completed.'})
 
     def areaButtonClick(self, request):
-        cursor = connection.cursor()
 
         area_id = request.GET.get('area_id')
 
@@ -27,11 +26,12 @@ class FacilityMapController:
         reference = AssignedArea(reference_number=reference_number, area_id=area_id)
         reference.save()
 
-        user_id = '18-0107-262'
+        user_id = request.user.username
         schedule = datetime.now().strftime("%d/%m/%Y, %H:%M")
         status = "Pending"
-
-        cursor.execute("INSERT INTO wiladmin_walkinbooking (referenceid, userid, schedule, status) VALUES (%s, %s, %s, %s)", (reference_number, user_id, schedule, status))
+        
+        booking = WalkinBookingModel(referenceid = reference_number, userid=user_id, schedule=schedule, status=status)
+        booking.save()
 
         return JsonResponse({'reference_number': reference_number})
 
@@ -40,10 +40,10 @@ class FacilityMapController:
         return reference_number
 
     @csrf_exempt
-    def insertIntoDatabase(self, request):
+    def insertIntoAssignedAreaModel(self, request):
         if request.method == 'POST':
             area_id = request.POST.get('area_id')
-            reference_number = request.POST.get('reference_number')
+            reference_number = self.generateReferenceNumber(area_id)
 
             reference = AssignedArea(reference_number=reference_number, area_id=area_id)
             reference.save()
