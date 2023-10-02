@@ -21,7 +21,13 @@
             </div>
             <div class="mobile-buttons">
                 <h2><u> WILDSPACE DASHBOARD </u><h2>
+                    <span> Hello, {{user.username}}</span>
+
+                        <br>
+                    <a href="{% url 'user_logout' %}">Logout</a>
+                    
             </div>
+            
             <div class="buttonContainer">
                 <div class="area-container">
                     <div class="button-overlay">
