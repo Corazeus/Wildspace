@@ -26,7 +26,7 @@ class FacilityMapController:
         reference = AssignedArea(reference_number=reference_number, area_id=area_id)
         reference.save()
 
-        user_id = '18-0107-262'
+        user_id = request.user.username
         schedule = datetime.now().strftime("%d/%m/%Y, %H:%M")
         status = "Pending"
         

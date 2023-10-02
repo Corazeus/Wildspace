@@ -3,6 +3,7 @@ from django.db import connection
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
 from .models import WalkinBookingModel, AdminReportLogsModel
 from django.views import View
@@ -20,18 +21,23 @@ class AdminLoginController(View):
         else:
             messages.error(request, 'Invalid Username or Password')
             return redirect('adminlogin')
-    
+        
     def get(self, request):
         return render(request, "wiladmin/login.html", {})
     
     def post(self, request):
         return self.handleLogin(request)
 
-class AdminDashboardController(View):
+class AdminDashboardController(LoginRequiredMixin, View):
+    
+    login_url = 'adminlogin'
+    
     def get(self, request):
         return render(request, "wiladmin/dashboard.html", {})
 
-class AdminWalkinDashboardController(View):
+class AdminWalkinDashboardController(LoginRequiredMixin,View):
+    
+    login_url = 'adminlogin'
     
     def updateBookingStatus(self, bookingid):
         booking = WalkinBookingModel.objects.get(pk=int(bookingid))
@@ -57,7 +63,9 @@ class AdminWalkinDashboardController(View):
         
         return redirect('walkindashboard')
         
-class AdminReportLogsController(View):
+class AdminReportLogsController(LoginRequiredMixin,View):
+    
+    login_url = 'adminlogin'
 
     def exportlogs(self, request):
         
@@ -94,7 +102,9 @@ class AdminReportLogsController(View):
     def post(self, request):
         return self.exportlogs(request)
         
-class BookGuestController(View):
+class BookGuestController(LoginRequiredMixin, View):
+    
+    login_url = 'adminlogin'
     
     def CreateNewBooking(self):
         referenceid = 'GUEST'
@@ -110,3 +120,7 @@ class BookGuestController(View):
     def post(self, rquest):
         self.CreateNewBooking()
         return redirect('bookguest')
+    
+def handleLogout(request):
+        logout(request)
+        return redirect('adminlogin')
