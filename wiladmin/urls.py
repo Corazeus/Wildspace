@@ -20,6 +20,7 @@ from . import views
 urlpatterns = [
     path('wiladmin/', views.AdminLoginController.as_view(), name='index'),
     path('wiladmin/login', views.AdminLoginController.as_view(), name='adminlogin'),
+    path('wiladmin/logout', views.handleLogout, name='adminlogout'),
     path('wiladmin/dashboard', views.AdminDashboardController.as_view(), name='admindashboard'),
     path('wiladmin/logs', views.AdminReportLogsController.as_view(), name='reportlogs'),
     path('wiladmin/walkindashboard', views.AdminWalkinDashboardController.as_view(), name='walkindashboard'),
