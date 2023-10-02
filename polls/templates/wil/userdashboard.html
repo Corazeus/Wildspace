@@ -1,10 +1,7 @@
-
 <!DOCTYPE html>
-
 {% load static %}
 
 <html lang="en">
-    
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,17 +13,18 @@
 
 <body>
     <div class="content">
-            <div class="header">
-                <a href="dashboard"><img src="{% static 'images/WILLOGO.png' %}" alt="WIL LOGO" class="logo"></a>
+        <div class="header">
+            <div class="header-left">
+                <span class="username">{{user.username}}</span>
+                <a href="dashboard">
+                    <img src="{% static 'images/WILLOGO.png' %}" alt="WIL LOGO" class="logo">
+                </a>
             </div>
             <div class="mobile-buttons">
-                <h2><u> WILDSPACE DASHBOARD </u><h2>
-                    <span> Hello, {{user.username}}</span>
-
-                        <br>
-                    <a href="{% url 'user_logout' %}">Logout</a>
-                    
+                <h2><u> WILDSPACE DASHBOARD </u></h2>
+                <a href="{% url 'user_logout' %}">Logout</a>
             </div>
+        </div>
             
             <div class="buttonContainer">
                 <div class="area-container">
