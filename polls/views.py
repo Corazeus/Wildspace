@@ -26,10 +26,12 @@ def show_message_view(request):
 
 def map(request):
 
+    username = request.user.username
     bookings = WalkinBookingModel.objects.all().count()
+    userbooks = WalkinBookingModel.objects.filter(userid=username).count()
     
-    if bookings != 0:
-        user = WalkinBookingModel.objects.get(userid=request.user.username)
+    if bookings != 0 and userbooks != 0:
+        user = WalkinBookingModel.objects.get(userid=username)
 
         if user.status=="Booked":
             return redirect('location')
