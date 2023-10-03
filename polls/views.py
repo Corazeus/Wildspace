@@ -25,7 +25,19 @@ def show_message_view(request):
     return JsonResponse({'message': message})
 
 def map(request):
-    return render(request, "wil/map.html", {})
+
+    bookings = WalkinBookingModel.objects.all().count()
+    
+    if bookings != 0:
+        user = WalkinBookingModel.objects.get(userid=request.user.username)
+
+        if user.status=="Booked":
+            return redirect('location')
+        else:
+            return render(request, "wil/map.html", {})
+        
+    else:
+        return render(request, "wil/map.html", {})
 
 
 def location(request):
