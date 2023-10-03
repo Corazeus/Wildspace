@@ -15,14 +15,19 @@
     <div class="content">
         <div class="header">
             <div class="header-left">
-                <span class="username">{{user.username}}</span>
-                <a href="dashboard">
-                    <img src="{% static 'images/WILLOGO.png' %}" alt="WIL LOGO" class="logo">
+                <a href="{% url 'userprofile' %}">
+                    <img src="{% static 'images/profile.png' %}" alt="Profile Icon" class="profile-icon" style="width: 32px; height: 32px;">
                 </a>
+                
+
+                </a>
+                
+                 <img src="{% static 'images/WILLOGO.png' %}" alt="WIL LOGO" class="logo">
+                
             </div>
             <div class="mobile-buttons">
                 <h2><u> WILDSPACE DASHBOARD </u></h2>
-                <a href="{% url 'user_logout' %}">Logout</a>
+                
             </div>
         </div>
             

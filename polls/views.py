@@ -31,7 +31,8 @@ def map(request):
 def location(request):
     return assigned_area_controller.getAssignedArea(request)
 
-
+def user_profile(request):
+    return render(request, "wil/userprofile.html", {})
 def timer(request):
     context = time_monitoring_controller.getTimer(request)
 
@@ -47,7 +48,7 @@ def user_logout(request):
 
 def user_dashboard(request):
     return render(request, "wil/userdashboard.html", {})
-
+    
 
 
 

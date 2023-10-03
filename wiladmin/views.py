@@ -35,33 +35,32 @@ class AdminDashboardController(LoginRequiredMixin, View):
     def get(self, request):
         return render(request, "wiladmin/dashboard.html", {})
 
-class AdminWalkinDashboardController(LoginRequiredMixin,View):
+class AdminWalkinDashboardController(LoginRequiredMixin, View):
     
     login_url = 'adminlogin'
     
     def updateBookingStatus(self, bookingid):
         booking = WalkinBookingModel.objects.get(pk=int(bookingid))
         
-        if(booking.status == "Pending"):
+        if booking.status == "Pending":
             booking.status = 'Booked'
             booking.save()
-            log = AdminReportLogsModel(referenceid = booking.referenceid, userid = booking.userid, datetime = booking.schedule, status = booking.status)
+            log = AdminReportLogsModel(referenceid=booking.referenceid, userid=booking.userid, datetime=booking.schedule, status='Booked')
             log.save()
         
         else:
             booking.delete()
-            log = AdminReportLogsModel(referenceid = booking.referenceid, userid = booking.userid, datetime = booking.schedule, status = 'Logged Out')
+            log = AdminReportLogsModel(referenceid=booking.referenceid, userid=booking.userid, datetime=booking.schedule, status='Logged Out')
             log.save()
-            
+    
     def get(self, request):
-        bookings = WalkinBookingModel.objects.all().order_by('-status','-bookingid')
+        bookings = WalkinBookingModel.objects.all().order_by('-status', '-bookingid')
         return render(request, "wiladmin/walkindashboard.html", {'bookings': bookings})
     
     def post(self, request, bookingid):
-
         self.updateBookingStatus(bookingid)
-        
         return redirect('walkindashboard')
+    
         
 class AdminReportLogsController(LoginRequiredMixin,View):
     

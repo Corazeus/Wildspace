@@ -71,7 +71,6 @@
 
 
 <script>
-
   var timerElement = document.getElementById('timer');
   var minutes = 30;
   var seconds = 0;
@@ -79,7 +78,6 @@
 
   function updateTimer() {
     if (sessionEnded) {
-
       return;
     }
 
@@ -89,7 +87,6 @@
       minutes--;
       seconds = 59;
     } else {
-
       endSession();
       return;
     }
@@ -103,14 +100,10 @@
     return number.toString().padStart(2, '0');
   }
 
-  updateTimer();
-
-
-function endSession() {
-  if (sessionEnded) {
-
-    return;
-  }
+  function endSession() {
+    if (sessionEnded) {
+      return;
+    }
 
 
   var confirmationDialog = document.getElementById('confirmation-dialog');
@@ -163,7 +156,7 @@ function endSession() {
     overlay.style.display = 'none';
   });
 }
-
+updateTimer();
 
 </script>
 

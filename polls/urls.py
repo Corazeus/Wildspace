@@ -17,7 +17,10 @@ urlpatterns = [
     path('userlogin/', user_login_controller.UserLoginController.as_view(), name='user_login'),
     path('userlogout/', views.user_logout, name='user_logout'),
     path('userdashboard/', views.user_dashboard, name='user_dashboard'),
+    path('userprofile/', views.user_profile, name='userprofile'),
     path('admin/', admin.site.urls),
+    
+    
     
    
 
