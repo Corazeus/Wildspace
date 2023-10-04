@@ -17,6 +17,12 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from polls.models import Timer
 import json
+from django.http import JsonResponse
+from polls.models import Timer 
+
+
+from django.contrib.auth.decorators import login_required
+
 
 from django.shortcuts import render
 
@@ -100,6 +106,31 @@ def get_timer_data(request):
     }
 
     return JsonResponse(timer_data)
+
+
+@login_required
+def end_session_view(request):
+    if request.method == 'POST':
+        
+        user_id = request.user.username  
+
+        try:
+            timer = Timer.objects.get(user_id=user_id)
+
+    
+            timer.session_ended = True
+            timer.save()
+
+            return JsonResponse({'success': True})
+
+        except Timer.DoesNotExist:
+            return JsonResponse({'success': False, 'message': 'Timer not found for the user.'})
+
+    return JsonResponse({'success': False, 'message': 'Invalid request method.'})
+
+
+
+
 
 
 

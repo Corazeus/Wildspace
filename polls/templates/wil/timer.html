@@ -58,7 +58,9 @@
     <br>
     <br>
     <br>
-    <button class="end-button" onclick="endSession()">END SESSION</button>
+    
+    <button class="end-button">END SESSION</button>
+
 </div>
 
 <div id="confirmation-dialog" class="confirmation-dialog">
@@ -74,32 +76,135 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-function updateTimer() {
+  function updateTimer() {
+      $.ajax({
+          url: '{% url "get_timer_data" %}',
+          dataType: 'json',
+          success: function(data) {
+              if (!data.session_ended) {
+                  var formattedTime = padNumber(data.minutes) + ':' + padNumber(data.seconds);
+                  $('#timer').text(formattedTime);
+              } else {
+                  $('#timer').text('00:00');
+              }
+          }
+      });
+  }
+  
+  function padNumber(number) {
+      return number.toString().padStart(2, '0');
+  }
+  
+  
+  function showConfirmationDialog() {
+    var confirmationDialog = document.getElementById('confirmation-dialog');
+    var overlay = document.getElementById('overlay');
+    confirmationDialog.style.display = 'block';
+    overlay.style.display = 'block';
+  }
+  
+  
+  document.getElementById('confirm-button').addEventListener('click', confirmEndSession);
+  document.getElementById('cancel-button').addEventListener('click', cancelEndSession);
+  
+  
+  function confirmEndSession() {
+    
+    var csrfToken = getCookie('csrftoken');
+
     $.ajax({
-        url: '{% url "get_timer_data" %}',
-        dataType: 'json',
+        url: '{% url "end_session" %}',  
+        method: 'POST',
+        data: {session_ended: true},
+        headers: {
+            "X-CSRFToken": csrfToken  
+        },
         success: function(data) {
-            if (!data.session_ended) {
-                var formattedTime = padNumber(data.minutes) + ':' + padNumber(data.seconds);
-                $('#timer').text(formattedTime);
-            } else {
+            
+            if (data.success) {
+                
+                var referenceNumber = '{{ booking_reference_number }}';
+                var messageOverlay = document.createElement('div');
+                messageOverlay.classList.add('message-overlay');
+
+                var messageBox = document.createElement('div');
+                messageBox.classList.add('message-box');
+
+                var messageHeader = document.createElement('h2');
+                messageHeader.textContent = 'Session Ended';
+
+                var messageContent = document.createElement('p');
+                messageContent.innerHTML = 'Reference Number: ' + referenceNumber;
+
+                var additionalText = document.createElement('p');
+                additionalText.textContent = 'To avoid overstaying charges, please go to the front desk and present your reference number to confirm that your allotted time has ended.';
+
+                messageBox.appendChild(messageHeader);
+                messageBox.appendChild(messageContent);
+                messageBox.appendChild(additionalText);
+
+                messageOverlay.appendChild(messageBox);
+
+                document.body.appendChild(messageOverlay);
+
+                
                 $('#timer').text('00:00');
+
+                
+                hideConfirmationDialog();
+            } else {
+                alert('Failed to end the session. Please try again.');
             }
+        },
+        error: function(xhr, textStatus, errorThrown) {
+            console.log(xhr.responseText); 
+            alert('Failed to end the session. Please try again.');
         }
     });
 }
 
-function padNumber(number) {
-    return number.toString().padStart(2, '0');
+
+
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = cookies[i].trim();
+            
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
 }
 
-$(document).ready(function() {
-    setInterval(updateTimer, 1000);
-});
-
-
-</script>
-
+  
+  
+  function cancelEndSession() {
+    
+    hideConfirmationDialog();
+  }
+  
+  
+  function hideConfirmationDialog() {
+    var confirmationDialog = document.getElementById('confirmation-dialog');
+    var overlay = document.getElementById('overlay');
+    confirmationDialog.style.display = 'none';
+    overlay.style.display = 'none';
+  }
+  
+  $(document).ready(function() {
+      setInterval(updateTimer, 1000);
+  });
+  
+  
+  document.querySelector('.end-button').addEventListener('click', function() {
+    showConfirmationDialog();
+  });
+  </script>
 
 </body>
 </html>
