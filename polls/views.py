@@ -12,6 +12,10 @@ from .user_login_controller import UserLoginController
 from django.contrib.auth.forms import AuthenticationForm
 from django.shortcuts import render
 from polls.user_login_controller import UserLoginController, user_logout
+from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
+from .models import Timer
+from polls.models import Timer
 
 facility_controller = FacilityMapController()
 assigned_area_controller = AssignedAreaController()
@@ -24,6 +28,7 @@ def show_message_view(request):
     message = facility_controller.showMessage(request)
     return JsonResponse({'message': message})
 
+@login_required(redirect_field_name="userlogin")
 def map(request):
 
     username = request.user.username
@@ -41,17 +46,18 @@ def map(request):
     else:
         return render(request, "wil/map.html", {})
 
-
+@login_required(redirect_field_name="userlogin")
 def location(request):
     return assigned_area_controller.getAssignedArea(request)
-
+@login_required(redirect_field_name="userlogin")
 def user_profile(request):
     return render(request, "wil/userprofile.html", {})
+@login_required(redirect_field_name="userlogin")
 def timer(request):
     context = time_monitoring_controller.getTimer(request)
 
     return render(request, "wil/timer.html", context)
-
+@login_required(redirect_field_name="userlogin")
 def user_login(request):
     return user_login_controller.as_view()(request)
 
@@ -59,10 +65,26 @@ def user_logout(request):
     logout(request)
     return redirect('user_login')
 
-
+@login_required(redirect_field_name="userlogin")
 def user_dashboard(request):
     return render(request, "wil/userdashboard.html", {})
+
     
+def update_timer(request):
+    timer = Timer.objects.get(pk=int(1))
+    timer.update_timer()
+    timer.save()
+    
+    return JsonResponse({'minutes': timer.minutes, 'seconds': timer.seconds, 'session_ended': timer.session_ended})
+
+def reset_timer(request):
+    timer = Timer.objects.get(pk=int(1))
+    timer.reset_timer()
+    timer.save()
+    
+    return JsonResponse({'minutes': timer.minutes, 'seconds': timer.seconds, 'session_ended': timer.session_ended})
+
+
 
 
 

@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard</title>
+    <title>User Dashboard</title>
     <link rel="stylesheet" href="{% static 'css/userdashboard.css' %}">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link rel="icon" type="image/x-icon" href="{% static 'images/WILLOGO.png' %}">
@@ -14,15 +14,14 @@
 <body>
     <div class="content">
         <div class="header">
-            <div class="header-left">
+            <div >
                 <a href="{% url 'userprofile' %}">
-                    <img src="{% static 'images/profile.png' %}" alt="Profile Icon" class="profile-icon" style="width: 32px; height: 32px;">
+                    <img src="{% static 'images/profile.png' %}" alt="Profile Icon" class="profile-icon" style="width: 32px; height: 32px; margin-right:60px">
                 </a>
                 
-
                 </a>
                 
-                 <img src="{% static 'images/WILLOGO.png' %}" alt="WIL LOGO" class="logo">
+                 <img src="{% static 'images/WILLOGO.png' %}" alt="WIL LOGO" class="logo" style="margin-right:100px">
                 
             </div>
             <div class="mobile-buttons">

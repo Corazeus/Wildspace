@@ -6,6 +6,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
 from .models import WalkinBookingModel, AdminReportLogsModel
+from polls.models import Timer
 from django.views import View
 from datetime import datetime
 
@@ -45,6 +46,10 @@ class AdminWalkinDashboardController(LoginRequiredMixin, View):
         if booking.status == "Pending":
             booking.status = 'Booked'
             booking.save()
+            
+            timer = Timer(userid=booking.userid, minutes=30, seconds=0)
+            timer.save()
+            
             log = AdminReportLogsModel(referenceid=booking.referenceid, userid=booking.userid, datetime=booking.schedule, status='Booked')
             log.save()
         

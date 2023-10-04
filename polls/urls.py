@@ -20,6 +20,9 @@ urlpatterns = [
     path('userprofile/', views.user_profile, name='userprofile'),
     path('admin/', admin.site.urls),
     
+    path('update_timer/', views.update_timer, name='update_timer'),
+    path('reset_timer/', views.reset_timer, name='reset_timer'),
+    
     
     
    
