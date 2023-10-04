@@ -13,9 +13,14 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.shortcuts import render
 from polls.user_login_controller import UserLoginController, user_logout
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import render
 from django.http import JsonResponse
-from .models import Timer
 from polls.models import Timer
+import json
+
+from django.shortcuts import render
+
+from django.http import JsonResponse
 
 facility_controller = FacilityMapController()
 assigned_area_controller = AssignedAreaController()
@@ -69,20 +74,38 @@ def user_logout(request):
 def user_dashboard(request):
     return render(request, "wil/userdashboard.html", {})
 
-    
-def update_timer(request):
-    timer = Timer.objects.get(pk=int(1))
-    timer.update_timer()
-    timer.save()
-    
-    return JsonResponse({'minutes': timer.minutes, 'seconds': timer.seconds, 'session_ended': timer.session_ended})
 
-def reset_timer(request):
-    timer = Timer.objects.get(pk=int(1))
-    timer.reset_timer()
-    timer.save()
-    
-    return JsonResponse({'minutes': timer.minutes, 'seconds': timer.seconds, 'session_ended': timer.session_ended})
+
+def get_timer_data(request):
+    try:
+        usertimer = Timer.objects.get(user_id=request.user.username)
+    except Timer.DoesNotExist:
+        usertimer = Timer.objects.create(user_id=request.user.username, minutes=30, seconds=0, session_ended=False)
+
+    if not usertimer.session_ended:
+        if usertimer.seconds > 0:
+            usertimer.seconds -= 1
+        elif usertimer.minutes > 0:
+            usertimer.minutes -= 1
+            usertimer.seconds = 59
+        else:
+            usertimer.session_ended = True
+           
+        usertimer.save()
+
+    timer_data = {
+        'minutes': usertimer.minutes,
+        'seconds': usertimer.seconds,
+        'session_ended': usertimer.session_ended,
+    }
+
+    return JsonResponse(timer_data)
+
+
+
+
+
+
 
 
 

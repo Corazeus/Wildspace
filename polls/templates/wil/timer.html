@@ -51,8 +51,10 @@
 
 
     <div class="time-container">
-        <h4 id="timer">23:00</h4>
-    </div>
+      <h4 id="timer">{{ timer_data.minutes }}:{{ timer_data.seconds|default:"00" }}</h4>
+  </div>
+  
+  
     <br>
     <br>
     <br>
@@ -70,96 +72,33 @@
 <div id="overlay" class="overlay"></div>
 
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-  var timerElement = document.getElementById('timer');
-  var minutes = 30;
-  var seconds = 0;
-  var sessionEnded = false;
-
-  function updateTimer() {
-    if (sessionEnded) {
-      return;
-    }
-
-    if (seconds > 0) {
-      seconds--;
-    } else if (minutes > 0) {
-      minutes--;
-      seconds = 59;
-    } else {
-      endSession();
-      return;
-    }
-
-    var formattedTime = padNumber(minutes) + ':' + padNumber(seconds);
-    timerElement.textContent = formattedTime;
-    setTimeout(updateTimer, 1000);
-  }
-
-  function padNumber(number) {
-    return number.toString().padStart(2, '0');
-  }
-
-  function endSession() {
-    if (sessionEnded) {
-      return;
-    }
-
-
-  var confirmationDialog = document.getElementById('confirmation-dialog');
-  var overlay = document.getElementById('overlay');
-  confirmationDialog.style.display = 'block';
-  overlay.style.display = 'block';
-
-  var confirmButton = document.getElementById('confirm-button');
-  var cancelButton = document.getElementById('cancel-button');
-
-  confirmButton.addEventListener('click', function() {
-
-    timerElement.textContent = '00:00';
-
-
-    confirmationDialog.style.display = 'none';
-    overlay.style.display = 'none';
-
-
-    var messageOverlay = document.createElement('div');
-    messageOverlay.classList.add('message-overlay');
-
-    var messageBox = document.createElement('div');
-    messageBox.classList.add('message-box');
-
-    var messageHeader = document.createElement('h2');
-    messageHeader.textContent = 'Session Ended';
-
-    var messageContent = document.createElement('p');
-    messageContent.innerHTML ='Reference Number: {{ booking_reference_number }}';
-
-    var additionalText = document.createElement('p');
-    additionalText.textContent = 'To avoid overstaying charges, please go to the front desk and present your reference number to confirm that your alloted time has ended.';
-
-    messageBox.appendChild(messageHeader);
-    messageBox.appendChild(messageContent);
-    messageBox.appendChild(additionalText);
-
-    messageOverlay.appendChild(messageBox);
-
-    document.body.appendChild(messageOverlay);
-
-
-    sessionEnded = true;
-  });
-
-  cancelButton.addEventListener('click', function() {
-
-    confirmationDialog.style.display = 'none';
-    overlay.style.display = 'none';
-  });
+function updateTimer() {
+    $.ajax({
+        url: '{% url "get_timer_data" %}',
+        dataType: 'json',
+        success: function(data) {
+            if (!data.session_ended) {
+                var formattedTime = padNumber(data.minutes) + ':' + padNumber(data.seconds);
+                $('#timer').text(formattedTime);
+            } else {
+                $('#timer').text('00:00');
+            }
+        }
+    });
 }
-updateTimer();
+
+function padNumber(number) {
+    return number.toString().padStart(2, '0');
+}
+
+$(document).ready(function() {
+    setInterval(updateTimer, 1000);
+});
+
 
 </script>
-
 
 
 </body>
