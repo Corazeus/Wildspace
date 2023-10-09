@@ -1,3 +1,4 @@
+
 from django.shortcuts import redirect, render
 from django.contrib.auth import authenticate, login, logout
 from polls.user_login_controller import UserLoginController
@@ -19,7 +20,7 @@ from polls.models import Timer
 import json
 from django.http import JsonResponse
 from polls.models import Timer 
-
+from asgiref.sync import sync_to_async
 
 from django.contrib.auth.decorators import login_required
 
@@ -65,9 +66,11 @@ def user_profile(request):
     return render(request, "wil/userprofile.html", {})
 @login_required(redirect_field_name="userlogin")
 def timer(request):
-    context = time_monitoring_controller.getTimer(request)
-
-    return render(request, "wil/timer.html", context)
+    try:
+        context = time_monitoring_controller.getTimer(request)
+        return render(request, "wil/timer.html", context)
+    except WalkinBookingModel.DoesNotExist:
+        return redirect('user_dashboard')
 @login_required(redirect_field_name="userlogin")
 def user_login(request):
     return user_login_controller.as_view()(request)
@@ -83,41 +86,43 @@ def user_dashboard(request):
 
 
 def get_timer_data(request):
-    try:
+    
+    timers = Timer.objects.all().count()
+    
+    if timers == 0:
+        return redirect(user_dashboard)
+    else:
         usertimer = Timer.objects.get(user_id=request.user.username)
-    except Timer.DoesNotExist:
-        usertimer = Timer.objects.create(user_id=request.user.username, minutes=30, seconds=0, session_ended=False)
+    
+        if usertimer is not None and usertimer.session_ended != True:
+            if not usertimer.session_ended:
+                if usertimer.seconds > 0:
+                    usertimer.seconds -= 1
+                elif usertimer.minutes > 0:
+                    usertimer.minutes -= 1
+                    usertimer.seconds = 59
+                else:
+                    usertimer.session_ended = True
+                
+                usertimer.save()
 
-    if not usertimer.session_ended:
-        if usertimer.seconds > 0:
-            usertimer.seconds -= 1
-        elif usertimer.minutes > 0:
-            usertimer.minutes -= 1
-            usertimer.seconds = 59
+            timer_data = {
+                'minutes': usertimer.minutes,
+                'seconds': usertimer.seconds,
+                'session_ended': usertimer.session_ended,
+            }
+
+            return JsonResponse(timer_data)
+        
         else:
-            usertimer.session_ended = True
-           
-        usertimer.save()
-
-    timer_data = {
-        'minutes': usertimer.minutes,
-        'seconds': usertimer.seconds,
-        'session_ended': usertimer.session_ended,
-    }
-
-    return JsonResponse(timer_data)
-
+            return render(request, "wil/userdashboard.html", {})
 
 @login_required
 def end_session_view(request):
     if request.method == 'POST':
         
-        user_id = request.user.username  
-
         try:
-            timer = Timer.objects.get(user_id=user_id)
-
-    
+            timer = Timer.objects.get(pk=str(request.user.username))
             timer.session_ended = True
             timer.save()
 
