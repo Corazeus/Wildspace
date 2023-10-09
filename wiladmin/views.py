@@ -47,7 +47,7 @@ class AdminWalkinDashboardController(LoginRequiredMixin, View):
             booking.status = 'Booked'
             booking.save()
             
-            timer = Timer(userid=booking.userid, minutes=30, seconds=0)
+            timer = Timer(user_id=booking.userid, minutes=30, seconds=0)
             timer.save()
             
             log = AdminReportLogsModel(referenceid=booking.referenceid, userid=booking.userid, datetime=booking.schedule, status='Booked')
@@ -55,6 +55,8 @@ class AdminWalkinDashboardController(LoginRequiredMixin, View):
         
         else:
             booking.delete()
+            usertimer = Timer.objects.get(pk=str(booking.userid))
+            usertimer.delete()
             log = AdminReportLogsModel(referenceid=booking.referenceid, userid=booking.userid, datetime=booking.schedule, status='Logged Out')
             log.save()
     
@@ -91,7 +93,7 @@ class AdminReportLogsController(LoginRequiredMixin,View):
                 writer.writerow([log.logid, log.referenceid, log.userid, log.datetime, log.status])
 
             cursor = connection.cursor()
-            cursor.execute("DELETE FROM wiladmin_AdminReportLogs")
+            cursor.execute("DELETE FROM wiladmin_AdminReportLogsModel")
 
             return response
     

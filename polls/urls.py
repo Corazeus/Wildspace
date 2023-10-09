@@ -19,9 +19,10 @@ urlpatterns = [
     path('userdashboard/', views.user_dashboard, name='user_dashboard'),
     path('userprofile/', views.user_profile, name='userprofile'),
     path('admin/', admin.site.urls),
+    path('get_timer_data/', views.get_timer_data, name='get_timer_data'),
+    path('end_session/', views.end_session_view, name='end_session'),
+      
     
-    path('update_timer/', views.update_timer, name='update_timer'),
-    path('reset_timer/', views.reset_timer, name='reset_timer'),
     
     
     
