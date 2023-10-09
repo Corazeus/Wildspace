@@ -93,7 +93,7 @@ class AdminReportLogsController(LoginRequiredMixin,View):
                 writer.writerow([log.logid, log.referenceid, log.userid, log.datetime, log.status])
 
             cursor = connection.cursor()
-            cursor.execute("DELETE FROM wiladmin_AdminReportLogs")
+            cursor.execute("DELETE FROM wiladmin_AdminReportLogsModel")
 
             return response
     
