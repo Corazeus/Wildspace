@@ -17,7 +17,14 @@ urlpatterns = [
     path('userlogin/', user_login_controller.UserLoginController.as_view(), name='user_login'),
     path('userlogout/', views.user_logout, name='user_logout'),
     path('userdashboard/', views.user_dashboard, name='user_dashboard'),
+    path('userprofile/', views.user_profile, name='userprofile'),
     path('admin/', admin.site.urls),
+    path('get_timer_data/', views.get_timer_data, name='get_timer_data'),
+    path('end_session/', views.end_session_view, name='end_session'),
+      
+    
+    
+    
     
    
 
