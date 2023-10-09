@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="{% static 'css/userdashboard.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="icon" type="image/x-icon" href="{% static 'images/WILLOGO.png' %}">
+</head>
+
+<body>
+    <div class="content">
+        <a href="{% url 'user_dashboard' %}" >
+            <img src="{% static 'images/arrow.png' %}" alt="Back Arrow Icon" class="back-icon" style="width: 32px; height: 32px;">
+        </a>
+        <h1> My Profile </h1>
+        
+            
+            <div class="buttonContainer">
+                <div class="area-container" style="width:220px; height: 50px; background-color:#FFFF00">
+                    <div class="button-overlay">
+                        <div class="mobile-buttons">
+                            
+                        </div>
+                        <div class="image-container">
+                            <div>
+                                <img src="{% static 'images/profile.png' %}" alt="Profile Icon" class="profile-icon" style="width: 32px; height: 32px;">
+                                {{user.username}}
+                            </img>
+                            
+                            
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <a href="aboutus"> <button type="submit" class="button">ABOUT US</button></a><br>
+                <a href="{% url 'user_logout' %}">
+                    <button type="submit" class="button">LOG OUT</button>
+                </a>
+                
+               
+            </div>
+    </div>
+</body>
+
+</html>
+
+
+

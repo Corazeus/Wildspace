@@ -6,6 +6,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
 from .models import WalkinBookingModel, AdminReportLogsModel
+from polls.models import Timer
 from django.views import View
 from datetime import datetime
 
@@ -35,33 +36,38 @@ class AdminDashboardController(LoginRequiredMixin, View):
     def get(self, request):
         return render(request, "wiladmin/dashboard.html", {})
 
-class AdminWalkinDashboardController(LoginRequiredMixin,View):
+class AdminWalkinDashboardController(LoginRequiredMixin, View):
     
     login_url = 'adminlogin'
     
     def updateBookingStatus(self, bookingid):
         booking = WalkinBookingModel.objects.get(pk=int(bookingid))
         
-        if(booking.status == "Pending"):
+        if booking.status == "Pending":
             booking.status = 'Booked'
             booking.save()
-            log = AdminReportLogsModel(referenceid = booking.referenceid, userid = booking.userid, datetime = booking.schedule, status = booking.status)
+            
+            timer = Timer(user_id=booking.userid, minutes=30, seconds=0)
+            timer.save()
+            
+            log = AdminReportLogsModel(referenceid=booking.referenceid, userid=booking.userid, datetime=booking.schedule, status='Booked')
             log.save()
         
         else:
             booking.delete()
-            log = AdminReportLogsModel(referenceid = booking.referenceid, userid = booking.userid, datetime = booking.schedule, status = 'Logged Out')
+            usertimer = Timer.objects.get(pk=str(booking.userid))
+            usertimer.delete()
+            log = AdminReportLogsModel(referenceid=booking.referenceid, userid=booking.userid, datetime=booking.schedule, status='Logged Out')
             log.save()
-            
+    
     def get(self, request):
-        bookings = WalkinBookingModel.objects.all().order_by('-status','-bookingid')
+        bookings = WalkinBookingModel.objects.all().order_by('-status', '-bookingid')
         return render(request, "wiladmin/walkindashboard.html", {'bookings': bookings})
     
     def post(self, request, bookingid):
-
         self.updateBookingStatus(bookingid)
-        
         return redirect('walkindashboard')
+    
         
 class AdminReportLogsController(LoginRequiredMixin,View):
     
