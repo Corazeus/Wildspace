@@ -6,7 +6,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
 from .models import WalkinBookingModel, AdminReportLogsModel
-from polls.models import Timer
+from polls.models import Timer, AssignedArea
 from django.views import View
 from datetime import datetime
 
@@ -55,8 +55,13 @@ class AdminWalkinDashboardController(LoginRequiredMixin, View):
         
         else:
             booking.delete()
+            
             usertimer = Timer.objects.get(pk=str(booking.userid))
             usertimer.delete()
+            
+            assignedarea = AssignedArea.objects.all().filter(reference_number=booking.referenceid)
+            assignedarea.delete()
+            
             log = AdminReportLogsModel(referenceid=booking.referenceid, userid=booking.userid, datetime=booking.schedule, status='Logged Out')
             log.save()
     
