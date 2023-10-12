@@ -40,7 +40,6 @@ INSTALLED_APPS = [
     'wil',
     'polls',
     'wiladmin',
-    'channels' ,
 ]
 
 MIDDLEWARE = [
