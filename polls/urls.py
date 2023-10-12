@@ -4,7 +4,8 @@ from .views import insert_into_database, show_message_view
 from django.contrib import admin
 from . import views
 from . import user_login_controller
-
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     
@@ -21,6 +22,12 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('get_timer_data/', views.get_timer_data, name='get_timer_data'),
     path('end_session/', views.end_session_view, name='end_session'),
+    path('seating-map/', views.seating_map, name='seating_map'),
+ 
+    path('get-booking-info/', views.get_booking_info, name='get_booking_info'),
+    
+    
+    
       
     
     

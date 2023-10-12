@@ -27,7 +27,11 @@ class Timer(models.Model):
     user_id = models.CharField(primary_key=True, max_length=20)
 
     def __str__(self):
-        return f"Timer for User ID {self.user_id}"
+        return "Timer for User ID {self.user_id}"
+
+
+
+
 
 
 

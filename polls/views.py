@@ -21,6 +21,9 @@ import json
 from django.http import JsonResponse
 from polls.models import Timer 
 from asgiref.sync import sync_to_async
+from django.shortcuts import render
+from .models import AssignedArea
+from django.db import models
 
 from django.contrib.auth.decorators import login_required
 
@@ -81,6 +84,7 @@ def user_logout(request):
 
 @login_required(redirect_field_name="userlogin")
 def user_dashboard(request):
+    
     return render(request, "wil/userdashboard.html", {})
 
 
@@ -134,6 +138,38 @@ def end_session_view(request):
     return JsonResponse({'success': False, 'message': 'Invalid request method.'})
 
 
+
+
+
+def seating_map(request):
+    
+    area_bookings = AssignedArea.objects.values('area_id').annotate(booked_count=models.Count('area_id'))
+
+    
+    areas = []
+    for area_id in ["A1", "A2", "A3", "A4", "A5"]:
+        area_data = next((item for item in area_bookings if item['area_id'] == area_id), {'booked_count': 0})
+        total_count = 5  
+        areas.append({'area_id': area_id, 'booked_count': area_data['booked_count'], 'total_count': total_count})
+
+    return render(request, 'wil/seating_map.html', {'areas': areas})
+
+
+from django.http import JsonResponse
+from .models import AssignedArea
+
+def get_booking_info(request):
+    
+    area_bookings = AssignedArea.objects.values('area_id').annotate(booked_count=models.Count('area_id'))
+    
+    
+    data = {}
+    for area_data in area_bookings:
+        area_id = area_data['area_id']
+        booked_count = area_data['booked_count']
+        data[area_id] = booked_count
+    
+    return JsonResponse(data)
 
 
 

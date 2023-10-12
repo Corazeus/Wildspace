@@ -1,0 +1,151 @@
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seating Map</title>
+    <link rel="stylesheet" href="{% static 'css/userdashboard.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="icon" type="image/x-icon" href="{% static 'images/WILLOGO.png' %}">
+</head>
+<body>
+    <div class="content">
+        <div class="header">
+            <div >
+                <a href="{% url 'userprofile' %}">
+                    <img src="{% static 'images/profile.png' %}" alt="Profile Icon" class="profile-icon" style="width: 32px; height: 32px; margin-right:60px">
+                </a>
+                 <img src="{% static 'images/WILLOGO.png' %}" alt="WIL LOGO" class="logo" style="margin-right:100px">
+            </div>
+            <div class="area-container">
+                <div class="button-overlay">
+                    <div class="mobile-buttons">
+                        <h2>SELECT AN AREA</h2>
+                    </div>
+                    <div class="mobile-screen">
+                        <h5>LEGEND: <button class="button-green"><div class="right">Available</div></button> <br> <button class="button-red"><div class="right">Unavailable</div></button></h5>
+                    </div>
+                    <div class="image-container">
+                        <img src="{% static 'images/area.jpg' %}" alt="area" class="image-fit">
+                        
+                        
+                        {% for area in areas %}
+                            <button class="area-button seat {% if area.area_id == 'A1' %}area1-button{% elif area.area_id == 'A2' %}area2-button{% elif area.area_id == 'A3' %}area3-button{% elif area.area_id == 'A4' %}area4-button{% elif area.area_id == 'A5' %}area5-button{% endif %}" data-areaid="{{ area.area_id }}" data-availability="{{ area.booked_count }}/5" data-total="5">{{ area.booked_count }}/5</button>
+                        {% endfor %}
+
+
+                    </div>
+                    
+                    
+                    
+                </div>
+            </div>
+            <br>
+            <div class="guidelines-container">
+                <div class="mobile-screen">
+                    {% block content %}
+                    {% endblock %}
+                </div>
+                <div class="mobile-buttons">
+                    <h5>GUIDELINES</h5>
+                    <div>
+                         <h3>WALK-IN BOOKING</h3>
+                    </div>
+                    <div>
+                         <h4>1. Select an available area within the facility map</h4>
+                         <h4>2. Confirm your selected area</h4>
+                         <h4>3. Present walk-in reference number to the front desk</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="popup-message" id="popupMessage">
+            <div class="message-content">
+                <h3 id="popupText"></h3>
+                <div class="button-container" id="buttonContainer">
+                    <button class="popup-button" onclick="handleYesButtonClick()">YES</button>
+                    <button class="popup-button" onclick="hideMessage()">NO</button>
+                </div>
+                <div class="reference-container" id="referenceContainer" style="display: none;"></div>
+            </div>
+        </div>
+    </div>
+    <script src="{% static 'js/script.js' %}"></script>
+    <script>
+        
+        function updateAvailability(buttonElement) {
+            const availability = parseInt(buttonElement.getAttribute("data-availability"));
+            const totalSeats = parseInt(buttonElement.getAttribute("data-total")); 
+            const maxSeats = 5; 
+
+            if (availability < maxSeats) {
+                return availability + 1;
+            } else {
+                return availability;
+            }
+        }
+
+        
+        function handleSeatButtonClick(buttonElement) {
+            const availability = parseInt(buttonElement.getAttribute("data-availability"));
+            const maxSeats = 5; 
+
+            if (availability >= maxSeats) {
+                alert("You can only book a maximum of 5 seats in this area.");
+                return;
+            }
+
+            
+            showMessage('ARE YOU SURE YOU WANT TO BOOK THIS AREA?', buttonElement);
+        }
+
+        
+        function handleYesButtonClick(buttonElement) {
+            const availability = updateAvailability(buttonElement);
+            buttonElement.setAttribute("data-availability", availability);
+            buttonElement.textContent = `${availability}/${maxSeats}`;
+            buttonElement.classList.toggle("button-red", availability === maxSeats);
+            
+            
+            hideMessage();
+        }
+
+        
+        const seatButtons = document.querySelectorAll(".seat");
+        seatButtons.forEach(button => {
+            button.addEventListener("click", () => handleSeatButtonClick(button));
+        });
+        function updateBookingInfo() {
+            
+            fetch('/get-booking-info/')  
+                .then(response => response.json())
+                .then(data => {
+                    
+                    for (const areaId in data) {
+                        const buttonElement = document.querySelector(`[data-areaid="${areaId}"]`);
+                        if (buttonElement) {
+                            buttonElement.setAttribute('data-availability', data[areaId]);
+                            buttonElement.textContent = `${data[areaId]}/5`;
+                        }
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+        
+        
+        setInterval(updateBookingInfo, 3000);
+        
+        window.onload = updateBookingInfo;
+    </script>
+    
+    <script src="{% static 'js/script.js' %}"></script>
+</body>
+</html>
+
+
+
+
+
+
