@@ -18,8 +18,6 @@ class UserAccountModel(models.Model):
         return self.username
 
 
-
-
 class Timer(models.Model):
     minutes = models.IntegerField(default=30)
     seconds = models.IntegerField(default=0)
