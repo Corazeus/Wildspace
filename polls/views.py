@@ -93,8 +93,16 @@ def user_logout(request):
 
 @login_required(redirect_field_name="userlogin")
 def user_dashboard(request):
+    area_bookings = AssignedArea.objects.values('area_id').annotate(booked_count=models.Count('area_id'))
     
-    return render(request, "wil/userdashboard.html", {})
+    areas = []
+    for area_id in ["A1", "A2", "A3", "A4", "A5"]:
+        area_data = next((item for item in area_bookings if item['area_id'] == area_id), {'booked_count': 0})
+        total_count = 5
+        areas.append({'area_id': area_id, 'booked_count': area_data['booked_count'], 'total_count': total_count})
+    
+    return render(request, "wil/userdashboard.html", {'areas': areas})
+
 
 
 
