@@ -116,16 +116,23 @@
             button.addEventListener("click", () => handleSeatButtonClick(button));
         });
         function updateBookingInfo() {
-            
             fetch('/get-booking-info/')  
                 .then(response => response.json())
                 .then(data => {
-                    
                     for (const areaId in data) {
                         const buttonElement = document.querySelector(`[data-areaid="${areaId}"]`);
                         if (buttonElement) {
                             buttonElement.setAttribute('data-availability', data[areaId]);
                             buttonElement.textContent = `${data[areaId]}/5`;
+        
+                            // Check if the button is full (5/5) and change the background color
+                            if (data[areaId] === 5) {
+                                buttonElement.style.backgroundColor = 'red';
+                                buttonElement.style.color = 'white';
+                            } else {
+                                buttonElement.style.backgroundColor = ''; // Reset to default
+                                buttonElement.style.color = ''; // Reset to default
+                            }
                         }
                     }
                 })
@@ -133,6 +140,7 @@
                     console.error('Error:', error);
                 });
         }
+        
         
         
         setInterval(updateBookingInfo, 3000);
