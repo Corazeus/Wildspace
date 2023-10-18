@@ -36,13 +36,13 @@
                         <td>{{ logs.referenceid }}</td>
                         <td>{{ logs.userid }}</td>
                         <td>
-                            Start: {{ logs.starttime }}
-                            -
+                            <font color="green">Start: </font>{{ logs.starttime }}
+                            ||
                             {% if logs.endtime == ""%}
                             End:
-                            N/A
+                            <font color="red">N/A</font>
                             {% else %}
-                            End: {{logs.endtime}}
+                            <font color="red">End:</font> {{logs.endtime}}
                             {% endif %}
                         </td>
 

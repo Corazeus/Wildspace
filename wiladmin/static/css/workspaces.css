@@ -1,0 +1,77 @@
+.content {
+    font-family: "Farfetch Basis", "Helvetica Neue", Arial, sans-serif;
+    max-width: fit-content;
+    margin: auto;
+}
+
+.logo {
+    height: 150px;
+    width: 150px;
+}
+
+.header {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: -25px;
+}
+
+.button {
+    background-color: #222;
+    border-radius: 4px;
+    border-style: none;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    font-family: "Farfetch Basis", "Helvetica Neue", Arial, sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.5;
+    max-width: none;
+    min-height: 44px;
+    min-width: 10px;
+    outline: none;
+    overflow: hidden;
+    padding: 9px 20px 8px;
+    position: relative;
+    text-align: center;
+    text-transform: none;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    width: 300px;
+    margin-top: 15px;
+    margin-bottom: -20px;
+}
+
+.button:hover,
+.button:focus {
+    opacity: .75;
+}
+
+.facility-map {
+    background-color: #A5A5A5;
+    width: fit-content;
+    height: fit-content;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding: 43px;
+    border-radius: 30px;
+} 
+
+.facility-areas {
+    width: 750px;
+    height: 500px;
+    object-fit: fill;
+}
+
+.area-buttons {
+    border: 2px;
+    height: 30px;
+    width: 40px;
+    border-radius: 40px;
+}

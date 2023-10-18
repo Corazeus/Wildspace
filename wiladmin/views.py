@@ -132,6 +132,13 @@ class BookGuestController(LoginRequiredMixin, View):
         self.CreateNewBooking()
         return redirect('bookguest')
     
+class ViewWorkspacesController(LoginRequiredMixin, View):
+    
+    login_url = 'adminlogin'
+    
+    def get(self, request):
+        return render(request, 'wiladmin/workspaces.html')
+    
 def handleLogout(request):
         logout(request)
         return redirect('adminlogin')
