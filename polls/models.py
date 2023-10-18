@@ -28,7 +28,12 @@ class Timer(models.Model):
         return "Timer for User ID {self.user_id}"
 
 
-
+class Booking(models.Model):
+    reference_number = models.CharField(max_length=10)
+    area_id = models.CharField(max_length=5)
+    date = models.DateField()
+    start_time = models.TimeField()
+    end_time = models.TimeField()
 
 
 

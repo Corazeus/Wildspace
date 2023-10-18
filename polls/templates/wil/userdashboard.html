@@ -14,59 +14,99 @@
 <body>
     <div class="content">
         <div class="header">
-            <div >
+            <div>
                 <a href="{% url 'userprofile' %}">
                     <img src="{% static 'images/profile.png' %}" alt="Profile Icon" class="profile-icon" style="width: 32px; height: 32px; margin-right:60px">
                 </a>
-                
-                </a>
-                
-                 <img src="{% static 'images/WILLOGO.png' %}" alt="WIL LOGO" class="logo" style="margin-right:100px">
-                
+                <img src="{% static 'images/WILLOGO.png' %}" alt="WIL LOGO" class="logo" style="margin-right:100px">
             </div>
             <div class="mobile-buttons">
                 <h2><u> WILDSPACE DASHBOARD </u></h2>
-                
             </div>
         </div>
-            
-            <div class="buttonContainer">
-                <div class="area-container">
-                    <div class="button-overlay">
-                        <div class="mobile-buttons">
-                            
-                        </div>
-                        <div class="mobile-screen">
-                            <div class="mobile-buttons">
-                                <h2>FACILITY MAP</h2>
-                            </div>
-                        </div>
-                        <div class="image-container">
-                            
-                            <img src="{% static 'images/area.jpg' %}" alt="area" class="image-fit">
-                            {% for area in areas %}
-                            <button class="area-button seat {% if area.area_id == 'A1' %}areaA1-button{% elif area.area_id == 'A2' %}areaA2-button{% elif area.area_id == 'A3' %}areaA3-button{% elif area.area_id == 'A4' %}areaA4-button{% elif area.area_id == 'A5' %}areaA5-button{% endif %}" data-areaid="{{ area.area_id }}" data-availability="{{ area.booked_count }}/5" data-total="5">{{ area.booked_count }}/5</button>
-                            {% endfor %}
-                        </div>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <a href="walkindashboard"> <button type="submit" class="button">CHECK ACTIVE BOOKINGS</button></a><br><br>
-                            <a href="{% url 'map' %}">
-                            <button type="submit" class="button">WALK-IN BOOKING</button>
-                </a><br>
+        <div class="buttonContainer">
+            <div class="area-container">
+                <div class="button-overlay">
+                    <div class="mobile-buttons">
                     </div>
+                    <div class="mobile-screen">
+                        <div class="mobile-buttons">
+                            <h2>FACILITY MAP</h2>
+                        </div>
+                    </div>
+                    <div class="image-container">
+                        <img src="{% static 'images/area.jpg' %}" alt="area" class="image-fit">
+                        {% for area in areas %}
+                        <button class="area-button seat {% if area.area_id == 'A1' %}areaA1-button{% elif area.area_id == 'A2' %}areaA2-button{% elif area.area_id == 'A3' %}areaA3-button{% elif area.area_id == 'A4' %}areaA4-button{% elif area.area_id == 'A5' %}areaA5-button{% endif %}" data-areaid="{{ area.area_id }}" data-availability="{{ area.booked_count }}/5" data-total="5">{{ area.booked_count }}/5</button>
+                        {% endfor %}
+                    </div>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <button type="button" class="button" id="check-booking-button">CHECK ACTIVE BOOKINGS</button>
+                    <br><br>
+                    <a href="{% url 'map' %}">
+                        <button type="submit" class="button">WALK-IN BOOKING</button>
+                    </a>
+                    <br>
                 </div>
-                <br>
-                
-                
-               
             </div>
+            <br>
+        </div>
+        <div class="popup-message" id="popupMessage">
+            <div class="message-content">
+                <h3 id="popupText"></h3>
+                <div class="button-container" id="buttonContainer">
+                    <button class="popup-button" onclick="handleConfirmButtonClick()">CONFIRM</button>
+                    <button class="popup-button" onclick="handleCancelButtonClick()">CANCEL</button>
+                </div>
+                <div class="reference-container" id="referenceContainer" style="display: none;"></div>
+            </div>
+        </div>
     </div>
-    <script src="{% static 'js/user_dashboard.js' %}"></script>
-    
-    
-</body>
 
+    <script src="{% static 'js/user_dashboard.js' %}"></script>
+    <script>
+        const checkBookingButton = document.getElementById('check-booking-button');
+        checkBookingButton.addEventListener('click', getBookingInfo);
+
+        function getBookingInfo() {
+            fetch('/get-reservebooking-info/')
+                .then(response => response.json())
+                .then(booking_info => {
+                    console.log('Received booking information:', booking_info);
+
+                    
+                    const popupText = document.getElementById('popupText');
+                    popupText.innerHTML = `Reference Number: ${booking_info.reference_number}<br>Area ID: ${booking_info.area_id}<br>Date: ${booking_info.date}<br>Start Time: ${booking_info.start_time}<br>End Time: ${booking_info.end_time}`;
+
+                    
+                    showPopupMessage();
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+
+        function showPopupMessage() {
+            const popupMessage = document.getElementById('popupMessage');
+            popupMessage.style.display = 'block';
+        }
+
+        function hideMessage() {
+            const popupMessage = document.getElementById('popupMessage');
+            popupMessage.style.display = 'none';
+        }
+
+        function handleConfirmButtonClick() {
+            
+        }
+
+        function handleCancelButtonClick() {
+            hideMessage(); 
+        }
+    </script>
+</body>
 </html>
+

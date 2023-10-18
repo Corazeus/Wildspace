@@ -23,6 +23,9 @@ urlpatterns = [
     path('get_timer_data/', views.get_timer_data, name='get_timer_data'),
     path('end_session/', views.end_session_view, name='end_session'),
     path('get-booking-info/', views.get_booking_info, name='get_booking_info'),
+    path('get-reservebooking-info/', views.get_reservebooking_info, name='get_reservebooking_info'),
+
+  
     
     
     

@@ -22,7 +22,7 @@ from django.http import JsonResponse
 from polls.models import Timer 
 from asgiref.sync import sync_to_async
 from django.shortcuts import render
-from .models import AssignedArea
+from .models import AssignedArea, Booking
 from django.db import models
 from django.http import JsonResponse
 from .models import AssignedArea
@@ -172,6 +172,23 @@ def get_booking_info(request):
     return JsonResponse(data)
 
 
+
+
+def get_reservebooking_info(request):
+    # You can customize this logic to retrieve the booking information based on your needs
+    try:
+        booking = Booking.objects.get(reference_number='A2392')
+        booking_info = {
+            'reference_number': booking.reference_number,
+            'area_id': booking.area_id,
+            'date': booking.date.strftime('%Y-%m-%d'),
+            'start_time': booking.start_time.strftime('%H:%M:%S'),
+            'end_time': booking.end_time.strftime('%H:%M:%S'),
+            
+        }
+        return JsonResponse(booking_info)
+    except Booking.DoesNotExist:
+        return JsonResponse({'error': 'Booking not found'}, status=404)
 
 
 
