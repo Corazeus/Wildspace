@@ -37,18 +37,24 @@
                             
                         </div>
                         <div class="mobile-screen">
-                            
+                            <div class="mobile-buttons">
+                                <h2>FACILITY MAP</h2>
+                            </div>
                         </div>
                         <div class="image-container">
+                            
                             <img src="{% static 'images/area.jpg' %}" alt="area" class="image-fit">
                             {% for area in areas %}
                             <button class="area-button seat {% if area.area_id == 'A1' %}areaA1-button{% elif area.area_id == 'A2' %}areaA2-button{% elif area.area_id == 'A3' %}areaA3-button{% elif area.area_id == 'A4' %}areaA4-button{% elif area.area_id == 'A5' %}areaA5-button{% endif %}" data-areaid="{{ area.area_id }}" data-availability="{{ area.booked_count }}/5" data-total="5">{{ area.booked_count }}/5</button>
                             {% endfor %}
                         </div>
-                        
+                        <br>
+                        <br>
+                        <br>
+                        <br>
                         <a href="walkindashboard"> <button type="submit" class="button">CHECK ACTIVE BOOKINGS</button></a><br><br>
-                <a href="{% url 'map' %}">
-                    <button type="submit" class="button">WALK-IN BOOKING</button>
+                            <a href="{% url 'map' %}">
+                            <button type="submit" class="button">WALK-IN BOOKING</button>
                 </a><br>
                     </div>
                 </div>
@@ -58,58 +64,9 @@
                
             </div>
     </div>
-    <script src="{% static 'js/script.js' %}"></script>
-    <script>
-        
-        function updateAvailability(buttonElement) {
-            const availability = parseInt(buttonElement.getAttribute("data-availability"));
-            const totalSeats = parseInt(buttonElement.getAttribute("data-total")); 
-            const maxSeats = 5; 
-
-            if (availability < maxSeats) {
-                return availability + 1;
-            } else {
-                return availability;
-            }
-        }
-
-        
+    <script src="{% static 'js/user_dashboard.js' %}"></script>
     
-        function updateBookingInfo() {
-            fetch('/get-booking-info/')  
-                .then(response => response.json())
-                .then(data => {
-                    for (const areaId in data) {
-                        const buttonElement = document.querySelector(`[data-areaid="${areaId}"]`);
-                        if (buttonElement) {
-                            buttonElement.setAttribute('data-availability', data[areaId]);
-                            buttonElement.textContent = `${data[areaId]}/5`;
-        
-                            // Check if the button is full (5/5) and change the background color
-                            if (data[areaId] === 5) {
-                                buttonElement.style.backgroundColor = 'red';
-                                buttonElement.style.color = 'white';
-                            } else {
-                                buttonElement.style.backgroundColor = ''; // Reset to default
-                                buttonElement.style.color = ''; // Reset to default
-                            }
-                        }
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                });
-        }
-        
-        
-        
-        
-        setInterval(updateBookingInfo, 3000);
-        
-        window.onload = updateBookingInfo;
-    </script>
     
-    <script src="{% static 'js/script.js' %}"></script>
 </body>
 
 </html>

@@ -105,7 +105,6 @@ def user_dashboard(request):
 
 
 
-
 def get_timer_data(request):
     
     timers = Timer.objects.all().count()
@@ -153,10 +152,6 @@ def end_session_view(request):
             return JsonResponse({'success': False, 'message': 'Timer not found for the user.'})
 
     return JsonResponse({'success': False, 'message': 'Invalid request method.'})
-
-
-
-
 
 
 
