@@ -35,7 +35,16 @@
                     <tr>
                         <td>{{ logs.referenceid }}</td>
                         <td>{{ logs.userid }}</td>
-                        <td>{{ logs.datetime }}</td>
+                        <td>
+                            Start: {{ logs.starttime }}
+                            -
+                            {% if logs.endtime == ""%}
+                            End:
+                            N/A
+                            {% else %}
+                            {{logs.endtime}}
+                            {% endif %}
+                        </td>
 
                         {% if logs.status == 'Logged Out' %}
 

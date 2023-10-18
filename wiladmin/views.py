@@ -50,7 +50,7 @@ class AdminWalkinDashboardController(LoginRequiredMixin, View):
             timer = Timer(user_id=booking.userid, minutes=30, seconds=0)
             timer.save()
             
-            log = AdminReportLogsModel(referenceid=booking.referenceid, userid=booking.userid, datetime=booking.schedule, status='Booked')
+            log = AdminReportLogsModel(referenceid=booking.referenceid, userid=booking.userid, starttime=booking.schedule, endtime="", status='Booked')
             log.save()
         
         else:
@@ -62,7 +62,7 @@ class AdminWalkinDashboardController(LoginRequiredMixin, View):
             assignedarea = AssignedArea.objects.all().filter(reference_number=booking.referenceid)
             assignedarea.delete()
             
-            log = AdminReportLogsModel(referenceid=booking.referenceid, userid=booking.userid, datetime=booking.schedule, status='Logged Out')
+            log = AdminReportLogsModel(referenceid=booking.referenceid, userid=booking.userid, starttime=booking.schedule,endtime=str(datetime.now().strftime("%d/%m/%Y, %H:%M")), status='Logged Out')
             log.save()
     
     def get(self, request):
@@ -95,7 +95,7 @@ class AdminReportLogsController(LoginRequiredMixin,View):
             writer.writerow(['Log Number','Reference ID','User ID','Date and Time','Status'])
 
             for log in logs:
-                writer.writerow([log.logid, log.referenceid, log.userid, log.datetime, log.status])
+                writer.writerow([log.logid, log.referenceid, log.userid, log.starttime, log.status])
 
             cursor = connection.cursor()
             cursor.execute("DELETE FROM wiladmin_AdminReportLogsModel")
