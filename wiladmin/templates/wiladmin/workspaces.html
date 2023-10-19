@@ -23,18 +23,62 @@
             <img src="{% static 'images/area.jpg' %}" alt="areas" class="facility-areas">
 
             {% for area_count in area_count %}
-              <button type="button" class="areaA1-button">{{area_count.countA1}}/5</button>
-              <button type="button" class="areaA2-button">{{area_count.countA2}}/5</button>
-              <button type="button" class="areaA3-button">{{area_count.countA3}}/5</button>
-              <button type="button" class="areaA4-button">{{area_count.countA4}}/5</button>
-              <button type="button" class="areaA5-button">{{area_count.countA5}}/5</button>
+
+            <form method="POST" action="workspaces/A1">
+                {% csrf_token %}
+              <input type="submit" class="areaA1-button" value={{area_count.countA1}}/5>
+            </form> 
+
+            <form method="POST" action="workspaces/A2">
+                {% csrf_token %}
+              <input type="submit" class="areaA2-button" value={{area_count.countA2}}/5>
+            </form>
+
+            <form method="POST" action="workspaces/A3">
+                {% csrf_token %}
+              <input type="submit" class="areaA3-button" value={{area_count.countA3}}/5>
+            </form> 
+
+            <form method="POST" action="workspaces/A4">
+                {% csrf_token %}
+              <input type="submit" class="areaA4-button" value={{area_count.countA4}}/5>
+            </form> 
+
+            <form method="POST" action="workspaces/A5">
+                {% csrf_token %}
+              <input type="submit" class="areaA5-button" value={{area_count.countA5}}/5>
+            </form> 
+
             {% endfor %}
-            
             <br>
             <a href="dashboard">
                 <button type="submit" class="button">RETURN TO DASHBOARD</button>
             </a>
         </div>
+
+            <table>
+
+                <tr>
+                    <th colspan="3">Users in: {{ area_id }}</th>
+                </tr>
+
+                {% if area != NONE %}
+                {% for area in area %}
+                <tr>
+                    <td>{{ area.userid }}</td>
+                    <td>{{ area.schedule }}</td>
+                    <td>{{ area.referenceid }}</td>
+                </tr>
+                {% endfor %}
+
+                {% else %}
+
+                <tr>
+                    <td> Select Area </td>
+                </tr>
+
+                {% endif %}
+            </table>
     </div>
 
     <script>

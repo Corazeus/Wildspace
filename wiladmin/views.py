@@ -174,8 +174,7 @@ class ViewWorkspacesController(LoginRequiredMixin, View):
     
     login_url = 'adminlogin'
     
-    def get(self, request):
-        
+    def GetAreaCount(self):
         countA1 = AssignedArea.objects.filter(area_id='A1').count()
         countA2 = AssignedArea.objects.filter(area_id='A2').count()
         countA3 = AssignedArea.objects.filter(area_id='A3').count()
@@ -189,8 +188,18 @@ class ViewWorkspacesController(LoginRequiredMixin, View):
             'countA4':countA4, 
             'countA5':countA5,
             }]
+        return area_count
+     
+    def get(self, request):
+        
+        area_count = self.GetAreaCount
 
         return render(request, 'wiladmin/workspaces.html', {'area_count': area_count})
+    
+    def post(self, request, areaid):
+        area_count = self.GetAreaCount
+        area = WalkinBookingModel.objects.filter(referenceid__contains=areaid) #and Booking.objects.filter(reference_number__contains=areaid)
+        return render(request, 'wiladmin/workspaces.html', {'area':area, 'area_count':area_count, 'area_id':areaid})
 
 def handleLogout(request):
         logout(request)
