@@ -6,7 +6,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
 from .models import WalkinBookingModel, AdminReportLogsModel
-from polls.models import Timer, AssignedArea
+from polls.models import Timer, AssignedArea, Booking
 from django.views import View
 from datetime import datetime
 from django.db import models
@@ -73,6 +73,44 @@ class AdminWalkinDashboardController(LoginRequiredMixin, View):
     def post(self, request, bookingid):
         self.updateBookingStatus(bookingid)
         return redirect('walkindashboard')
+    
+
+class AdminReservedDashboardController(LoginRequiredMixin, View):
+    
+    login_url = 'adminlogin'
+    
+    def updateBookingStatus(self, reserved_id):
+        booking = Booking.objects.get(pk=int(reserved_id))
+        
+        if booking.status == "Pending":
+            booking.status = 'Booked'
+            booking.save()
+            
+            timer = Timer(user_id=booking.user_id, minutes=30, seconds=0)
+            timer.save()
+            
+            log = AdminReportLogsModel(referenceid=booking.reference_number, userid=booking.user_id, starttime=booking.start_time, endtime="", status='Booked')
+            log.save()
+        
+        else:
+            booking.delete()
+            
+            usertimer = Timer.objects.get(pk=str(booking.user_id))
+            usertimer.delete()
+            
+            assignedarea = AssignedArea.objects.all().filter(reference_number=booking.reference_number)
+            assignedarea.delete()
+            
+            log = AdminReportLogsModel(referenceid=booking.reference_number, userid=booking.user_id, starttime=booking.start_time,end_time=str(datetime.now().strftime("%d/%m/%Y, %H:%M")), status='Logged Out')
+            log.save()
+    
+    def get(self, request):
+        bookings = Booking.objects.all().order_by('-status')
+        return render(request, "wiladmin/reserveddashboard.html", {'bookings': bookings})
+    
+    def post(self, request, bookingid):
+        self.updateBookingStatus(bookingid)
+        return redirect('reserveddashboard')
     
         
 class AdminReportLogsController(LoginRequiredMixin,View):
