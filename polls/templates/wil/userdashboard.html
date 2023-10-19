@@ -149,7 +149,7 @@
                 events: '/get-calendar-data/',
                 eventClick: function (info) {
                     const areaId = info.event.title;
-                    const date = info.event.start.toLocaleDateString();  // Extract the date in 'YYYY-MM-DD' format
+                    const date = info.event.start.toLocaleDateString();  
                     const startTime = formatTimeToAMPM(info.event.extendedProps.start_time);
                     const endTime = formatTimeToAMPM(info.event.extendedProps.end_time);
                 
