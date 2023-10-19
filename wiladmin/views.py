@@ -1,6 +1,6 @@
 import csv
 from django.db import connection
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -9,6 +9,7 @@ from .models import WalkinBookingModel, AdminReportLogsModel
 from polls.models import Timer, AssignedArea
 from django.views import View
 from datetime import datetime
+from django.db import models
 
 class AdminLoginController(View):
     
@@ -142,3 +143,4 @@ class ViewWorkspacesController(LoginRequiredMixin, View):
 def handleLogout(request):
         logout(request)
         return redirect('adminlogin')
+    

@@ -26,6 +26,8 @@ from .models import AssignedArea, Booking
 from django.db import models
 from django.http import JsonResponse
 from .models import AssignedArea
+from django.http import JsonResponse
+from collections import defaultdict
 
 from django.contrib.auth.decorators import login_required
 
@@ -155,9 +157,6 @@ def end_session_view(request):
 
 
 
-
-
-
 def get_booking_info(request):
     
     area_bookings = AssignedArea.objects.values('area_id').annotate(booked_count=models.Count('area_id'))
@@ -173,17 +172,16 @@ def get_booking_info(request):
 
 
 
-
 def get_reservebooking_info(request):
-    # You can customize this logic to retrieve the booking information based on your needs
+    
     try:
         booking = Booking.objects.get(reference_number='A2392')
         booking_info = {
             'reference_number': booking.reference_number,
             'area_id': booking.area_id,
             'date': booking.date.strftime('%Y-%m-%d'),
-            'start_time': booking.start_time.strftime('%H:%M:%S'),
-            'end_time': booking.end_time.strftime('%H:%M:%S'),
+            'start_time': booking.start_time.strftime('%H:%M'),
+            'end_time': booking.end_time.strftime('%H:%M'),
             
         }
         return JsonResponse(booking_info)
@@ -193,6 +191,30 @@ def get_reservebooking_info(request):
 
 
 
+def get_calendar_data(request):
+    area_data = Booking.objects.values('date', 'area_id', 'start_time', 'end_time')
+
+    availability = defaultdict(lambda: defaultdict(int))
+
+    events = []
+    for booking in area_data:
+        date = booking['date']
+        area_id = booking['area_id']
+        start_time = booking['start_time']
+        end_time = booking['end_time']
+        availability[date][area_id] += 1
+        
+        events = []
+        for date, areas in availability.items():
+         for area_id, booked_count in areas.items():
+            events.append({
+                'title': f'{area_id}({booked_count})',
+                'start': date,
+                'start_time': start_time,  
+                'end_time': end_time,
+            })
+
+    return JsonResponse(events, safe=False)
 
 
 

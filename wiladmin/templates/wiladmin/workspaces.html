@@ -1,31 +1,85 @@
-
 <!DOCTYPE html>
 
 {% load static %}
 
 <html lang="en">
-    
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Workspaces</title>
     <link rel="stylesheet" href="{% static 'css/workspaces.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link rel="icon" type="image/x-icon" href="{% static 'images/WILLOGO.png' %}">
 </head>
 
 <body>
     <div class="content">
-            <div class="header">
-                <a href="dashboard"><img src="{% static 'images/WILLOGO.png' %}" alt="WIL LOGO" class="logo"></a>
-                <h1> WORKSPACES <h2>
-            </div>
+        <div class="header">
+            <a href="dashboard"><img src="{% static 'images/WILLOGO.png' %}" alt="WIL LOGO" class="logo"></a>
+            <h1> WORKSPACES </h1>
+        </div>
 
-            <div class="facility-map">
-                <img src="{% static 'images/area.jpg' %}" alt="areas" class="facility-areas">
-                <br>
-                <a href="workspaces"><button type="submit" class="button">RETURN TO DASHBOARD</button></a>              
-            </div>
+        <div class="facility-map">
+            <img src="{% static 'images/area.jpg' %}" alt="areas" class="facility-areas">
+
+            {% for area in areas %}
+            <button class="area-button seat {% if area.area_id == 'A1' %}areaA1-button{% elif area.area_id == 'A2' %}areaA2-button{% elif area.area_id == 'A3' %}areaA3-button{% elif area.area_id == 'A4' %}areaA4-button{% elif area.area_id == 'A5' %}areaA5-button{% endif %}" data-areaid="{{ area.area_id }}" data-availability="{{ area.booked_count }}/5" data-total="5">{{ area.booked_count }}/5</button>
+            {% endfor %}
+            
+            <br>
+            <a href="workspaces">
+                <button type="submit" class="button">RETURN TO DASHBOARD</button>
+            </a>
+        </div>
     </div>
+
+    <script>
+       
+        function updateAvailability(buttonElement) {
+            const availability = parseInt(buttonElement.getAttribute("data-availability"));
+            const totalSeats = parseInt(buttonElement.getAttribute("data-total"));
+            const maxSeats = 5;
+
+            if (availability < maxSeats) {
+                return availability + 1;
+            } else {
+                return availability;
+            }
+        }
+
+        function updateBookingInfo() {
+            fetch('/get-booking-info/')
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Data received:', data);
+                    for (const areaId in data) {
+                        const buttonElement = document.querySelector(`[data-areaid="${areaId}"]`);
+                        if (buttonElement) {
+                            console.log('Updating button:', buttonElement);
+                            buttonElement.setAttribute('data-availability', data[areaId]);
+                            buttonElement.textContent = `${data[areaId]}/5`;
+
+                            if (data[areaId] === 5) {
+                                buttonElement.style.backgroundColor = 'red';
+                                buttonElement.style.color = 'white';
+                            } else {
+                                buttonElement.style.backgroundColor = '';
+                                buttonElement.style.color = '';
+                            }
+                        }
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+
+        setInterval(updateBookingInfo, 3000);
+
+        window.onload = updateBookingInfo;
+        
+    </script>
 </body>
 
 </html>
+

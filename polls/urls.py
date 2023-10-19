@@ -24,6 +24,9 @@ urlpatterns = [
     path('end_session/', views.end_session_view, name='end_session'),
     path('get-booking-info/', views.get_booking_info, name='get_booking_info'),
     path('get-reservebooking-info/', views.get_reservebooking_info, name='get_reservebooking_info'),
+    path('get-calendar-data/', views.get_calendar_data, name='get_calendar_data'),
+    
+]
 
   
     
@@ -36,4 +39,3 @@ urlpatterns = [
     
    
 
-]

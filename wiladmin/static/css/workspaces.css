@@ -61,6 +61,7 @@
     flex-direction: column;
     padding: 43px;
     border-radius: 30px;
+    position: relative;
 } 
 
 .facility-areas {
@@ -69,9 +70,69 @@
     object-fit: fill;
 }
 
-.area-buttons {
-    border: 2px;
-    height: 30px;
-    width: 40px;
-    border-radius: 40px;
+
+
+.areaA1-button {
+    position: absolute;
+    top: 20%;
+    left: 27%;
+    transform: translate(-50%, -50%);
+    background-color: #83CD56;
+    border: 1px solid #000000;
+    border-radius: 50%;
+    width: 30px;
+    height: 25px;
+    cursor: pointer;
+}
+
+.areaA2-button {
+    position: absolute;
+    top: 38%;
+    left: 80%;
+    transform: translate(-50%, -50%);
+    background-color: #83CD56;
+    border: 1px solid #000000;
+    border-radius: 50%;
+    width: 30px;
+    height: 25px;
+    cursor: pointer;
+}
+
+.areaA3-button {
+    position: absolute;
+    top: 52%;
+    left: 64%;
+    transform: translate(-50%, -50%);
+    background-color: #83CD56;
+    border: 1px solid #000000;
+    border-radius: 50%;
+    width: 30px;
+    height: 25px;
+    cursor: pointer;
+}
+
+.areaA4-button {
+    position: absolute;
+    top: 74%;
+    left: 74%;
+    transform: translate(-50%, -50%);
+    background-color: #83CD56;
+    border: 1px solid #000000;
+    border-radius: 50%;
+    width: 30px;
+    height: 25px;
+    cursor: pointer;
+}
+
+.areaA5-button {
+    position: absolute;
+    top: 74%;
+    left: 44%;
+    transform: translate(-50%, -50%);
+    background-color: #83CD56;
+    border: 1px solid #000000;
+    border-radius: 50%;
+    width: 30px;
+    height: 25px;
+    cursor: pointer;
 }

@@ -1,0 +1,23 @@
+.small-calendar-button {
+    display: block;
+    width: 30px;
+    height: 30px;
+    background: #007BFF;
+    color: #fff;
+    text-align: center;
+    line-height: 30px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+
+#expanded-calendar {
+    display: none;
+    position: absolute;
+    width: 90%; /* Expand to full width */
+    height: 50%; /* Expand to full height */
+    background-color: #fff;
+    z-index: 1;
+    border-radius: 1%;
+    
+}

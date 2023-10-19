@@ -9,6 +9,10 @@
     <link rel="stylesheet" href="{% static 'css/userdashboard.css' %}">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link rel="icon" type="image/x-icon" href="{% static 'images/WILLOGO.png' %}">
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.9/index.global.min.js"></script>
+    <link rel="stylesheet" href="{% static 'css/calendar.css' %}">
+    
+
 </head>
 
 <body>
@@ -32,9 +36,12 @@
                     <div class="mobile-screen">
                         <div class="mobile-buttons">
                             <h2>FACILITY MAP</h2>
+                            <div class="small-calendar-button" id="expand-calendar-button">📅</div>
+                            <div id="expanded-calendar"></div>
                         </div>
                     </div>
                     <div class="image-container">
+                        
                         <img src="{% static 'images/area.jpg' %}" alt="area" class="image-fit">
                         {% for area in areas %}
                         <button class="area-button seat {% if area.area_id == 'A1' %}areaA1-button{% elif area.area_id == 'A2' %}areaA2-button{% elif area.area_id == 'A3' %}areaA3-button{% elif area.area_id == 'A4' %}areaA4-button{% elif area.area_id == 'A5' %}areaA5-button{% endif %}" data-areaid="{{ area.area_id }}" data-availability="{{ area.booked_count }}/5" data-total="5">{{ area.booked_count }}/5</button>
@@ -58,16 +65,20 @@
             <div class="message-content">
                 <h3 id="popupText"></h3>
                 <div class="button-container" id="buttonContainer">
-                    <button class="popup-button" onclick="handleConfirmButtonClick()">CONFIRM</button>
+                    <button class="popup-button" id="confirmButton" onclick="handleConfirmButtonClick()">CONFIRM</button>
+
+
                     <button class="popup-button" onclick="handleCancelButtonClick()">CANCEL</button>
                 </div>
                 <div class="reference-container" id="referenceContainer" style="display: none;"></div>
             </div>
         </div>
     </div>
-
+    
     <script src="{% static 'js/user_dashboard.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
+        let bookingInfoData;
         const checkBookingButton = document.getElementById('check-booking-button');
         checkBookingButton.addEventListener('click', getBookingInfo);
 
@@ -76,7 +87,7 @@
                 .then(response => response.json())
                 .then(booking_info => {
                     console.log('Received booking information:', booking_info);
-
+                    bookingInfoData = booking_info;
                     
                     const popupText = document.getElementById('popupText');
                     popupText.innerHTML = `Reference Number: ${booking_info.reference_number}<br>Area ID: ${booking_info.area_id}<br>Date: ${booking_info.date}<br>Start Time: ${booking_info.start_time}<br>End Time: ${booking_info.end_time}`;
@@ -101,12 +112,97 @@
 
         function handleConfirmButtonClick() {
             
+            if (bookingInfoData) {
+                const popupText = document.getElementById('popupText');
+                const referenceContainer = document.getElementById('referenceContainer');
+                
+                
+                const buttonContainer = document.getElementById('buttonContainer');
+                buttonContainer.style.display = 'none';
+        
+                
+                referenceContainer.style.display = 'block';
+                referenceContainer.textContent = `REFERENCE #: ${bookingInfoData.reference_number}`;
+                const paragraph = document.createElement('p');
+                paragraph.textContent = 'Please go to the front desk and present your reference number to confirm your booking.';
+                referenceContainer.appendChild(paragraph);
+                
+                popupText.style.display = 'none';
+        
+                
+                showPopupMessage();
+            }
         }
+        
+        
 
         function handleCancelButtonClick() {
             hideMessage(); 
         }
+        
+        document.addEventListener('DOMContentLoaded', function () {
+            const smallCalendarButton = document.getElementById('expand-calendar-button');
+            const expandedCalendar = document.getElementById('expanded-calendar');
+        
+            const calendar = new FullCalendar.Calendar(expandedCalendar, {
+                initialView: 'dayGridMonth',
+                events: '/get-calendar-data/',
+                eventClick: function (info) {
+                    const areaId = info.event.title;
+                    const date = info.event.start.toLocaleDateString();  // Extract the date in 'YYYY-MM-DD' format
+                    const startTime = formatTimeToAMPM(info.event.extendedProps.start_time);
+                    const endTime = formatTimeToAMPM(info.event.extendedProps.end_time);
+                
+                    Swal.fire({
+                        title: `${date}`,
+                        html: `Area ID: ${areaId}`,
+                        icon: 'info',
+                        showCancelButton: false,
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: 'OK'
+                    });
+                },
+                
+                
+                
+                customButtons: {
+                    myCustomButton: {
+                        text: '',
+                        click: function () {
+                            calendar.today();
+                        },
+                    },
+                },
+                headerToolbar: {
+                    start: 'title',
+                    center: '',
+                    end: 'prev,next,myCustomButton',
+                },
+                titleFormat: { month: 'short', year: 'numeric' },
+            });
+        
+            smallCalendarButton.addEventListener('click', function () {
+                if (expandedCalendar.style.display === 'none') {
+                    expandedCalendar.style.display = 'block';
+                    calendar.render();
+                } else {
+                    expandedCalendar.style.display = 'none';
+                }
+            });
+        
+            expandedCalendar.style.display = 'none';
+        });
+        
+        function formatTimeToAMPM(time) {
+            const [hours, minutes] = time.split(':');
+            const parsedHours = parseInt(hours, 10);
+            const ampm = parsedHours >= 12 ? 'PM' : 'AM';
+            const formattedHours = parsedHours % 12 || 12;
+            return `${formattedHours}:${minutes} ${ampm}`;
+        }
     </script>
+    
+
 </body>
 </html>
 
