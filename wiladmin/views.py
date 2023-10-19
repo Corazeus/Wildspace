@@ -1,6 +1,6 @@
 import csv
 from django.db import connection
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -9,7 +9,6 @@ from .models import WalkinBookingModel, AdminReportLogsModel
 from polls.models import Timer, AssignedArea, Booking
 from django.views import View
 from datetime import datetime
-from django.db import models
 
 class AdminLoginController(View):
     
@@ -101,15 +100,15 @@ class AdminReservedDashboardController(LoginRequiredMixin, View):
             assignedarea = AssignedArea.objects.all().filter(reference_number=booking.reference_number)
             assignedarea.delete()
             
-            log = AdminReportLogsModel(referenceid=booking.reference_number, userid=booking.user_id, starttime=booking.start_time,end_time=str(datetime.now().strftime("%d/%m/%Y, %H:%M")), status='Logged Out')
+            log = AdminReportLogsModel(referenceid=booking.reference_number, userid=booking.user_id, starttime=booking.start_time, endtime=str(datetime.now().strftime("%d/%m/%Y, %H:%M")), status='Logged Out')
             log.save()
     
     def get(self, request):
         bookings = Booking.objects.all().order_by('-status')
         return render(request, "wiladmin/reserveddashboard.html", {'bookings': bookings})
     
-    def post(self, request, bookingid):
-        self.updateBookingStatus(bookingid)
+    def post(self, request, reserved_id):
+        self.updateBookingStatus(reserved_id)
         return redirect('reserveddashboard')
     
         

@@ -24,11 +24,10 @@ urlpatterns = [
     path('wiladmin/logs', views.AdminReportLogsController.as_view(), name='reportlogs'),
     path('wiladmin/walkindashboard', views.AdminWalkinDashboardController.as_view(), name='walkindashboard'),
     path('wiladmin/reserveddashboard', views.AdminReservedDashboardController.as_view(), name='reserveddashboard'),
-    path('wiladmin/updatereserved/<int:reserved_id', views.AdminReservedDashboardController.as_view(), name='updatereserved'),
-    path('wiladmin/deletereserved/<int:reserved_id', views.AdminReservedDashboardController.as_view(), name='deletereserved'),
     path('wiladmin/updatebooking/<int:bookingid>', views.AdminWalkinDashboardController.as_view(), name='updatebooking'),
     path('wiladmin/deletebooking/<int:bookingid>', views.AdminWalkinDashboardController.as_view(), name='deletebooking'),
     path('wiladmin/bookguest', views.BookGuestController.as_view(), name='bookguest'),
     path('wiladmin/workspaces', views.ViewWorkspacesController.as_view(), name='workspaces'),
-    
+    path('wiladmin/updatereserved/<int:reserved_id>', views.AdminReservedDashboardController.as_view(), name='updatereserved'),
+    path('wiladmin/deletereserved/<int:reserved_id>', views.AdminReservedDashboardController.as_view(), name='deletereserved'),
 ]

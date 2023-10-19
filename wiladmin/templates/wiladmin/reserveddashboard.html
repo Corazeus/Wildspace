@@ -45,7 +45,7 @@
 
                             <td class="actions">
 
-                                <form action="updatebooking/{{ bookings.bookingid }}" method="POST">
+                                <form action="updatereserved/{{ bookings.reserved_id }}" method="POST">
                                     {% csrf_token %}
                                     <input type="submit" value="Book" class="book">
                                 </form>
@@ -58,7 +58,7 @@
 
                             <td class="actions">
                                 
-                                <form action="deletebooking/{{ bookings.bookingid }}" method="POST">
+                                <form action="deletereserved/{{ bookings.reserved_id }}" method="POST">
                                     {% csrf_token %}
                                     <input type="submit" value="Logout" class="logout">
                                 </form>

@@ -1,0 +1,89 @@
+
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/userdashboard.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="icon" type="image/x-icon" href="{% static 'images/WILLOGO.png' %}">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" />
+
+
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <div class="content">
+        <div class="header">
+            <div >
+                <a href="{% url 'userprofile' %}">
+                    <img src="{% static 'images/profile.png' %}" alt="Profile Icon" class="profile-icon" style="width: 32px; height: 32px; margin-right:60px">
+                </a>
+                
+                </a>
+                
+                 <img src="{% static 'images/WILLOGO.png' %}" alt="WIL LOGO" class="logo" style="margin-right:100px">
+                
+            </div>
+    <div class="arealocation-container">
+        <div class="button-overlay">
+            <div class="mobile-buttons">
+                {% if area_id %}
+                <h3>ASSIGNED AREA: <span style="color: red; text-decoration: underline;">{{ area_id }}</span></h3>
+                {% else %}
+                <h4>Assigned Area: N/A</h4>
+                {% endif %}
+            </div>
+
+            <div class="image-container">
+
+                <img src="{% static 'images/area.jpg' %}" alt="area" class="image-fit"/>
+                {% if area_id == "A1" %}
+                <button class="areaA1-button"><i class="fas fa-map-marker-alt"></i></button>
+                {% elif area_id == "A2" %}
+                <button class="areaA2-button"><i class="fas fa-map-marker-alt"></i></button>
+                {% elif area_id == "A3" %}
+                <button class="areaA3-button"><i class="fas fa-map-marker-alt"></i></button>
+                {% elif area_id == "A4" %}
+                <button class="areaA4-button"><i class="fas fa-map-marker-alt"></i></button>
+                {% elif area_id == "A5" %}
+                <button class="areaA5-button"><i class="fas fa-map-marker-alt"></i></button>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="location-container">
+        <div class="mobile-screen">
+            {% block content %}
+            {% endblock %}
+        </div>
+
+        <div class="mobile-buttons">
+            <h5>GUIDELINES</h5>
+
+            <div>
+                <h5>You arleady have an existing reservation on {{date}}</h5>
+                <h5> Please proceed to the front desk and confirm your booking </h5>
+                <br>
+                Reference Number: <font color="red">{{reference_number}}</font>
+                <br>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <script>
+
+        document.querySelector('.time-button').addEventListener('click', function() {
+
+            window.location.href = "{% url 'timer' %}";
+        });
+    </script>
+</body>
+</html>
+

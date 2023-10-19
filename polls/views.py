@@ -17,7 +17,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.http import JsonResponse
 from polls.models import Timer
-import json
+from django.views import View
 from django.http import JsonResponse
 from polls.models import Timer 
 from asgiref.sync import sync_to_async
@@ -28,7 +28,7 @@ from django.http import JsonResponse
 from .models import AssignedArea
 from django.http import JsonResponse
 from collections import defaultdict
-
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 
 
@@ -65,7 +65,7 @@ def map(request):
         user = WalkinBookingModel.objects.get(userid=username)
 
         if user.status=="Booked":
-            return redirect('location')
+            return redirect('timer')
         else:
             return render(request, 'wil/map.html', {'areas': areas})
         
@@ -95,6 +95,7 @@ def user_logout(request):
 
 @login_required(redirect_field_name="userlogin")
 def user_dashboard(request):
+    
     area_bookings = AssignedArea.objects.values('area_id').annotate(booked_count=models.Count('area_id'))
     
     areas = []
@@ -103,6 +104,40 @@ def user_dashboard(request):
         total_count = 5
         areas.append({'area_id': area_id, 'booked_count': area_data['booked_count'], 'total_count': total_count})
     
+    try:
+        reservedbookingcount = Booking.objects.filter(user_id=request.user.username).count()
+        booking = Booking.objects.get(user_id=request.user.username)
+        if(reservedbookingcount > 0):
+            if(booking.status == "Pending"):
+                area_id = booking.reference_number
+                context = {
+                    'area_id': area_id[:2],
+                    'reference_number': booking.reference_number,
+                    'date': booking.date,
+                    }
+                return render(request, "wil/activebooking.html", context)
+            else:
+                timer = Timer.objects.get(user_id=request.user.username)
+                context = {
+                    'id_number': booking.user_id,
+                    'booking_reference_number': booking.reference_number,
+                    'assigned_area': booking.area_id,
+                    'date_of_use': booking.date,
+                    'timer_data': {
+                        'minutes': timer.minutes,
+                        'seconds': timer.seconds,
+                    }
+                }
+                
+                return render(request, "wil/timer.html", context)
+            
+    except Booking.DoesNotExist:
+        areas = []
+        for area_id in ["A1", "A2", "A3", "A4", "A5"]:
+            area_data = next((item for item in area_bookings if item['area_id'] == area_id), {'booked_count': 0})
+            total_count = 5
+            areas.append({'area_id': area_id, 'booked_count': area_data['booked_count'], 'total_count': total_count})
+        
     return render(request, "wil/userdashboard.html", {'areas': areas})
 
 
@@ -216,10 +251,23 @@ def get_calendar_data(request):
 
     return JsonResponse(events, safe=False)
 
-
-
-
-
+class ActiveBookingController(LoginRequiredMixin, View):
+    
+    login_url = 'userlogin'
+    
+    def get(self, request):
+        
+        booking = Booking.objects.get(user_id=request.user.username)
+        if(booking.status == "Pending"):
+            area_id = booking.reference_number
+            context = {
+                'area_id': area_id[:2],
+                'reference_number': booking.reference_number,
+                'date': booking.date,
+                }
+            return render(request, "wil/activebooking.html", context)
+        else:
+            return render(request, "wil/location.html")
 
 
 area_button_click = facility_controller.areaButtonClick
