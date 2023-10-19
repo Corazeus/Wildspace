@@ -22,12 +22,16 @@
         <div class="facility-map">
             <img src="{% static 'images/area.jpg' %}" alt="areas" class="facility-areas">
 
-            {% for area in areas %}
-            <button class="area-button seat {% if area.area_id == 'A1' %}areaA1-button{% elif area.area_id == 'A2' %}areaA2-button{% elif area.area_id == 'A3' %}areaA3-button{% elif area.area_id == 'A4' %}areaA4-button{% elif area.area_id == 'A5' %}areaA5-button{% endif %}" data-areaid="{{ area.area_id }}" data-availability="{{ area.booked_count }}/5" data-total="5">{{ area.booked_count }}/5</button>
+            {% for area_count in area_count %}
+              <button type="button" class="areaA1-button">{{area_count.countA1}}/5</button>
+              <button type="button" class="areaA2-button">{{area_count.countA2}}/5</button>
+              <button type="button" class="areaA3-button">{{area_count.countA3}}/5</button>
+              <button type="button" class="areaA4-button">{{area_count.countA4}}/5</button>
+              <button type="button" class="areaA5-button">{{area_count.countA5}}/5</button>
             {% endfor %}
             
             <br>
-            <a href="workspaces">
+            <a href="dashboard">
                 <button type="submit" class="button">RETURN TO DASHBOARD</button>
             </a>
         </div>

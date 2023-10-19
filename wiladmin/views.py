@@ -138,8 +138,23 @@ class ViewWorkspacesController(LoginRequiredMixin, View):
     login_url = 'adminlogin'
     
     def get(self, request):
-        return render(request, 'wiladmin/workspaces.html')
-    
+        
+        countA1 = AssignedArea.objects.filter(area_id='A1').count()
+        countA2 = AssignedArea.objects.filter(area_id='A2').count()
+        countA3 = AssignedArea.objects.filter(area_id='A3').count()
+        countA4 = AssignedArea.objects.filter(area_id='A4').count()
+        countA5 = AssignedArea.objects.filter(area_id='A5').count()
+        
+        area_count = [{
+            'countA1':countA1, 
+            'countA2':countA2, 
+            'countA3':countA3, 
+            'countA4':countA4, 
+            'countA5':countA5,
+            }]
+
+        return render(request, 'wiladmin/workspaces.html', {'area_count': area_count})
+
 def handleLogout(request):
         logout(request)
         return redirect('adminlogin')
