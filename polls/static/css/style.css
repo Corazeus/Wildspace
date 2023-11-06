@@ -1,5 +1,11 @@
 body{
-font-family: "Farfetch Basis", "Helvetica Neue", Arial, sans-serif;
+  font-family: "Farfetch Basis", "Helvetica Neue", Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 90vh;
+  background-color: #ffffff;
+  font-family: "Farfetch Basis", "Helvetica Neue", Arial, sans-serif;
 }
 .area-container {
   width: 300px;
@@ -173,7 +179,7 @@ font-family: "Farfetch Basis", "Helvetica Neue", Arial, sans-serif;
   position: relative;
 }
 
-.area1-button {
+.areaA1-button {
   position: absolute;
   top: 20%;
   left: 27%;
@@ -186,7 +192,7 @@ font-family: "Farfetch Basis", "Helvetica Neue", Arial, sans-serif;
   cursor: pointer;
 }
 
-.area2-button {
+.areaA2-button {
   position: absolute;
   top: 38%;
   left: 80%;
@@ -198,7 +204,7 @@ font-family: "Farfetch Basis", "Helvetica Neue", Arial, sans-serif;
   height: 25px;
   cursor: pointer;
 }
-.area3-button {
+.areaA3-button {
   position: absolute;
   top: 52%;
   left: 64%;
@@ -210,7 +216,7 @@ font-family: "Farfetch Basis", "Helvetica Neue", Arial, sans-serif;
   height: 25px;
   cursor: pointer;
 }
-.area4-button {
+.areaA4-button {
   position: absolute;
   top: 74%;
   left: 74%;
@@ -222,7 +228,7 @@ font-family: "Farfetch Basis", "Helvetica Neue", Arial, sans-serif;
   height: 25px;
   cursor: pointer;
 }
-.area5-button {
+.areaA5-button {
   position: absolute;
   top: 74%;
   left: 44%;
@@ -293,7 +299,7 @@ font-family: "Farfetch Basis", "Helvetica Neue", Arial, sans-serif;
         cursor: pointer;
         background-color: #000000;}
 
-.area11-button {
+.area1-button {
   position: absolute;
   top: 18%;
   left: 27%;
@@ -305,7 +311,7 @@ font-family: "Farfetch Basis", "Helvetica Neue", Arial, sans-serif;
   font-size: 35px;
   color: #FF0000;
 }
-.area22-button {
+.area2-button {
   position: absolute;
   top: 33%;
   left: 80%;
@@ -317,7 +323,7 @@ font-family: "Farfetch Basis", "Helvetica Neue", Arial, sans-serif;
   font-size: 35px;
   color: #FF0000;
 }
-.area33-button {
+.area3-button {
   position: absolute;
   top: 47%;
   left: 64%;
@@ -329,7 +335,7 @@ font-family: "Farfetch Basis", "Helvetica Neue", Arial, sans-serif;
   font-size: 35px;
   color: #FF0000;
 }
-.area44-button {
+.area4-button {
   position: absolute;
   top: 69%;
   left: 73%;
@@ -341,7 +347,7 @@ font-family: "Farfetch Basis", "Helvetica Neue", Arial, sans-serif;
   font-size: 35px;
   color: #FF0000;
 }
-.area55-button {
+.area5-button {
   position: absolute;
   top: 68%;
   left: 44%;
@@ -443,16 +449,6 @@ font-family: "Farfetch Basis", "Helvetica Neue", Arial, sans-serif;
   z-index: 9998;
 }
 
-//LOGIN SCREEN
-body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 90vh;
-    background-color: #FECC00;
-    font-family: "Farfetch Basis", "Helvetica Neue", Arial, sans-serif;
-}
-
 .login-container {
     text-align: center;
     background-color: transparent;
@@ -504,6 +500,10 @@ body {
 }
 
 
+.red-button {
+  background-color: red;
+  color: white;
+}
 
 
 

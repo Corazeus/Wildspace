@@ -9,55 +9,200 @@
     <link rel="stylesheet" href="{% static 'css/userdashboard.css' %}">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link rel="icon" type="image/x-icon" href="{% static 'images/WILLOGO.png' %}">
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.9/index.global.min.js"></script>
+    <link rel="stylesheet" href="{% static 'css/calendar.css' %}">
+    
+
 </head>
 
 <body>
     <div class="content">
         <div class="header">
-            <div >
+            <div>
                 <a href="{% url 'userprofile' %}">
                     <img src="{% static 'images/profile.png' %}" alt="Profile Icon" class="profile-icon" style="width: 32px; height: 32px; margin-right:60px">
                 </a>
-                
-                </a>
-                
-                 <img src="{% static 'images/WILLOGO.png' %}" alt="WIL LOGO" class="logo" style="margin-right:100px">
-                
+                <img src="{% static 'images/WILLOGO.png' %}" alt="WIL LOGO" class="logo" style="margin-right:100px">
             </div>
             <div class="mobile-buttons">
                 <h2><u> WILDSPACE DASHBOARD </u></h2>
-                
             </div>
         </div>
-            
-            <div class="buttonContainer">
-                <div class="area-container">
-                    <div class="button-overlay">
+        <div class="buttonContainer">
+            <div class="area-container">
+                <div class="button-overlay">
+                    <div class="mobile-buttons">
+                    </div>
+                    <div class="mobile-screen">
                         <div class="mobile-buttons">
                             <h2>FACILITY MAP</h2>
-                        </div>
-                        <div class="mobile-screen">
-                            <h5>LEGEND: <button class="button-green"><div class="right">Available</div></button> <br> <button class="button-red"><div class="right">Unavailable</div></button></h5>
-                        </div>
-                        <div class="image-container">
-                            <img src="{% static 'images/area.jpg' %}" alt="area" class="image-fit">
-                            <button class="area1-button" data-areaid="A1" onclick="showMessage('ARE YOU SURE YOU WANT TO BOOK THIS AREA?', this)">1/3</button>
-                            <button class="area2-button" data-areaid="A2" onclick="showMessage('ARE YOU SURE YOU WANT TO BOOK THIS AREA?', this)">0/2</button>
-                            <button class="area3-button" data-areaid="A3" onclick="showMessage('ARE YOU SURE YOU WANT TO BOOK THIS AREA?', this)">2/4</button>
-                            <button class="area4-button" data-areaid="A4" onclick="showMessage('ARE YOU SURE YOU WANT TO BOOK THIS AREA?', this)">2/3</button>
-                            <button class="area5-button" data-areaid="A5" onclick="showMessage('ARE YOU SURE YOU WANT TO BOOK THIS AREA?', this)">2/5</button>
+                            <div class="small-calendar-button" id="expand-calendar-button">📅</div>
+                            <div id="expanded-calendar"></div>
                         </div>
                     </div>
+                    <div class="image-container">
+                        
+                        <img src="{% static 'images/area.jpg' %}" alt="area" class="image-fit">
+                        {% for area in areas %}
+                        <button class="area-button seat {% if area.area_id == 'A1' %}areaA1-button{% elif area.area_id == 'A2' %}areaA2-button{% elif area.area_id == 'A3' %}areaA3-button{% elif area.area_id == 'A4' %}areaA4-button{% elif area.area_id == 'A5' %}areaA5-button{% endif %}" data-areaid="{{ area.area_id }}" data-availability="{{ area.booked_count }}/5" data-total="5">{{ area.booked_count }}/5</button>
+                        {% endfor %}
+                    </div>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <button type="button" class="button" id="check-booking-button">CHECK ACTIVE BOOKINGS</button>
+                    <br><br>
+                    <a href="{% url 'map' %}">
+                        <button type="submit" class="button">WALK-IN BOOKING</button>
+                    </a>
+                    <br>
                 </div>
-                <br>
-                <a href="walkindashboard"> <button type="submit" class="button">CHECK ACTIVE BOOKINGS</button></a><br>
-                <a href="{% url 'map' %}">
-                    <button type="submit" class="button">WALK-IN BOOKING</button>
-                </a>
-                
-               
             </div>
-    </div>
-</body>
+            <br>
+        </div>
+        <div class="popup-message" id="popupMessage">
+            <div class="message-content">
+                <h3 id="popupText"></h3>
+                <div class="button-container" id="buttonContainer">
+                    <button class="popup-button" id="confirmButton" onclick="handleConfirmButtonClick()">CONFIRM</button>
 
+
+                    <button class="popup-button" onclick="handleCancelButtonClick()">CANCEL</button>
+                </div>
+                <div class="reference-container" id="referenceContainer" style="display: none;"></div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="{% static 'js/user_dashboard.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        let bookingInfoData;
+        const checkBookingButton = document.getElementById('check-booking-button');
+        checkBookingButton.addEventListener('click', getBookingInfo);
+
+        function getBookingInfo() {
+            fetch('/get-reservebooking-info/')
+                .then(response => response.json())
+                .then(booking_info => {
+                    console.log('Received booking information:', booking_info);
+                    bookingInfoData = booking_info;
+                    
+                    const popupText = document.getElementById('popupText');
+                    popupText.innerHTML = `Reference Number: ${booking_info.reference_number}<br>Area ID: ${booking_info.area_id}<br>Date: ${booking_info.date}<br>Start Time: ${booking_info.start_time}<br>End Time: ${booking_info.end_time}`;
+
+                    
+                    showPopupMessage();
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+
+        function showPopupMessage() {
+            const popupMessage = document.getElementById('popupMessage');
+            popupMessage.style.display = 'block';
+        }
+
+        function hideMessage() {
+            const popupMessage = document.getElementById('popupMessage');
+            popupMessage.style.display = 'none';
+        }
+
+        function handleConfirmButtonClick() {
+            
+            if (bookingInfoData) {
+                const popupText = document.getElementById('popupText');
+                const referenceContainer = document.getElementById('referenceContainer');
+                
+                
+                const buttonContainer = document.getElementById('buttonContainer');
+                buttonContainer.style.display = 'none';
+        
+                
+                referenceContainer.style.display = 'block';
+                referenceContainer.textContent = `REFERENCE #: ${bookingInfoData.reference_number}`;
+                const paragraph = document.createElement('p');
+                paragraph.textContent = 'Please go to the front desk and present your reference number to confirm your booking.';
+                referenceContainer.appendChild(paragraph);
+                
+                popupText.style.display = 'none';
+        
+                
+                showPopupMessage();
+            }
+        }
+        
+        
+
+        function handleCancelButtonClick() {
+            hideMessage(); 
+        }
+        
+        document.addEventListener('DOMContentLoaded', function () {
+            const smallCalendarButton = document.getElementById('expand-calendar-button');
+            const expandedCalendar = document.getElementById('expanded-calendar');
+        
+            const calendar = new FullCalendar.Calendar(expandedCalendar, {
+                initialView: 'dayGridMonth',
+                events: '/get-calendar-data/',
+                eventClick: function (info) {
+                    const areaId = info.event.title;
+                    const date = info.event.start.toLocaleDateString();  
+                    const startTime = formatTimeToAMPM(info.event.extendedProps.start_time);
+                    const endTime = formatTimeToAMPM(info.event.extendedProps.end_time);
+                
+                    Swal.fire({
+                        title: `${date}`,
+                        html: `Area ID: ${areaId}`,
+                        icon: 'info',
+                        showCancelButton: false,
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: 'OK'
+                    });
+                },
+                
+                
+                
+                customButtons: {
+                    myCustomButton: {
+                        text: '',
+                        click: function () {
+                            calendar.today();
+                        },
+                    },
+                },
+                headerToolbar: {
+                    start: 'title',
+                    center: '',
+                    end: 'prev,next,myCustomButton',
+                },
+                titleFormat: { month: 'short', year: 'numeric' },
+            });
+        
+            smallCalendarButton.addEventListener('click', function () {
+                if (expandedCalendar.style.display === 'none') {
+                    expandedCalendar.style.display = 'block';
+                    calendar.render();
+                } else {
+                    expandedCalendar.style.display = 'none';
+                }
+            });
+        
+            expandedCalendar.style.display = 'none';
+        });
+        
+        function formatTimeToAMPM(time) {
+            const [hours, minutes] = time.split(':');
+            const parsedHours = parseInt(hours, 10);
+            const ampm = parsedHours >= 12 ? 'PM' : 'AM';
+            const formattedHours = parsedHours % 12 || 12;
+            return `${formattedHours}:${minutes} ${ampm}`;
+        }
+    </script>
+    
+
+</body>
 </html>
+
