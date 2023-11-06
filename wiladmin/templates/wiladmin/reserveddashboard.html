@@ -18,7 +18,7 @@
     <div class="main">
         <div class="header">
             <a href="dashboard"><img src="{% static 'images/WILLOGO.png' %}" alt="WIL LOGO" class="logo" height="50px"></a>
-            <h1> WALK-IN DASHBOARD <h2>
+            <h1> RESERVED DASHBOARD <h2>
         </div>
 
         <div class="bookingContainer">
@@ -35,9 +35,9 @@
                 
                 {% for bookings in bookings %}
                     <tr>
-                        <td>{{ bookings.referenceid }}</td>
-                        <td>{{ bookings.userid }}</td>
-                        <td>{{ bookings.schedule }}</td>
+                        <td>{{ bookings.reference_number }}</td>
+                        <td>{{ bookings.user_id }}</td>
+                        <td>{{ bookings.date }}</td>
 
                         {% if bookings.status == 'Pending' %}
 
@@ -45,7 +45,7 @@
 
                             <td class="actions">
 
-                                <form action="updatebooking/{{ bookings.bookingid }}" method="POST">
+                                <form action="updatereserved/{{ bookings.reserved_id }}" method="POST">
                                     {% csrf_token %}
                                     <input type="submit" value="Book" class="book">
                                 </form>
@@ -58,7 +58,7 @@
 
                             <td class="actions">
                                 
-                                <form action="deletebooking/{{ bookings.bookingid }}" method="POST">
+                                <form action="deletereserved/{{ bookings.reserved_id }}" method="POST">
                                     {% csrf_token %}
                                     <input type="submit" value="Logout" class="logout">
                                 </form>
@@ -74,7 +74,7 @@
 
                 <div class="features">
 
-                    <a href="reserveddashboard"><button type="button" class="return">Switch to Reserved</button></a>
+                    <a href="walkindashboard"><button type="button" class="return">Switch to Walkin</button></a>
                     <a href="logs"><button type="button" class="return">Proceed to Logs</button></a>
                 </div>
         </div>

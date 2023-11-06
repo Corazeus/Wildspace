@@ -13,7 +13,6 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.contrib import admin
 from django.urls import path
 from . import views
 
@@ -24,7 +23,12 @@ urlpatterns = [
     path('wiladmin/dashboard', views.AdminDashboardController.as_view(), name='admindashboard'),
     path('wiladmin/logs', views.AdminReportLogsController.as_view(), name='reportlogs'),
     path('wiladmin/walkindashboard', views.AdminWalkinDashboardController.as_view(), name='walkindashboard'),
+    path('wiladmin/reserveddashboard', views.AdminReservedDashboardController.as_view(), name='reserveddashboard'),
     path('wiladmin/updatebooking/<int:bookingid>', views.AdminWalkinDashboardController.as_view(), name='updatebooking'),
     path('wiladmin/deletebooking/<int:bookingid>', views.AdminWalkinDashboardController.as_view(), name='deletebooking'),
+    path('wiladmin/updatereserved/<int:reserved_id>', views.AdminReservedDashboardController.as_view(), name='updatereserved'),
+    path('wiladmin/deletereserved/<int:reserved_id>', views.AdminReservedDashboardController.as_view(), name='deletereserved'),
     path('wiladmin/bookguest', views.BookGuestController.as_view(), name='bookguest'),
+    path('wiladmin/workspaces', views.ViewWorkspacesController.as_view(), name='workspaces'),
+    path('wiladmin/workspaces/<str:areaid>', views.ViewWorkspacesController.as_view(), name='usersinarea'),
 ]

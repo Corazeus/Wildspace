@@ -35,7 +35,16 @@
                     <tr>
                         <td>{{ logs.referenceid }}</td>
                         <td>{{ logs.userid }}</td>
-                        <td>{{ logs.datetime }}</td>
+                        <td>
+                            <font color="green">Start: </font>{{ logs.starttime }}
+                            ||
+                            {% if logs.endtime == ""%}
+                            End:
+                            <font color="red">N/A</font>
+                            {% else %}
+                            <font color="red">End:</font> {{logs.endtime}}
+                            {% endif %}
+                        </td>
 
                         {% if logs.status == 'Logged Out' %}
 
@@ -54,7 +63,7 @@
                 </table>
 
                 <div class="features">
-                    <a href="walkindashboard"><button type="button" class="return">Return to Dashboard</button></a>
+                    <a href="dashboard"><button type="button" class="return">Return to Dashboard</button></a>
 
                     <form method="post">
                         {% csrf_token %}

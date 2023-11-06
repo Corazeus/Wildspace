@@ -76,20 +76,53 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-  function updateTimer() {
-      $.ajax({
+    if ("Notification" in window) {
+        if (Notification.permission !== "granted") {
+          Notification.requestPermission().then(function (permission) {
+            
+          });
+        }
+      }
+    function updateTimer() {
+        $.ajax({
           url: '{% url "get_timer_data" %}',
           dataType: 'json',
-          success: function(data) {
-              if (!data.session_ended) {
-                  var formattedTime = padNumber(data.minutes) + ':' + padNumber(data.seconds);
-                  $('#timer').text(formattedTime);
-              } else {
-                  $('#timer').text('00:00');
+          success: function (data) {
+            if (!data.session_ended) {
+              var formattedTime = padNumber(data.minutes) + ':' + padNumber(data.seconds);
+              $('#timer').text(formattedTime);
+              if (data.minutes === 0 && data.seconds === 0) {
+                
+                showNotification("WILDSPACE", "Your time has ended!");
               }
+            } else {
+              $('#timer').text('00:00');
+            }
           }
-      });
-  }
+        });
+      }
+      function showNotification(title, body) {
+        if (Notification.permission === "granted") {
+          var options = {
+            body: body,
+          };
+      
+          var notification = new Notification(title, options);
+      
+        
+          notification.onclick = function () {
+            
+            notification.close();
+          };
+        }
+      }
+      
+
+
+      
+      
+      
+      
   
   function padNumber(number) {
       return number.toString().padStart(2, '0');
@@ -204,6 +237,11 @@ function getCookie(name) {
   document.querySelector('.end-button').addEventListener('click', function() {
     showConfirmationDialog();
   });
+
+
+  
+
+  
   </script>
 
 </body>

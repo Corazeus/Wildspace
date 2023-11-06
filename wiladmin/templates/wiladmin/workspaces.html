@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+
+{% load static %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workspaces</title>
+    <link rel="stylesheet" href="{% static 'css/workspaces.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="icon" type="image/x-icon" href="{% static 'images/WILLOGO.png' %}">
+</head>
+
+<body>
+    <div class="content">
+        <div class="header">
+            <a href="dashboard"><img src="{% static 'images/WILLOGO.png' %}" alt="WIL LOGO" class="logo"></a>
+            <h1> WORKSPACES </h1>
+        </div>
+
+        <div class="facility-map">
+            <img src="{% static 'images/area.jpg' %}" alt="areas" class="facility-areas">
+
+            {% for area_count in area_count %}
+
+            <form method="POST" action="workspaces/A1">
+                {% csrf_token %}
+              <input type="submit" class="areaA1-button" value={{area_count.countA1}}/5>
+            </form> 
+
+            <form method="POST" action="workspaces/A2">
+                {% csrf_token %}
+              <input type="submit" class="areaA2-button" value={{area_count.countA2}}/5>
+            </form>
+
+            <form method="POST" action="workspaces/A3">
+                {% csrf_token %}
+              <input type="submit" class="areaA3-button" value={{area_count.countA3}}/5>
+            </form> 
+
+            <form method="POST" action="workspaces/A4">
+                {% csrf_token %}
+              <input type="submit" class="areaA4-button" value={{area_count.countA4}}/5>
+            </form> 
+
+            <form method="POST" action="workspaces/A5">
+                {% csrf_token %}
+              <input type="submit" class="areaA5-button" value={{area_count.countA5}}/5>
+            </form> 
+
+            {% endfor %}
+            <br>
+            <a href="dashboard">
+                <button type="submit" class="button">RETURN TO DASHBOARD</button>
+            </a>
+        </div>
+
+            <table>
+
+                <tr>
+                    <th colspan="3">Users in: {{ area_id }}</th>
+                </tr>
+
+                {% if area != NONE %}
+                {% for area in area %}
+                <tr>
+                    <td>{{ area.userid }}</td>
+                    <td>{{ area.schedule }}</td>
+                    <td>{{ area.referenceid }}</td>
+                </tr>
+                {% endfor %}
+
+                {% else %}
+
+                <tr>
+                    <td> Select Area </td>
+                </tr>
+
+                {% endif %}
+            </table>
+    </div>
+
+    <script>
+       
+        function updateAvailability(buttonElement) {
+            const availability = parseInt(buttonElement.getAttribute("data-availability"));
+            const totalSeats = parseInt(buttonElement.getAttribute("data-total"));
+            const maxSeats = 5;
+
+            if (availability < maxSeats) {
+                return availability + 1;
+            } else {
+                return availability;
+            }
+        }
+
+        function updateBookingInfo() {
+            fetch('/get-booking-info/')
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Data received:', data);
+                    for (const areaId in data) {
+                        const buttonElement = document.querySelector(`[data-areaid="${areaId}"]`);
+                        if (buttonElement) {
+                            console.log('Updating button:', buttonElement);
+                            buttonElement.setAttribute('data-availability', data[areaId]);
+                            buttonElement.textContent = `${data[areaId]}/5`;
+
+                            if (data[areaId] === 5) {
+                                buttonElement.style.backgroundColor = 'red';
+                                buttonElement.style.color = 'white';
+                            } else {
+                                buttonElement.style.backgroundColor = '';
+                                buttonElement.style.color = '';
+                            }
+                        }
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+
+        setInterval(updateBookingInfo, 3000);
+
+        window.onload = updateBookingInfo;
+        
+    </script>
+</body>
+
+</html>
+
