@@ -1,14 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 body{
-  font-family: "Farfetch Basis", "Helvetica Neue", Arial, sans-serif;
+  font-family: 'Poppins', sans-serif;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 90vh;
   background-color: #ffffff;
-  font-family: "Farfetch Basis", "Helvetica Neue", Arial, sans-serif;
+  font-family: 'Poppins', sans-serif;
 }
 .area-container {
   width: 300px;
+  font-family: 'Poppins', sans-serif;
   height: 360px;
   background-color: #a5a5a5;
   margin: 0 auto;
@@ -19,6 +21,7 @@ body{
 }
 .arealocation-container {
   width: 300px;
+  font-family: 'Poppins', sans-serif;
   height: 305px;
   background-color: #a5a5a5;
   margin: 0 auto;
@@ -30,6 +33,7 @@ body{
 .reminders-container {
   width: 300px;
   height: 190px;
+  font-family: 'Poppins', sans-serif;
   background-color: #D9D9D9;
   margin: 0 auto;
   padding: 15px;
@@ -40,6 +44,7 @@ body{
 }
 .name-container {
   width: 250px;
+  font-family: 'Poppins', sans-serif;
   height: 50px;
   background-color: #2C3E50;
   margin-right: 20px;
@@ -52,6 +57,7 @@ body{
 .left-button{
   position:absolute;
   top: 6%;
+  font-family: 'Poppins', sans-serif;
   left: 10%;
   transform: translate(-50%, -50%);
   background-color: transparent;
@@ -68,6 +74,7 @@ body{
 .time-container {
   width: 270px;
   height: 50px;
+  font-family: 'Poppins', sans-serif;
   background-color: #D9D9D9;
   margin: 0 auto ;
   margin-top: 20px;
@@ -82,6 +89,7 @@ body{
 
   width: 300px;
   height: 170px;
+  font-family: 'Poppins', sans-serif;
   background-color: #FFFFFF;
   margin: 0 auto;
   padding: 10px;
@@ -91,19 +99,28 @@ body{
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   line-height: 2px;
 }
-.image-fit {
-  max-width: 100%;
-  max-height: 100%;
-  width: auto;
-  height: auto;
+.image-container {
+  position: relative;
+  width: 300px; /* Set width for the container, adjust as needed */
+  height: 150px; /* Set height for the container, adjust as needed */
+  overflow: hidden; /* Hide the overflow content */
   border-radius: 20px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   border: 2px solid #000000;
 }
+
+.image-fit {
+  width: 100%; /* Initial width */
+  height: auto;
+  transition: transform 0.3s ease-in-out; /* Smooth transition on size change */
+  transform-origin: top left; /* Set the origin for transform to top left */
+}
+
 .pin1-fit {
   max-width: 15%;
   max-height: 15%;
   width: auto;
+  font-family: 'Poppins', sans-serif;
   height: auto;
   position: absolute;
   top: 10%;
@@ -117,6 +134,7 @@ body{
   background-color: #D9D9D9;
   margin: 0 auto;
   line-height:14px;
+  font-family: 'Poppins', sans-serif;
   padding-left: 20px;
   padding-right: 20px;
   padding-bottom: 20px;
@@ -127,6 +145,7 @@ body{
 .location-container {
   width: 320px;
   height: 240px;
+  font-family: 'Poppins', sans-serif;
   background-color: #D9D9D9;
   margin: 0 auto;
   margin-top: 6px;
@@ -139,11 +158,13 @@ body{
 .mobile-buttons {
   margin-top: 20px;
   text-align: center;
+  font-family: 'Poppins', sans-serif;
 
 }
 
 .button-container {
   width: 100%;
+  font-family: 'Poppins', sans-serif;
   display: flex;
   justify-content: space-around;
 }
@@ -152,6 +173,7 @@ body{
   width: 10px;
   height: 10px;
   position:absolute;
+  font-family: 'Poppins', sans-serif;
   background-color: #83CD56;
   border: 1px solid #000000;
   border-radius: 50%;
@@ -164,6 +186,7 @@ body{
   height: 10px;
   left:5%;
   position:absolute;
+  font-family: 'Poppins', sans-serif;
   background-color: #FF0000;
   border: 1px solid #000000;
   border-radius: 50%;
@@ -177,71 +200,140 @@ body{
 }
 .image-container {
   position: relative;
+  
 }
 
 .areaA1-button {
   position: absolute;
-  top: 20%;
-  left: 27%;
+  top: 25%;
+  left: 10%;
   transform: translate(-50%, -50%);
   background-color: #83CD56;
+  font-family: 'Poppins', sans-serif;
+  font-size: 7px;
   border: 1px solid #000000;
-  border-radius: 50%;
-  width: 30px;
-  height: 25px;
+  border-radius: 0%;
+  width: 25px;
+  height: 13px;
   cursor: pointer;
 }
 
 .areaA2-button {
   position: absolute;
-  top: 38%;
-  left: 80%;
+  top: 25%;
+  left: 28%;
+  font-family: 'Poppins', sans-serif;
   transform: translate(-50%, -50%);
   background-color: #83CD56;
   border: 1px solid #000000;
-  border-radius: 50%;
-  width: 30px;
-  height: 25px;
+  font-size: 7px;
+  border-radius: 0%;
+  width: 25px;
+  height: 13px;
   cursor: pointer;
 }
 .areaA3-button {
   position: absolute;
-  top: 52%;
-  left: 64%;
+  top: 35%;
+  left: 76%;
   transform: translate(-50%, -50%);
   background-color: #83CD56;
+  font-family: 'Poppins', sans-serif;
   border: 1px solid #000000;
-  border-radius: 50%;
-  width: 30px;
-  height: 25px;
+  font-size: 7px;
+  border-radius: 0%;
+  width: 25px;
+  height: 13px;
   cursor: pointer;
 }
 .areaA4-button {
   position: absolute;
-  top: 74%;
-  left: 74%;
+  top: 35%;
+  left: 88%;
   transform: translate(-50%, -50%);
   background-color: #83CD56;
+  font-family: 'Poppins', sans-serif;
   border: 1px solid #000000;
-  border-radius: 50%;
-  width: 30px;
-  height: 25px;
+  font-size: 7px;
+  border-radius: 0%;
+  width: 25px;
+  height: 13px;
   cursor: pointer;
 }
 .areaA5-button {
   position: absolute;
-  top: 74%;
-  left: 44%;
+  top: 60%;
+  left: 76%;
   transform: translate(-50%, -50%);
   background-color: #83CD56;
   border: 1px solid #000000;
-  border-radius: 50%;
-  width: 30px;
-  height: 25px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 7px;
+  border-radius: 0%;
+  width: 25px;
+  height: 13px;
   cursor: pointer;
 }
+.areaA6-button {
+  position: absolute;
+  top: 60%;
+  left: 88%;
+  transform: translate(-50%, -50%);
+  background-color: #83CD56;
+  border: 1px solid #000000;
+  font-family: 'Poppins', sans-serif;
+  font-size: 7px;
+  border-radius: 0%;
+  width: 25px;
+  height: 13px;
+  cursor: pointer;
+}
+.areaA7-button {
+  position: absolute;
+  top: 75%;
+  left: 32%;
+  transform: translate(-50%, -50%);
+  background-color: #83CD56;
+  border: 1px solid #000000;
+  font-family: 'Poppins', sans-serif;
+  font-size: 7px;
+  border-radius: 0%;
+  width: 25px;
+  height: 13px;
+  cursor: pointer;
+}
+.areaA8-button {
+  position: absolute;
+  top: 88%;
+  left: 77%;
+  transform: translate(-50%, -50%);
+  background-color: #83CD56;
+  border: 1px solid #000000;
+  font-family: 'Poppins', sans-serif;
+  font-size: 6px;
+  border-radius: 0%;
+  width: 23px;
+  height: 11px;
+  cursor: pointer;
+}
+.areaA9-button {
+  position: absolute;
+  top: 88%;
+  left: 88%;
+  transform: translate(-50%, -50%);
+  background-color: #83CD56;
+  border: 1px solid #000000;
+  font-family: 'Poppins', sans-serif;
+  font-size: 6px;
+  border-radius: 0%;
+  width: 23px;
+  height: 11px;
+  cursor: pointer;
+}
+
 .message-content {
         text-align: center;
+        font-family: 'Poppins', sans-serif;
         font-size : 20px;
 
     }
@@ -253,6 +345,7 @@ body{
         padding: 20px 20;
         height:30px;
         width:30px;
+        font-family: 'Poppins', sans-serif;
         color: white;
         background-color: #000000;
         width: 50px;
@@ -264,6 +357,7 @@ body{
   height:200px;
   width: 80%;
   display: none;
+  font-family: 'Poppins', sans-serif;
   position: fixed;
   top: 50%;
   left: 50%;
@@ -284,6 +378,7 @@ body{
         border-radius:10px;
 
         font-weight:bold;
+        font-family: 'Poppins', sans-serif;
         color: black;
         font-size: 20px;
         background-color: #A5A5A5;}
@@ -292,6 +387,7 @@ body{
         width: 300px;
         height: 60px;
         margin-top: 20px;
+        font-family: 'Poppins', sans-serif;
         border-radius:10px;
         color: white;
         font-size: 20px;
@@ -306,7 +402,7 @@ body{
   transform: translate(-50%, -50%);
   background-color: transparent;
   border: none;
-  font-family: "Font Awesome 5 Free";
+  font-family: 'Poppins', sans-serif;
   font-weight: 1000;
   font-size: 35px;
   color: #FF0000;
@@ -318,7 +414,7 @@ body{
   transform: translate(-50%, -50%);
   background-color: transparent;
   border: none;
-  font-family: "Font Awesome 5 Free";
+  font-family: 'Poppins', sans-serif;
   font-weight: 1000;
   font-size: 35px;
   color: #FF0000;
@@ -330,7 +426,7 @@ body{
   transform: translate(-50%, -50%);
   background-color: transparent;
   border: none;
-  font-family: "Font Awesome 5 Free";
+  font-family: 'Poppins', sans-serif;
   font-weight: 1000;
   font-size: 35px;
   color: #FF0000;
@@ -342,7 +438,7 @@ body{
   transform: translate(-50%, -50%);
   background-color: transparent;
   border: none;
-  font-family: "Font Awesome 5 Free";
+  font-family: 'Poppins', sans-serif;
   font-weight: 1000;
   font-size: 35px;
   color: #FF0000;
@@ -354,7 +450,7 @@ body{
   transform: translate(-50%, -50%);
   background-color: transparent;
   border: none;
-  font-family: "Font Awesome 5 Free";
+  font-family: 'Poppins', sans-serif;
   font-weight: 1000;
   font-size: 35px;
   color: #FF0000;
@@ -372,6 +468,7 @@ body{
   transform: translate(-50%, -50%);
   background-color: #FECC00;
   border: 1px solid #000000;
+  font-family: 'Poppins', sans-serif;
   padding: 20px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   border-radius: 20px;
@@ -385,17 +482,20 @@ body{
   background-color: transparent;
   padding: 0px;
   text-align: center;
+  font-family: 'Poppins', sans-serif;
 }
 
 .message-box h2 {
   font-size: 30px;
   text-align: center;
   margin-bottom: 10px;
+  font-family: 'Poppins', sans-serif;
 }
 
 .confirmation-dialog {
   position: fixed;
   height:200px;
+  font-family: 'Poppins', sans-serif;
   width: 80%;
   top: 50%;
   left: 50%;
@@ -413,12 +513,14 @@ body{
   font-size: 30px;
   text-align: center;
   margin-bottom: 10px;
+  font-family: 'Poppins', sans-serif;
 }
 
 .confirmation-dialog p {
   font-size: 16px;
   text-align: center;
   margin-bottom: 20px;
+  font-family: 'Poppins', sans-serif;
 }
 
 .button-container {
@@ -432,6 +534,7 @@ body{
   color: white;
   border: none;
   padding: 10px 20px;
+  font-family: 'Poppins', sans-serif;
   font-size: 20px;
   border-radius: 10px;
   cursor: pointer;
@@ -442,6 +545,7 @@ body{
   position: fixed;
   top: 0;
   left: 0;
+  font-family: 'Poppins', sans-serif;
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
@@ -452,6 +556,7 @@ body{
 .login-container {
     text-align: center;
     background-color: transparent;
+    font-family: 'Poppins', sans-serif;
     padding: 30px;
 }
 
@@ -459,16 +564,19 @@ body{
     font-size: 50px;
     font-weight: bold;
     margin-bottom: 70px;
+    font-family: 'Poppins', sans-serif;
 }
 
 .login-input {
     position: relative;
+    font-family: 'Poppins', sans-serif;
     margin-bottom: 15px;
 }
 
 .login-input i {
     position: absolute;
     top: 50%;
+    font-family: 'Poppins', sans-serif;
     left: 10px;
     transform: translateY(-50%);
     color: #000000;
@@ -479,6 +587,7 @@ body{
     width: 80%;
     height: 30px;
     padding: 10px 40px;
+    font-family: 'Poppins', sans-serif;
     padding-right: 10px;
     border: 2px solid #000000;
     border-radius: 5px;
@@ -493,6 +602,7 @@ body{
     background-color: #000000;
     color: white;
     border: none;
+    font-family: 'Poppins', sans-serif;
     border-radius: 10px;
     font-size: 20px;
     font-weight: bold;
@@ -502,6 +612,7 @@ body{
 
 .red-button {
   background-color: red;
+  font-family: 'Poppins', sans-serif;
   color: white;
 }
 

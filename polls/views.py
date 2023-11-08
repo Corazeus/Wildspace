@@ -56,10 +56,14 @@ def map(request):
     area_bookings = AssignedArea.objects.values('area_id').annotate(booked_count=models.Count('area_id'))
     
     areas = []
-    for area_id in ["A1", "A2", "A3", "A4", "A5"]:
-        area_data = next((item for item in area_bookings if item['area_id'] == area_id), {'booked_count': 0})
-        total_count = 5  
-        areas.append({'area_id': area_id, 'booked_count': area_data['booked_count'], 'total_count': total_count})
+    for area_id in ["A3", "A4", "A5", "A6", "A8", "A9", "A7"]:
+            if area_id == "A7":
+                total_count = 24 
+            else:
+                total_count = 6
+            area_data = next((item for item in area_bookings if item['area_id'] == area_id), {'booked_count': 0})
+            areas.append({'area_id': area_id, 'booked_count': area_data['booked_count'], 'total_count': total_count})
+
     
     if bookings != 0 and userbooks != 0:
         user = WalkinBookingModel.objects.get(userid=username)
@@ -99,10 +103,19 @@ def user_dashboard(request):
     area_bookings = AssignedArea.objects.values('area_id').annotate(booked_count=models.Count('area_id'))
     
     areas = []
-    for area_id in ["A1", "A2", "A3", "A4", "A5"]:
+    for area_id in ["A1", "A2", "A3", "A4", "A5", "A6", "A7", "A8", "A9"]:
+        if area_id == "A1" or area_id == "A2":
+            total_count = 1
+        elif area_id == "A7":
+            total_count = 24
+        else:
+            total_count = 6
+
         area_data = next((item for item in area_bookings if item['area_id'] == area_id), {'booked_count': 0})
-        total_count = 5
         areas.append({'area_id': area_id, 'booked_count': area_data['booked_count'], 'total_count': total_count})
+
+
+
     
     try:
         reservedbookingcount = Booking.objects.filter(user_id=request.user.username).count()
@@ -133,9 +146,9 @@ def user_dashboard(request):
             
     except Booking.DoesNotExist:
         areas = []
-        for area_id in ["A1", "A2", "A3", "A4", "A5"]:
+        for area_id in ["A1", "A2", "A3", "A4", "A5","A6"]:
             area_data = next((item for item in area_bookings if item['area_id'] == area_id), {'booked_count': 0})
-            total_count = 5
+            total_count = 6
             areas.append({'area_id': area_id, 'booked_count': area_data['booked_count'], 'total_count': total_count})
         
     return render(request, "wil/userdashboard.html", {'areas': areas})

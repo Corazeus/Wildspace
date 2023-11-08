@@ -1,5 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 .content {
-    font-family: "Farfetch Basis", "Helvetica Neue", Arial, sans-serif;
+    font-family: 'Poppins', sans-serif;
     max-width: fit-content;
     margin: auto;
 }
@@ -14,6 +15,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    font-family: 'Poppins', sans-serif;
     margin-bottom: auto;
 }
 
@@ -21,6 +23,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    font-family: 'Poppins', sans-serif;
 }
 
 .log {
@@ -35,7 +38,7 @@
     color: #fff;
     cursor: pointer;
     display: inline-block;
-    font-family: "Farfetch Basis", "Helvetica Neue", Arial, sans-serif;
+    font-family: 'Poppins', sans-serif;
     font-size: 16px;
     font-weight: 700;
     line-height: 1.5;
@@ -67,7 +70,7 @@
     color: #fff;
     cursor: pointer;
     display: inline-block;
-    font-family: "Farfetch Basis", "Helvetica Neue", Arial, sans-serif;
+    font-family: 'Poppins', sans-serif;
     font-size: 16px;
     font-weight: 700;
     line-height: 1.5;

@@ -85,7 +85,7 @@ class AdminReservedDashboardController(LoginRequiredMixin, View):
             booking.status = 'Booked'
             booking.save()
             
-            timer = Timer(user_id=booking.user_id, minutes=30, seconds=0)
+            timer = Timer(user_id=booking.user_id, minutes=60, seconds=0)
             timer.save()
             
             log = AdminReportLogsModel(referenceid=booking.reference_number, userid=booking.user_id, starttime=booking.start_time, endtime="", status='Booked')
