@@ -180,6 +180,10 @@ class ViewWorkspacesController(LoginRequiredMixin, View):
         countA3 = AssignedArea.objects.filter(area_id='A3').count()
         countA4 = AssignedArea.objects.filter(area_id='A4').count()
         countA5 = AssignedArea.objects.filter(area_id='A5').count()
+        countA6 = AssignedArea.objects.filter(area_id='A6').count()
+        countA7 = AssignedArea.objects.filter(area_id='A7').count()
+        countA8 = AssignedArea.objects.filter(area_id='A8').count()
+        countA9 = AssignedArea.objects.filter(area_id='A9').count()
         
         area_count = [{
             'countA1':countA1, 
@@ -187,6 +191,10 @@ class ViewWorkspacesController(LoginRequiredMixin, View):
             'countA3':countA3, 
             'countA4':countA4, 
             'countA5':countA5,
+            'countA6':countA6,
+            'countA7':countA7,
+            'countA8':countA8,
+            'countA9':countA9,
             }]
         return area_count
      
