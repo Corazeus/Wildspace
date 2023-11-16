@@ -24,12 +24,20 @@
                     </div>
                     
                     <div class="image-container">
-                        <img src="{% static 'images/area.jpg' %}" alt="area" class="image-fit">
+                        <img src="{% static 'images/area.png' %}" alt="area" class="image-fit">
                         
                         
                         {% for area in areas %}
-                            <button class="area-button seat {% if area.area_id == 'A1' %}areaA1-button{% elif area.area_id == 'A2' %}areaA2-button{% elif area.area_id == 'A3' %}areaA3-button{% elif area.area_id == 'A4' %}areaA4-button{% elif area.area_id == 'A5' %}areaA5-button{% endif %}" data-areaid="{{ area.area_id }}" data-availability="{{ area.booked_count }}/5" data-total="5">{{ area.booked_count }}/5</button>
-                        {% endfor %}
+                        <button class="area-button seat {% if area.area_id == 'A3' %}areaA3-button
+                        {% elif area.area_id == 'A4' %}areaA4-button
+                        {% elif area.area_id == 'A5' %}areaA5-button
+                        {% elif area.area_id == 'A6' %}areaA6-button
+                        {% elif area.area_id == 'A8' %}areaA8-button
+                        {% elif area.area_id == 'A9' %}areaA9-button
+                        {% elif area.area_id == 'A7' %}areaA7-button
+                        {% endif %}" data-areaid="{{ area.area_id }}" data-availability="{{ area.booked_count }}" data-total="{{ area.total_count }}">{{ area.booked_count }}/{{ area.total_count }}</button>
+                    {% endfor %}
+
 
 
                     </div>

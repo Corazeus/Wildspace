@@ -2,29 +2,33 @@
         
         function updateAvailability(buttonElement) {
             const availability = parseInt(buttonElement.getAttribute("data-availability"));
-            const totalSeats = parseInt(buttonElement.getAttribute("data-total")); 
-            const maxSeats = 5; 
-
-            if (availability < maxSeats) {
+            const totalSeats = parseInt(buttonElement.getAttribute("data-total"));
+        
+            if (availability < totalSeats) {
                 return availability + 1;
             } else {
                 return availability;
             }
         }
-
         
         function handleSeatButtonClick(buttonElement) {
             const availability = parseInt(buttonElement.getAttribute("data-availability"));
-            const maxSeats = 5; 
-
-            if (availability >= maxSeats) {
-                alert("You can only book a maximum of 5 seats in this area.");
+            const totalSeats = parseInt(buttonElement.getAttribute("data-total"));
+        
+            if (availability >= totalSeats) {
+                if (totalSeats === 6) {
+                    alert("You can only book a maximum of 6 seats in this area.");
+                } else if (totalSeats === 24) {
+                    alert("You can only book a maximum of 24 seats in this area.");
+                }
                 return;
             }
-
-            
+        
             showMessage('ARE YOU SURE YOU WANT TO BOOK THIS AREA?', buttonElement);
         }
+        
+        
+        
 
         
         function handleYesButtonClick(buttonElement) {
@@ -50,10 +54,10 @@
                         const buttonElement = document.querySelector(`[data-areaid="${areaId}"]`);
                         if (buttonElement) {
                             buttonElement.setAttribute('data-availability', data[areaId]);
-                            buttonElement.textContent = `${data[areaId]}/5`;
+                            buttonElement.textContent = `${data[areaId]}/${totalSeats}`;
         
                             
-                            if (data[areaId] === 5) {
+                            if (data[areaId] === 6) {
                                 buttonElement.style.backgroundColor = 'red';
                                 buttonElement.style.color = 'white';
                             } else {

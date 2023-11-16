@@ -11,23 +11,25 @@
 </head>
 <body>
 <a href="{% url 'location' %}" class="left-button"><i class="fas fa-arrow-left"></i></a>
+<div>
 <div class="name-container">
   <div>
     <h4>Welcome {{ user.username }}</h4>
   </div>
   <div class="button-overlay"></div>
-</div>
-
+</div>  
 <br>
 <div class="reminders-container">
-    <div class="button-overlay">
+    <div class="">
         <div class="mobile-buttons">
-            <h4 STYLE="text-align: left;">Reminders for WILDSPACE:</h4>
+          <h4 STYLE="text-align: left">Reminders for WILDSPACE:</h4>
         </div>
-        <h5>•Always be mindful of your surroundings and others around you.</h5>
-        <h5>•Stay on the area you are assigned to.</h5>
-        <h5>•Once your time is up, proceed to the front desk for end session confirmation.</h5>
-        <div class="image-container">
+        <ul style="font-size: 13.5px">
+          <li>Always be mindful of your surroundings and others around you.</li>
+          <li>Stay on the area you are assigned to.</li>
+          <li>Once your time is up, proceed to the front desk for end session confirmation.</li>
+        </ul>
+        <div class="">
         </div>
     </div>
 </div>
@@ -49,18 +51,13 @@
     </div>
     <br>
 
-
     <div class="time-container">
       <h4 id="timer">{{ timer_data.minutes }}:{{ timer_data.seconds|default:"00" }}</h4>
-  </div>
-  
-  
+    </div>
     <br>
     <br>
-    <br>
-    
     <button class="end-button">END SESSION</button>
-
+</div>
 </div>
 
 <div id="confirmation-dialog" class="confirmation-dialog">
@@ -118,12 +115,6 @@
       }
       
 
-
-      
-      
-      
-      
-  
   function padNumber(number) {
       return number.toString().padStart(2, '0');
   }

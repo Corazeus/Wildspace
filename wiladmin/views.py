@@ -34,7 +34,7 @@ class AdminDashboardController(LoginRequiredMixin, View):
     login_url = 'adminlogin'
     
     def get(self, request):
-        return render(request, "wiladmin/dashboard.html", {})
+        return render(request, "wiladmin/admindashboard.html", {})
 
 class AdminWalkinDashboardController(LoginRequiredMixin, View):
     
@@ -85,7 +85,7 @@ class AdminReservedDashboardController(LoginRequiredMixin, View):
             booking.status = 'Booked'
             booking.save()
             
-            timer = Timer(user_id=booking.user_id, minutes=30, seconds=0)
+            timer = Timer(user_id=booking.user_id, minutes=60, seconds=0)
             timer.save()
             
             log = AdminReportLogsModel(referenceid=booking.reference_number, userid=booking.user_id, starttime=booking.start_time, endtime="", status='Booked')
@@ -180,6 +180,10 @@ class ViewWorkspacesController(LoginRequiredMixin, View):
         countA3 = AssignedArea.objects.filter(area_id='A3').count()
         countA4 = AssignedArea.objects.filter(area_id='A4').count()
         countA5 = AssignedArea.objects.filter(area_id='A5').count()
+        countA6 = AssignedArea.objects.filter(area_id='A6').count()
+        countA7 = AssignedArea.objects.filter(area_id='A7').count()
+        countA8 = AssignedArea.objects.filter(area_id='A8').count()
+        countA9 = AssignedArea.objects.filter(area_id='A9').count()
         
         area_count = [{
             'countA1':countA1, 
@@ -187,6 +191,10 @@ class ViewWorkspacesController(LoginRequiredMixin, View):
             'countA3':countA3, 
             'countA4':countA4, 
             'countA5':countA5,
+            'countA6':countA6,
+            'countA7':countA7,
+            'countA8':countA8,
+            'countA9':countA9,
             }]
         return area_count
      
@@ -200,8 +208,7 @@ class ViewWorkspacesController(LoginRequiredMixin, View):
         area_count = self.GetAreaCount
         area = WalkinBookingModel.objects.filter(referenceid__contains=areaid) #and Booking.objects.filter(reference_number__contains=areaid)
         return render(request, 'wiladmin/workspaces.html', {'area':area, 'area_count':area_count, 'area_id':areaid})
-
+        
 def handleLogout(request):
         logout(request)
         return redirect('adminlogin')
-    
