@@ -19,7 +19,7 @@
         <div class="header">
             <div >
                 <a href="{% url 'userprofile' %}">
-                    <img src="{% static 'images/profile.png' %}" alt="Profile Icon" class="profile-icon" style="width: 32px; height: 32px; margin-right:60px">
+                    <img src="{% static 'images/profile.png' %}" alt="Profile Icon" class="profile-icon" style="width: 50px; height: 50px; margin-right:46px; position: relative; right: 20px;">
                 </a>
                 
                 </a>
@@ -39,7 +39,7 @@
 
             <div class="image-container">
 
-                <img src="{% static 'images/area.jpg' %}" alt="area" class="image-fit"/>
+                <img src="{% static 'images/area.png' %}" alt="area" class="image-fit"/>
                 {% if area_id == "A1" %}
                 <button class="areaA1-button"><i class="fas fa-map-marker-alt"></i></button>
                 {% elif area_id == "A2" %}
@@ -50,6 +50,14 @@
                 <button class="areaA4-button"><i class="fas fa-map-marker-alt"></i></button>
                 {% elif area_id == "A5" %}
                 <button class="areaA5-button"><i class="fas fa-map-marker-alt"></i></button>
+                {% elif area_id == "A6" %}
+                <button class="areaA6-button"><i class="fas fa-map-marker-alt"></i></button>
+                {% elif area_id == "A7" %}
+                <button class="areaA7-button"><i class="fas fa-map-marker-alt"></i></button>
+                {% elif area_id == "A8" %}
+                <button class="areaA8-button"><i class="fas fa-map-marker-alt"></i></button>
+                {% elif area_id == "A9" %}
+                <button class="areaA9-button"><i class="fas fa-map-marker-alt"></i></button>
                 {% endif %}
             </div>
         </div>
@@ -65,10 +73,10 @@
             <h5>GUIDELINES</h5>
 
             <div>
-                 <h3>TIME MONITORING</h3>
-                <h5>1. Once your walk-in booking has been confirmed, you are automatically credited time</h5>
-                <h5>2. Use the facility map to locate your area.</h5>
-                <h5>3. To view your running time, click the time monitoring button </h5>
+                 <h2>TIME MONITORING</h2>
+                <p>1. Once your walk-in booking has been confirmed, you are automatically credited time</p>
+                <p>2. Use the facility map to locate your area.</p>
+                <p>3. To view your running time, click the time monitoring button </p>
                 <br>
                 <button class="time-button">TIME MONITORING</button>
             </div>
