@@ -66,75 +66,140 @@
 } 
 
 .facility-areas {
-    width: 750px;
-    height: 500px;
+    width: 100%;
     object-fit: fill;
 }
 
 .areaA1-button {
     position: absolute;
-    top: 20%;
-    left: 27%;
+    top: 26.3%;
+    left: 13%;
+    font-family: 'Poppins', sans-serif;
     transform: translate(-50%, -50%);
     background-color: #83CD56;
     border: 1px solid #000000;
-    border-radius: 50%;
-    width: 30px;
+    font-size: 12px;
+    border-radius: 0%;
+    width: 60px;
     height: 25px;
     cursor: pointer;
-}
-
-.areaA2-button {
+  }
+  
+  .areaA2-button {
     position: absolute;
-    top: 38%;
-    left: 80%;
+    top: 26.3%;
+    left: 29.5%;
+    font-family: 'Poppins', sans-serif;
     transform: translate(-50%, -50%);
     background-color: #83CD56;
     border: 1px solid #000000;
-    border-radius: 50%;
-    width: 30px;
+    font-size: 12px;
+    border-radius: 0%;
+    width: 60px;
     height: 25px;
     cursor: pointer;
-}
+  }
 
-.areaA3-button {
+  .areaA3-button {
     position: absolute;
-    top: 52%;
-    left: 64%;
-    transform: translate(-50%, -50%);
-    background-color: #83CD56;
-    border: 1px solid #000000;
-    border-radius: 50%;
-    width: 30px;
-    height: 25px;
-    cursor: pointer;
-}
-
-.areaA4-button {
-    position: absolute;
-    top: 74%;
+    top: 33%;
     left: 74%;
+    font-family: 'Poppins', sans-serif;
     transform: translate(-50%, -50%);
     background-color: #83CD56;
     border: 1px solid #000000;
-    border-radius: 50%;
-    width: 30px;
+    font-size: 12px;
+    border-radius: 0%;
+    width: 60px;
     height: 25px;
     cursor: pointer;
-}
-
-.areaA5-button {
+  }
+  
+  .areaA4-button {
     position: absolute;
-    top: 74%;
-    left: 44%;
+    top: 33%;
+    left: 86%;
+    font-family: 'Poppins', sans-serif;
     transform: translate(-50%, -50%);
     background-color: #83CD56;
     border: 1px solid #000000;
-    border-radius: 50%;
-    width: 30px;
+    font-size: 12px;
+    border-radius: 0%;
+    width: 60px;
     height: 25px;
     cursor: pointer;
-}
+  }
+  .areaA5-button {
+    position: absolute;
+    top: 53%;
+    left: 74%;
+    font-family: 'Poppins', sans-serif;
+    transform: translate(-50%, -50%);
+    background-color: #83CD56;
+    border: 1px solid #000000;
+    font-size: 12px;
+    border-radius: 0%;
+    width: 60px;
+    height: 25px;
+    cursor: pointer;
+  }
+  .areaA6-button {
+    position: absolute;
+    top: 53%;
+    left: 86%;
+    font-family: 'Poppins', sans-serif;
+    transform: translate(-50%, -50%);
+    background-color: #83CD56;
+    border: 1px solid #000000;
+    font-size: 12px;
+    border-radius: 0%;
+    width: 60px;
+    height: 25px;
+    cursor: pointer;
+  }
+  .areaA7-button {
+    position: absolute;
+    top: 65%;
+    left: 33%;
+    font-family: 'Poppins', sans-serif;
+    transform: translate(-50%, -50%);
+    background-color: #83CD56;
+    border: 1px solid #000000;
+    font-size: 12px;
+    border-radius: 0%;
+    width: 65px;
+    height: 25px;
+    cursor: pointer;
+  }
+  
+  .areaA8-button {
+    position: absolute;
+    top: 75%;
+    left: 75%;
+    font-family: 'Poppins', sans-serif;
+    transform: translate(-50%, -50%);
+    background-color: #83CD56;
+    border: 1px solid #000000;
+    font-size: 12px;
+    border-radius: 0%;
+    width: 45px;
+    height: 25px;
+    cursor: pointer;
+  }
+  .areaA9-button {
+    position: absolute;
+    top: 75%;
+    left: 85.7%;
+    font-family: 'Poppins', sans-serif;
+    transform: translate(-50%, -50%);
+    background-color: #83CD56;
+    border: 1px solid #000000;
+    font-size: 12px;
+    border-radius: 0%;
+    width: 45px;
+    height: 25px;
+    cursor: pointer;
+  }
 
 
 table {
