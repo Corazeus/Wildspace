@@ -23,13 +23,13 @@
             <td>{{ logs.referenceid }}</td>
             <td>{{ logs.userid }}</td>
             <td>
-              <font color="green">Start: </font>{{ logs.starttime }} || {% if
-              logs.endtime == ""%} End:
+              <font color="green">Start:</font>{{ logs.starttime }} ||
+
+              {% if logs.endtime == ""%} End:
               <font color="red">N/A</font>
-
               {% else %}
-
-              <font color="red">End:</font> {{logs.endtime}} {% endif %}
+              <font color="red">End:</font> {{logs.endtime}}
+              {% endif %}
             </td>
 
             {% if logs.status == 'Logged Out' %}
