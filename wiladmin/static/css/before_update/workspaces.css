@@ -1,76 +1,21 @@
-#page-content-wrapper {
-  background: url("../images/basebg.jpg") no-repeat;
-  background-size: cover;
-  /* Add any other styles you need for #page-content-wrapper */
-}
-
-/* Add styles for links */
-.sidebar-link {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 10px 20px;
-  margin-bottom: 10px;
-  border-radius: 5px;
-  transition: background-color 0.3s ease;
-}
-
-.list-group-item.active-link {
-  background-color: #faca04;
-  color: #000000;
-}
-
-.list-group-item:hover {
-  /* Define styles for hover state */
-  background-color: #f0f0f0;
-  color: #000000;
-}
-
-.content-container {
-  margin-top: 2%;
-  text-align: center;
-  color: white;
-  backdrop-filter: blur(2px);
-}
-
-.my-custom-scrollbar {
-  margin-top: 5px;
-  position: absolute;
-  left: 72%;
-  bottom: 63%;
-  width: 25%;
-  height: 200px;
-  overflow: auto;
-}
-
-.table-wrapper-scroll-y {
-  display: block;
-}
-
-table {
-  background-color: white;
-}
-
-td,
-th {
-  border: 1px solid #dddddd;
-  text-align: left;
-  padding: 4px;
-}
-
-.actions {
-  width: 100px;
-}
-
-tr:nth-child(even) {
-  background-color: #f9f9f9;
-}
-
 .content {
   font-family: "Farfetch Basis", "Helvetica Neue", Arial, sans-serif;
   max-width: fit-content;
+  margin: auto;
   display: flex;
   flex-direction: column;
+}
+
+.logo {
+  height: 150px;
+  width: 150px;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: -25px;
 }
 
 .button {
@@ -108,17 +53,16 @@ tr:nth-child(even) {
 }
 
 .facility-map {
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: #a5a5a5;
   width: fit-content;
   height: fit-content;
   align-items: center;
   display: flex;
   justify-content: center;
   flex-direction: column;
-  border-radius: 5px;
+  padding: 43px;
+  border-radius: 30px;
   position: relative;
-  box-shadow: #000000;
-  margin-left: 50px;
 }
 
 .facility-areas {
@@ -128,8 +72,8 @@ tr:nth-child(even) {
 
 .areaA1-button {
   position: absolute;
-  top: 23%;
-  left: 9%;
+  top: 26.3%;
+  left: 13%;
   font-family: "Poppins", sans-serif;
   transform: translate(-50%, -50%);
   background-color: #83cd56;
@@ -143,8 +87,8 @@ tr:nth-child(even) {
 
 .areaA2-button {
   position: absolute;
-  top: 23%;
-  left: 27.2%;
+  top: 26.3%;
+  left: 29.5%;
   font-family: "Poppins", sans-serif;
   transform: translate(-50%, -50%);
   background-color: #83cd56;
@@ -158,8 +102,8 @@ tr:nth-child(even) {
 
 .areaA3-button {
   position: absolute;
-  top: 32%;
-  left: 77%;
+  top: 33%;
+  left: 74%;
   font-family: "Poppins", sans-serif;
   transform: translate(-50%, -50%);
   background-color: #83cd56;
@@ -173,8 +117,8 @@ tr:nth-child(even) {
 
 .areaA4-button {
   position: absolute;
-  top: 32%;
-  left: 91%;
+  top: 33%;
+  left: 86%;
   font-family: "Poppins", sans-serif;
   transform: translate(-50%, -50%);
   background-color: #83cd56;
@@ -188,8 +132,8 @@ tr:nth-child(even) {
 
 .areaA5-button {
   position: absolute;
-  top: 59%;
-  left: 77%;
+  top: 53%;
+  left: 74%;
   font-family: "Poppins", sans-serif;
   transform: translate(-50%, -50%);
   background-color: #83cd56;
@@ -203,8 +147,8 @@ tr:nth-child(even) {
 
 .areaA6-button {
   position: absolute;
-  top: 59%;
-  left: 91%;
+  top: 53%;
+  left: 86%;
   font-family: "Poppins", sans-serif;
   transform: translate(-50%, -50%);
   background-color: #83cd56;
@@ -218,8 +162,8 @@ tr:nth-child(even) {
 
 .areaA7-button {
   position: absolute;
-  top: 76%;
-  left: 31%;
+  top: 65%;
+  left: 33%;
   font-family: "Poppins", sans-serif;
   transform: translate(-50%, -50%);
   background-color: #83cd56;
@@ -233,8 +177,8 @@ tr:nth-child(even) {
 
 .areaA8-button {
   position: absolute;
-  top: 89%;
-  left: 78%;
+  top: 75%;
+  left: 75%;
   font-family: "Poppins", sans-serif;
   transform: translate(-50%, -50%);
   background-color: #83cd56;
@@ -248,8 +192,8 @@ tr:nth-child(even) {
 
 .areaA9-button {
   position: absolute;
-  top: 89%;
-  left: 90%;
+  top: 75%;
+  left: 85.7%;
   font-family: "Poppins", sans-serif;
   transform: translate(-50%, -50%);
   background-color: #83cd56;
@@ -259,4 +203,30 @@ tr:nth-child(even) {
   width: 45px;
   height: 25px;
   cursor: pointer;
+}
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 80%;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+caption {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+td,
+th {
+  border: 1px solid #dddddd;
+  text-align: center;
+  padding: 7px;
+}
+
+tr:nth-child(even) {
+  background-color: #f9f9f9;
 }

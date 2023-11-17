@@ -20,8 +20,8 @@ urlpatterns = [
     path('wiladmin/', views.AdminLoginController.as_view(), name='index'),
     path('wiladmin/login', views.AdminLoginController.as_view(), name='adminlogin'),
     path('wiladmin/logout', views.handleLogout, name='adminlogout'),
-    path('wiladmin/dashboard', views.AdminDashboardController.as_view(), name='admindashboard'),
-    path('wiladmin/logs', views.AdminReportLogsController.as_view(), name='reportlogs'),
+    path('wiladmin/admindashboard', views.AdminDashboardController.as_view(), name='admindashboard'),
+    path('wiladmin/reportlogs', views.AdminReportLogsController.as_view(), name='reportlogs'),
     path('wiladmin/walkindashboard', views.AdminWalkinDashboardController.as_view(), name='walkindashboard'),
     path('wiladmin/reserveddashboard', views.AdminReservedDashboardController.as_view(), name='reserveddashboard'),
     path('wiladmin/updatebooking/<int:bookingid>', views.AdminWalkinDashboardController.as_view(), name='updatebooking'),
@@ -31,4 +31,6 @@ urlpatterns = [
     path('wiladmin/bookguest', views.BookGuestController.as_view(), name='bookguest'),
     path('wiladmin/workspaces', views.ViewWorkspacesController.as_view(), name='workspaces'),
     path('wiladmin/workspaces/<str:areaid>', views.ViewWorkspacesController.as_view(), name='usersinarea'),
+    path('wiladmin/test', views.TestController.as_view(), name='test'),
+    path('wiladmin/test/<str:areaid>', views.TestController.as_view(), name='testusers'),
 ]

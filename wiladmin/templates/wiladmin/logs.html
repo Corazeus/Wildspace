@@ -1,83 +1,61 @@
+{% extends 'wiladmin/base.html' %} {% load static %} {% block body_block %}
 
-<!DOCTYPE html>
-
-{% load static %}
-
-<html lang="en">
-    
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard</title>
-    <link rel="stylesheet" href="{% static 'css/adminLogs.css' %}">
-    <link rel="icon" type="image/x-icon" href="{% static 'images/WILLOGO.png' %}">
-</head>
+<link rel="stylesheet" href="{% static 'css/logs.css' %}" />
 
 <body>
+  <div class="content-container">
+    <div class="table-wrapper-scroll-y my-custom-scrollbar">
+      <table class="table table-bordered table-striped mb-0">
+        <caption>
+          Booking List
+        </caption>
+        <thead>
+          <tr>
+            <th scope="col">Reference ID</th>
+            <th scope="col">User ID</th>
+            <th scope="col">Date and Time</th>
+            <th scope="col">Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for logs in logs %}
+          <tr>
+            <td>{{ logs.referenceid }}</td>
+            <td>{{ logs.userid }}</td>
+            <td>
+              <font color="green">Start:</font>{{ logs.starttime }} ||
 
-    <div class="main">
+              {% if logs.endtime == ""%} End:
+              <font color="red">N/A</font>
+              {% else %}
+              <font color="red">End:</font> {{logs.endtime}}
+              {% endif %}
+            </td>
 
-        <div class="header">
-            <a href="dashboard"><img src="{% static 'images/WILLOGO.png' %}" alt="WIL LOGO" class="logo" height="50px"></a>
-            <h1> REPORT LOGS <h2>
-        </div>
+            {% if logs.status == 'Logged Out' %}
 
-        <div class="logsContainer">
-                <table>
-                    <caption></caption>
-                    <tr>
-                        <th>Reference ID</th>
-                        <th>User ID</th>
-                        <th>Date and Time</th>
-                        <th>Status</th>
-                    </tr> 
-                {% for logs in logs %}
-                    <tr>
-                        <td>{{ logs.referenceid }}</td>
-                        <td>{{ logs.userid }}</td>
-                        <td>
-                            <font color="green">Start: </font>{{ logs.starttime }}
-                            ||
-                            {% if logs.endtime == ""%}
-                            End:
-                            <font color="red">N/A</font>
-                            {% else %}
-                            <font color="red">End:</font> {{logs.endtime}}
-                            {% endif %}
-                        </td>
+            <td style="color: red">{{ logs.status }}</td>
 
-                        {% if logs.status == 'Logged Out' %}
+            {% else %}
 
-                            <td style="color:red">{{ logs.status }}</td>
+            <td style="color: green">{{ logs.status }}</td>
 
-                        {% else %}
+            {% endif %}
+          </tr>
 
-                            <td style="color:green">{{ logs.status }}</td>
-
-                        {% endif %}
-                        
-                    </tr>
-
-                {% endfor %}
-
-                </table>
-
-                <div class="features">
-                    <a href="dashboard"><button type="button" class="return">Return to Dashboard</button></a>
-
-                    <form method="post">
-                        {% csrf_token %}
-                        <input type="submit" value="Export Logs" class="export" onClick="refreshPage()"/>
-                    </form>
-                </div>
-        </div>
+          {% endfor %}
+        </tbody>
+      </table>
     </div>
+    <form method="post">
+      {% csrf_token %}
+      <input
+        type="submit"
+        value="Export Logs"
+        class="export"
+        onClick="refreshPage()"
+      />
+    </form>
+  </div>
 </body>
-
-</html>
-
-<script>
-    function refreshPage() {
-        location.reload();
-      }
-</script>
+{% endblock %}

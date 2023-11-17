@@ -1,85 +1,63 @@
+{% extends 'wiladmin/base.html' %} {% load static %} {% block body_block %}
 
-<!DOCTYPE html>
-
-{% load static %}
-
-<html lang="en">
-    
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard</title>
-    <link rel="stylesheet" href="{% static 'css/walkinDashboard.css' %}">
-    <link rel="icon" type="image/x-icon" href="{% static 'images/WILLOGO.png' %}">
-</head>
+<link rel="stylesheet" href="{% static 'css/walkindashboard.css' %}" />
 
 <body>
+  <div class="content-container">
+    <div class="table-wrapper-scroll-y my-custom-scrollbar">
+      <table class="table table-bordered table-striped mb-0">
+        <caption>
+          Booking List
+        </caption>
+        <thead>
+          <tr>
+            <th scope="col">Reference ID</th>
+            <th scope="col">User ID</th>
+            <th scope="col">Schedule</th>
+            <th scope="col">Status</th>
+            <th scope="col" class="actions">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for bookings in bookings %}
+          <tr>
+            <td>{{ bookings.referenceid }}</td>
+            <td>{{ bookings.userid }}</td>
+            <td>{{ bookings.schedule }}</td>
+            {% if bookings.status == 'Pending' %}
 
-    <div class="main">
-        <div class="header">
-            <a href="dashboard"><img src="{% static 'images/WILLOGO.png' %}" alt="WIL LOGO" class="logo" height="50px"></a>
-            <h1> WALK-IN DASHBOARD <h2>
-        </div>
+            <td style="color: orange">{{ bookings.status }}</td>
 
-        <div class="bookingContainer">
+            <td class="actions">
+              <form
+                action="updatebooking/{{ bookings.bookingid }}"
+                method="POST"
+              >
+                {% csrf_token %}
+                <input type="submit" value="Book" class="book" />
+              </form>
+            </td>
 
-                <table>
-                    <caption>Booking List</caption>
-                    <tr>
-                        <th>Reference ID</th>
-                        <th>User ID</th>
-                        <th>Schedule</th>
-                        <th>Status</th>
-                        <th></th>
-                    </tr>
-                
-                {% for bookings in bookings %}
-                    <tr>
-                        <td>{{ bookings.referenceid }}</td>
-                        <td>{{ bookings.userid }}</td>
-                        <td>{{ bookings.schedule }}</td>
+            {% else %}
 
-                        {% if bookings.status == 'Pending' %}
+            <td style="color: green">{{ bookings.status }}</td>
 
-                            <td style="color:orange">{{ bookings.status }}</td>
+            <td class="actions">
+              <form
+                action="deletebooking/{{ bookings.bookingid }}"
+                method="POST"
+              >
+                {% csrf_token %}
+                <input type="submit" value="Logout" class="logout" />
+              </form>
+            </td>
 
-                            <td class="actions">
-
-                                <form action="updatebooking/{{ bookings.bookingid }}" method="POST">
-                                    {% csrf_token %}
-                                    <input type="submit" value="Book" class="book">
-                                </form>
-
-                            </td>
-
-                        {% else %}
-
-                            <td style="color:green">{{ bookings.status }}</td>
-
-                            <td class="actions">
-                                
-                                <form action="deletebooking/{{ bookings.bookingid }}" method="POST">
-                                    {% csrf_token %}
-                                    <input type="submit" value="Logout" class="logout">
-                                </form>
-
-                            </td>
-
-                        {% endif %}
-                        
-                    </tr>
-
-                {% endfor %}
-                </table>
-
-                <div class="features">
-
-                    <a href="reserveddashboard"><button type="button" class="return">Switch to Reserved</button></a>
-                    <a href="logs"><button type="button" class="return">Proceed to Logs</button></a>
-                </div>
-        </div>
+            {% endif %}
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
     </div>
+  </div>
 </body>
-
-
-</html>
+{% endblock %}

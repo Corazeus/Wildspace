@@ -15,39 +15,40 @@ body {
     padding-bottom: 70px;
     background-color: white;
     border-radius: 30px;
-    border:5px solid transparent black;
+    border: 5px solid transparent black;
     margin: auto;
 }
 
-.header{
+.header {
     padding-top: 6rem;
     text-align: center;
 }
 
 label {
     font-weight: bold;
-    font-family: "Farfetch Basis","Helvetica Neue",Arial,sans-serif;
+    font-family: "Farfetch Basis", "Helvetica Neue", Arial, sans-serif;
     font-size: 13px;
     position: absolute;
     display: flex;
     flex-direction: column;
 }
 
-h1{
-    font-family: "Farfetch Basis","Helvetica Neue",Arial,sans-serif;
+h1 {
+    font-family: "Farfetch Basis", "Helvetica Neue", Arial, sans-serif;
 }
 
-.loginContainer{
+.loginContainer {
     display: flex;
     justify-content: center;
 }
 
-.loginForm{
+.loginForm {
     justify-content: center;
-    font-family: "Farfetch Basis","Helvetica Neue",Arial,sans-serif;
+    font-family: "Farfetch Basis", "Helvetica Neue", Arial, sans-serif;
 }
-.username{
-    background-image:url('../images/adminLogin/user.png');
+
+.username {
+    background-image: url('../images/adminLogin/user.png');
     background-position: left;
     background-size: 1cm;
     background-repeat: no-repeat;
@@ -57,8 +58,8 @@ h1{
     width: 200px;
 }
 
-.password{
-    background-image:url('../images/adminLogin/pass.png');
+.password {
+    background-image: url('../images/adminLogin/pass.png');
     background-position: left;
     background-size: .8cm;
     background-repeat: no-repeat;
@@ -68,40 +69,40 @@ h1{
     width: 200px;
 }
 
-.loginbutton{
-  background-color: #222;
-  border-radius: 4px;
-  border-style: none;
-  box-sizing: border-box;
-  color: #fff;
-  cursor: pointer;
-  display: inline-block;
-  font-family: "Farfetch Basis","Helvetica Neue",Arial,sans-serif;
-  font-size: 16px;
-  font-weight: 700;
-  line-height: 1.5;
-  margin: 0;
-  max-width: none;
-  min-height: 44px;
-  min-width: 10px;
-  outline: none;
-  overflow: hidden;
-  padding: 9px 20px 8px;
-  position: relative;
-  text-align: center;
-  text-transform: none;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
-  width: 100%;
+.loginbutton {
+    background-color: #222;
+    border-radius: 4px;
+    border-style: none;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    font-family: "Farfetch Basis", "Helvetica Neue", Arial, sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.5;
+    margin: 0;
+    max-width: none;
+    min-height: 44px;
+    min-width: 10px;
+    outline: none;
+    overflow: hidden;
+    padding: 9px 20px 8px;
+    position: relative;
+    text-align: center;
+    text-transform: none;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    width: 100%;
 }
 
 .loginbutton:hover,
 .loginbutton:focus {
-  opacity: .75;
+    opacity: .75;
 }
 
-.alert{
+.alert {
     color: red;
     text-align: center;
     margin-bottom: 3px;

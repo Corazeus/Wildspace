@@ -1,0 +1,85 @@
+
+<!DOCTYPE html>
+
+{% load static %}
+
+<html lang="en">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="{% static 'css/walkinDashboard.css' %}">
+    <link rel="icon" type="image/x-icon" href="{% static 'images/WILLOGO.png' %}">
+</head>
+
+<body>
+
+    <div class="main">
+        <div class="header">
+            <a href="dashboard"><img src="{% static 'images/WILLOGO.png' %}" alt="WIL LOGO" class="logo" height="50px"></a>
+            <h1> RESERVED DASHBOARD <h2>
+        </div>
+
+        <div class="bookingContainer">
+
+                <table>
+                    <caption>Booking List</caption>
+                    <tr>
+                        <th>Reference ID</th>
+                        <th>User ID</th>
+                        <th>Schedule</th>
+                        <th>Status</th>
+                        <th></th>
+                    </tr>
+                
+                {% for bookings in bookings %}
+                    <tr>
+                        <td>{{ bookings.reference_number }}</td>
+                        <td>{{ bookings.user_id }}</td>
+                        <td>{{ bookings.date }}</td>
+
+                        {% if bookings.status == 'Pending' %}
+
+                            <td style="color:orange">{{ bookings.status }}</td>
+
+                            <td class="actions">
+
+                                <form action="updatereserved/{{ bookings.reserved_id }}" method="POST">
+                                    {% csrf_token %}
+                                    <input type="submit" value="Book" class="book">
+                                </form>
+
+                            </td>
+
+                        {% else %}
+
+                            <td style="color:green">{{ bookings.status }}</td>
+
+                            <td class="actions">
+                                
+                                <form action="deletereserved/{{ bookings.reserved_id }}" method="POST">
+                                    {% csrf_token %}
+                                    <input type="submit" value="Logout" class="logout">
+                                </form>
+
+                            </td>
+
+                        {% endif %}
+                        
+                    </tr>
+
+                {% endfor %}
+                </table>
+
+                <div class="features">
+
+                    <a href="walkindashboard"><button type="button" class="return">Switch to Walkin</button></a>
+                    <a href="logs"><button type="button" class="return">Proceed to Logs</button></a>
+                </div>
+        </div>
+    </div>
+</body>
+
+
+</html>

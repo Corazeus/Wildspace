@@ -208,6 +208,44 @@ class ViewWorkspacesController(LoginRequiredMixin, View):
         area_count = self.GetAreaCount
         area = WalkinBookingModel.objects.filter(referenceid__contains=areaid) #and Booking.objects.filter(reference_number__contains=areaid)
         return render(request, 'wiladmin/workspaces.html', {'area':area, 'area_count':area_count, 'area_id':areaid})
+
+class TestController(View):
+    
+    
+    def GetAreaCount(self):
+        countA1 = AssignedArea.objects.filter(area_id='A1').count()
+        countA2 = AssignedArea.objects.filter(area_id='A2').count()
+        countA3 = AssignedArea.objects.filter(area_id='A3').count()
+        countA4 = AssignedArea.objects.filter(area_id='A4').count()
+        countA5 = AssignedArea.objects.filter(area_id='A5').count()
+        countA6 = AssignedArea.objects.filter(area_id='A6').count()
+        countA7 = AssignedArea.objects.filter(area_id='A7').count()
+        countA8 = AssignedArea.objects.filter(area_id='A8').count()
+        countA9 = AssignedArea.objects.filter(area_id='A9').count()
+        
+        area_count = [{
+            'countA1':countA1, 
+            'countA2':countA2, 
+            'countA3':countA3, 
+            'countA4':countA4, 
+            'countA5':countA5,
+            'countA6':countA6,
+            'countA7':countA7,
+            'countA8':countA8,
+            'countA9':countA9,
+            }]
+        return area_count
+     
+    def get(self, request):
+        
+        area_count = self.GetAreaCount
+
+        return render(request, 'wiladmin/test.html', {'area_count': area_count})
+    
+    def post(self, request, areaid):
+        area_count = self.GetAreaCount
+        area = WalkinBookingModel.objects.filter(referenceid__contains=areaid) #and Booking.objects.filter(reference_number__contains=areaid)
+        return render(request, 'wiladmin/test.html', {'area':area, 'area_count':area_count, 'area_id':areaid})
         
 def handleLogout(request):
         logout(request)
