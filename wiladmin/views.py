@@ -44,29 +44,31 @@ class AdminWalkinDashboardController(LoginRequiredMixin, View):
     
     def updateBookingStatus(self, bookingid):
         booking = WalkinBookingModel.objects.get(pk=int(bookingid))
+        try:
+            if booking.status == "Pending":
+                booking.status = 'Booked'
+                booking.save()
+                
+                timer = Timer(user_id=booking.userid, minutes=30, seconds=0)
+                timer.save()
+                
+                log = AdminReportLogsModel(referenceid=booking.referenceid, userid=booking.userid, starttime=booking.schedule, endtime="", status='Booked')
+                log.save()
+            
+            else:
+                booking.delete()
+                
+                usertimer = Timer.objects.get(pk=str(booking.userid))
+                usertimer.delete()
+                
+                assignedarea = AssignedArea.objects.all().filter(reference_number=booking.referenceid)
+                assignedarea.delete()
+                
+                log = AdminReportLogsModel(referenceid=booking.referenceid, userid=booking.userid, starttime=booking.schedule,endtime=str(datetime.now().strftime("%d/%m/%Y, %H:%M")), status='Logged Out')
+                log.save()
+        except Timer.DoesNotExist:
+            return redirect('walkindashboard')
         
-        if booking.status == "Pending":
-            booking.status = 'Booked'
-            booking.save()
-            
-            timer = Timer(user_id=booking.userid, minutes=30, seconds=0)
-            timer.save()
-            
-            log = AdminReportLogsModel(referenceid=booking.referenceid, userid=booking.userid, starttime=booking.schedule, endtime="", status='Booked')
-            log.save()
-        
-        else:
-            booking.delete()
-            
-            usertimer = Timer.objects.get(pk=str(booking.userid))
-            usertimer.delete()
-            
-            assignedarea = AssignedArea.objects.all().filter(reference_number=booking.referenceid)
-            assignedarea.delete()
-            
-            log = AdminReportLogsModel(referenceid=booking.referenceid, userid=booking.userid, starttime=booking.schedule,endtime=str(datetime.now().strftime("%d/%m/%Y, %H:%M")), status='Logged Out')
-            log.save()
-    
     def get(self, request):
         bookings = WalkinBookingModel.objects.all().order_by('-status', '-bookingid')
         return render(request, "wiladmin/walkindashboard.html", {'bookings': bookings})
