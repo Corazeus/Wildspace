@@ -66,7 +66,12 @@ class AdminWalkinDashboardController(LoginRequiredMixin, View):
                 
                 log = AdminReportLogsModel(referenceid=booking.referenceid, userid=booking.userid, starttime=booking.schedule,endtime=str(datetime.now().strftime("%d/%m/%Y, %H:%M")), status='Logged Out')
                 log.save()
+                
         except Timer.DoesNotExist:
+            assignedarea = AssignedArea.objects.all().filter(reference_number=booking.referenceid)
+            assignedarea.delete()
+            log = AdminReportLogsModel(referenceid=booking.referenceid, userid=booking.userid, starttime=booking.schedule,endtime=str(datetime.now().strftime("%d/%m/%Y, %H:%M")), status='Logged Out')
+            log.save()
             return redirect('walkindashboard')
         
     def get(self, request):
@@ -183,6 +188,9 @@ class BookGuestController(LoginRequiredMixin, View):
             
             reference = AssignedArea(reference_number=referenceid, area_id=referenceid[:2])
             reference.save()
+            
+            log = AdminReportLogsModel(referenceid=booking.referenceid, userid=booking.userid, starttime=booking.schedule, endtime="", status='Booked')
+            log.save()
         return redirect('bookguest')
     
 class ViewWorkspacesController(LoginRequiredMixin, View):
