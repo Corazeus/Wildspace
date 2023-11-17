@@ -1,7 +1,7 @@
-
 @import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
+
 body {
-    
+
     /*background:url(../img/basebg.PNG);*/
     background-color: #191919;
     font-family: 'Poppins', sans-serif;
@@ -81,7 +81,7 @@ a:focus {
 
 #sidebar .sidebar-header img {
     width: 100%;
-    height: auto;    
+    height: auto;
 }
 
 #sidebar ul.components {
@@ -155,13 +155,15 @@ a.article:hover {
 
 .pre-scrollable::-webkit-scrollbar {
     -webkit-appearance: none;
-    width: 4px;        
-}    
+    width: 4px;
+}
+
 .pre-scrollable::-webkit-scrollbar-thumb {
     border-radius: 3px;
     background-color: yellow;
-    -webkit-box-shadow: 0 0 1px rgba(255,255,255,.75);        
+    -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, .75);
 }
+
 /* ---------------------------------------------------
     CONTENT STYLE
 ----------------------------------------------------- */
@@ -189,15 +191,19 @@ a.article:hover {
         margin-left: -250px;
         height: 100%;
     }
+
     #sidebar.active {
         margin-left: 0;
     }
+
     #content {
         width: 100%;
     }
+
     #content.active {
         width: calc(100% - 250px);
     }
+
     #sidebarCollapse span {
         display: none;
     }

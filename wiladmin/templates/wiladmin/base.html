@@ -9,7 +9,7 @@
     />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    
+
     <title>Wildspace</title>
 
     <link
@@ -19,154 +19,16 @@
     />
     <link href="{% static 'css/sidebar.css' %}" rel="stylesheet" />
     <link href="{% static 'css/baseStyle.css' %}" rel="stylesheet" />
+    <link href="{% static 'css/base.css' %}" rel="stylesheet" />
     <link rel="shortcut icon" href="{% static 'images/WILLOGO.png' %}" />
     <link
       rel="stylesheet"
       href="{% static 'plugins/fontawesome-free/css/all.min.css' %}"
     />
-    <!-- Scrollbar Custom CSS -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css"
-    />
+
     {% block headerinclude %} {% endblock %}
   </head>
 
-  <style>
-    
-    .main-scroll-div {
-      width: 90%;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      /* border: 2px solid #000000; */
-    }
-    .cover {
-      position: relative;
-      width: 90%;
-      height: 50%;
-    }
-    .cover::before {
-      position: absolute;
-      content: "";
-      left: 0;
-      top: 0;
-      z-index: 99;
-      height: 100%;
-      width: 150px;
-      background-image: linear-gradient(90deg, black, transparent);
-    }
-
-    .cover::after {
-      position: absolute;
-      content: "";
-      right: 0;
-      top: 0;
-      z-index: 99;
-      height: 100%;
-      width: 150px;
-      background-image: linear-gradient(-90deg, black, transparent);
-    }
-    .scroll-images {
-      width: 100;
-      height: auto;
-      display: flex;
-      justify-content: left;
-      align-items: center;
-      overflow: auto;
-      position: relative;
-      scroll-behavior: smooth;
-    }
-
-    .child {
-      min-width: 600px;
-      height: 450px;
-      margin: 1px 10px;
-      cursor: pointer;
-      border: 1px solid #ffffff;
-      overflow: hidden;
-    }
-    .scroll-images::-webkit-scrollbar {
-      -webkit-appearance: none;
-    }
-
-    .child-img {
-      width: 100%;
-      height: 100%;
-    }
-
-    .settings-button {
-      color: #000;
-      margin-left: 10px; /* Adjust the margin as needed */
-      font-size: 24px;
-      padding: 15px 20px;
-    }
-
-    header img {
-      margin-right: 10px; 
-      margin-left: 15px;
-      height: 80px;
-      width: 90px;
-    }
-
-    .navbar-toggler {
-      color: #f8f9fa; /* Set the text color */
-      background-color: #9c7b16; /* Set the background color */
-      border-color: #ffff; /* Set the border color */
-    }
-    .bg-custom-color {
-      background-color: #faca04;
-      max-height: 100px;
-      /* Add any additional styles you want */
-    }
-
-    .active-link {
-      color: #9c7b16; /* Change this color to your desired active link color */
-    }
-
-    /* Add styles for links */
-    .sidebar-link {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 10px 20px;
-      margin-bottom: 10px;
-      border-radius: 5px;
-      transition: background-color 0.3s ease;
-    }
-
-    .sidebar-wrapper {
-      background-color: #000000; /* Change sidebar background color */
-    }
-
-    h2 {
-      color: #ffffff;
-    }
-
-    .list-group-item.active-link {
-      color: #faca00;
-    }
-    /* Add spacing between links */
-    .list-group-item:not(:valid) {
-      margin-left: 5px;
-      margin-bottom: 10px;
-      max-width: 95%;
-      border-radius: 15px 5px;
-      background-color: #333333;
-      color: #ffffff;
-      text-align: center;
-      font-family: "Poppins";
-    }
-
-    .All-Font {
-      font-family: "Poppins";
-    }
-    
-    body{
-        overflow: hidden;
-    }
-  </style>
   <body>
     <div id="header-wrapper">
       <!-- Header with Logo -->
@@ -193,9 +55,7 @@
                   margin-right: 20px;
                 "
               >
-                <h5 class="All-Font" style="color: #000">
-                  {{user.username}}
-                </h5>
+                <h5 class="All-Font" style="color: #000">{{user.username}}</h5>
               </div>
             </div>
           </div>
@@ -206,50 +66,54 @@
       <!-- Sidebar -->
       <div class="sidebar-wrapper border-right" id="sidebar-wrapper">
         <div class="sidebar-heading text-center">
-          <h2 class="All-Font">
-            WILDSPACE
-          </h2>
+          <h2 class="All-Font">WILDSPACE</h2>
         </div>
         <div class="list-group list-group-flush">
-            
           {% if user.is_authenticated %}
           <a
             href="admindashboard"
             class="list-group-item list-group-item-action {% if 'admindashboard' in request.path %}active-link{% endif %}"
-            >Dashboard</a>
+            >Dashboard</a
+          >
           <a
             href="walkindashboard"
             class="list-group-item list-group-item-action {% if 'walkindashboard' in request.path %}active-link{% endif %}"
-            >Walk-in Dashboard</a>
+            >Walk-in Dashboard</a
+          >
           <a
             href="reserveddashboard"
             class="list-group-item list-group-item-action {% if 'reserveddashboard' in request.path %}active-link{% endif %}"
-            >Reserved Dashboard</a>
+            >Reserved Dashboard</a
+          >
           <a
             href="workspaces"
             class="list-group-item list-group-item-action {% if 'award_points_to_teacher' in request.path %}active-link{% endif %}"
-            >View Workspaces</a>
+            >View Workspaces</a
+          >
 
           <a
-          href="bookguest"
-          class="list-group-item list-group-item-action {% if 'award_points_to_teacher' in request.path %}active-link{% endif %}"
-          >Book Guest</a>
+            href="bookguest"
+            class="list-group-item list-group-item-action {% if 'bookguest' in request.path %}active-link{% endif %}"
+            >Book Guest</a
+          >
 
           <a
-          href="reportlogs"
-          class="list-group-item list-group-item-action {% if 'reportlogs' in request.path %}active-link{% endif %}"
-          >Report Logs</a>
+            href="reportlogs"
+            class="list-group-item list-group-item-action {% if 'reportlogs' in request.path %}active-link{% endif %}"
+            >Report Logs</a
+          >
 
           <div style="margin-bottom: 0px"></div>
 
           <a
             href="logout"
             class="list-group-item list-group-item-action sidebar-link {% if 'logout' in request.path %}active-link{% endif %}"
-            >Logout</a>
+            >Logout</a
+          >
 
           {% else %}
           <a
-            href="/wallet/user_login/"
+            href="/wiladmin/login/"
             class="list-group-item list-group-item-action sidebar-link"
             onmouseover="this.style.backgroundColor='#f5f5f5'"
             onmouseenter="this.insertAdjacentHTML('beforebegin', '<span class=\'highlight-box\'></span>')"
@@ -258,9 +122,10 @@
             Login
           </a>
           <a
-            href="{% url 'wallet:register' %}"
+            href="/wiladmin/login/"
             class="list-group-item list-group-item-action sidebar-link {% if 'register' in request.path %}active-link{% endif %}"
-            >Register</a>
+            >Register</a
+          >
           {% endif %}
         </div>
       </div>
@@ -303,9 +168,10 @@
     ></script>
 
     <script
-    src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js"
-    integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ="
-    crossorigin="anonymous"></script>
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js"
+      integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ="
+      crossorigin="anonymous"
+    ></script>
     <script src="{% static 'js/jquery.min.js' %}"></script>
   </body>
 </html>

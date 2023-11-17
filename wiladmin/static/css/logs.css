@@ -27,19 +27,42 @@
 }
 
 .content-container {
-  margin-top: 20%;
+  margin-top: 2%;
   text-align: center;
   color: white;
   backdrop-filter: blur(2px);
 }
 
-.buttonContainer {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+.my-custom-scrollbar {
+  position: relative;
+  height: 750px;
+  overflow: auto;
 }
 
-.button {
+.table-wrapper-scroll-y {
+  display: block;
+}
+
+table {
+  background-color: white;
+}
+
+td,
+th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 4px;
+}
+
+.actions {
+  width: 100px;
+}
+
+tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.export {
   background-color: #017a1b;
   border-radius: 4px;
   border-style: none;
@@ -54,6 +77,7 @@
   max-width: none;
   min-height: 44px;
   min-width: 10px;
+  width: 150px;
   outline: none;
   overflow: hidden;
   padding: 9px 20px 8px;
@@ -63,22 +87,16 @@
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
-  width: 250px;
+  margin-top: 25px;
 }
 
-.button:hover,
-.button:focus {
+.export:hover,
+.export:focus {
   background-color: rgba(255, 255, 255, 0.5);
   color: black;
 }
 
-.username {
-  background-image: url('../images/adminLogin/user.png');
-  background-position: left;
-  background-size: 1cm;
-  background-repeat: no-repeat;
-  padding-left: 40px;
-  border-radius: 5px;
-  height: 55px;
-  width: 300px;
+caption {
+  position: absolute;
+  top: -5%;
 }

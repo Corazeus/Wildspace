@@ -1,213 +1,63 @@
-{% extends 'wiladmin/base.html' %}
-{% load static %}
+{% extends 'wiladmin/base.html' %} {% load static %} {% block body_block %}
 
-{% block body_block %}
+<link rel="stylesheet" href="{% static 'css/walkindashboard.css' %}" />
 
-<style>
-  
-  #page-content-wrapper {
-    background: url("{% static 'images/basebg.jpg' %}") no-repeat;
-    background-size: cover;
-    /* Add any other styles you need for #page-content-wrapper */
-  }
-
-  /* Add styles for links */
-  .sidebar-link {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 10px 20px;
-    margin-bottom: 10px;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-  }
-  
-  .list-group-item.active-link {
-  background-color: #faca04;
-  color: #000000;
-  }
-  
-  .list-group-item:hover {
-    /* Define styles for hover state */
-      background-color: #f0f0f0;
-      color: #000000;
-  }
-  .content-container {
-    margin-top: 2%;
-    text-align: center;
-    color: white;
-    backdrop-filter: blur(2px);
-  }
-  .my-custom-scrollbar {
-    position: relative;
-    height: 750px;
-    overflow: auto;
-    }
-    .table-wrapper-scroll-y {
-    display: block;
-    }
-    table{
-        background-color: white;
-    }
-    td, th {
-        border: 1px solid #dddddd;
-        text-align: left;
-        padding: 4px;
-    }
-    .actions{
-        width: 100px;
-    }
-    
-    tr:nth-child(even) {
-        background-color: #f9f9f9;
-    }
-
-    .book {
-        background: #020202;
-        border: 1px solid #000000;
-        border-radius: 6px;
-        box-shadow: rgba(0, 0, 0, 0.1) 1px 2px 4px;
-        box-sizing: border-box;
-        color: #FFFFFF;
-        cursor: pointer;
-        display: inline-block;
-        font-family: nunito,roboto,proxima-nova,"proxima nova",sans-serif;
-        font-size: 16px;
-        font-weight: 900;
-        line-height: 16px;
-        min-height: 40px;
-        height: 20px;
-        width: 100px;
-        outline: 0;
-        padding: 12px 14px;
-        text-align: center;
-        text-rendering: geometricprecision;
-        text-transform: none;
-        user-select: none;
-        -webkit-user-select: none;
-        touch-action: manipulation;
-        vertical-align: middle;
-      }
-      
-      .book:hover,
-      .book:active {
-        background-color: initial;
-        background-position: 0 0;
-        color: #000000;
-      }
-    
-      .book:active {
-        opacity: .5;
-      }
-    
-    .logout {
-      background: #FF4742;
-      border: 1px solid #FF4742;
-      border-radius: 6px;
-      box-shadow: rgba(0, 0, 0, 0.1) 1px 2px 4px;
-      box-sizing: border-box;
-      color: #FFFFFF;
-      cursor: pointer;
-      display: inline-block;
-      font-family: nunito,roboto,proxima-nova,"proxima nova",sans-serif;
-      font-size: 16px;
-      font-weight: 900;
-      line-height: 16px;
-      min-height: 40px;
-      height: 20px;
-      width: 100px;
-      outline: 0;
-      padding: 12px 14px;
-      text-align: center;
-      text-rendering: geometricprecision;
-      text-transform: none;
-      user-select: none;
-      -webkit-user-select: none;
-      touch-action: manipulation;
-      vertical-align: middle;
-    }
-    
-    .logout:hover,
-    .logout:active {
-      background-color: initial;
-      background-position: 0 0;
-      color: #FF4742;
-    }
-    
-    .logout:active {
-      opacity: .5;
-    }
-
-    caption {
-      position: absolute;
-      top: -5%;
-    }
-
-  </style>
-</head>
 <body>
-    <div class="content-container">
-        <div class="table-wrapper-scroll-y my-custom-scrollbar">
+  <div class="content-container">
+    <div class="table-wrapper-scroll-y my-custom-scrollbar">
+      <table class="table table-bordered table-striped mb-0">
+        <caption>
+          Booking List
+        </caption>
+        <thead>
+          <tr>
+            <th scope="col">Reference ID</th>
+            <th scope="col">User ID</th>
+            <th scope="col">Schedule</th>
+            <th scope="col">Status</th>
+            <th scope="col" class="actions">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for bookings in bookings %}
+          <tr>
+            <td>{{ bookings.referenceid }}</td>
+            <td>{{ bookings.userid }}</td>
+            <td>{{ bookings.schedule }}</td>
+            {% if bookings.status == 'Pending' %}
 
-            <table class="table table-bordered table-striped mb-0">
-                <caption>Booking List</caption>
-              <thead>
-                <tr>
-                  <th scope="col">Reference ID</th>
-                  <th scope="col">User ID</th>
-                  <th scope="col">Schedule</th>
-                  <th scope="col">Status</th>
-                  <th scope="col" class="actions">Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {% for bookings in bookings %}
-                <tr>
-                    <td>{{ bookings.referenceid }}</td>
-                    <td>{{ bookings.userid }}</td>
-                    <td>{{ bookings.schedule }}</td>
-                    {% if bookings.status == 'Pending' %}
+            <td style="color: orange">{{ bookings.status }}</td>
 
-                    <td style="color:orange">{{ bookings.status }}</td>
+            <td class="actions">
+              <form
+                action="updatebooking/{{ bookings.bookingid }}"
+                method="POST"
+              >
+                {% csrf_token %}
+                <input type="submit" value="Book" class="book" />
+              </form>
+            </td>
 
-                    <td class="actions">
+            {% else %}
 
-                        <form action="updatebooking/{{ bookings.bookingid }}" method="POST">
-                            {% csrf_token %}
-                            <input type="submit" value="Book" class="book">
-                        </form>
+            <td style="color: green">{{ bookings.status }}</td>
 
-                    </td>
+            <td class="actions">
+              <form
+                action="deletebooking/{{ bookings.bookingid }}"
+                method="POST"
+              >
+                {% csrf_token %}
+                <input type="submit" value="Logout" class="logout" />
+              </form>
+            </td>
 
-                    {% else %}
-
-                    <td style="color:green">{{ bookings.status }}</td>
-
-                    <td class="actions">
-                        
-                        <form action="deletebooking/{{ bookings.bookingid }}" method="POST">
-                            {% csrf_token %}
-                            <input type="submit" value="Logout" class="logout">
-                        </form>
-
-                    </td>
-
-                    {% endif %}
-                </tr>
-                {% endfor %}
-              </tbody>
-            </table>
-          </div>
+            {% endif %}
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
     </div>
-
-        <script>
-        $(document).ready(function () {
-            $('#dtDynamicVerticalScrollExample').DataTable({
-              "scrollY": "50vh",
-              "scrollCollapse": true,
-            });
-            $('.dataTables_length').addClass('bs-select');
-          });
-        </script>
+  </div>
 </body>
 {% endblock %}

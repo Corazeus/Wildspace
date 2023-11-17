@@ -1,92 +1,34 @@
-.content {
-    font-family: "Farfetch Basis", "Helvetica Neue", Arial, sans-serif;
-    max-width: fit-content;
-    margin: auto;
+#page-content-wrapper {
+    background: url("../images/basebg.jpg") no-repeat;
+    background-size: cover;
+    /* Add any other styles you need for #page-content-wrapper */
 }
 
-.logo {
-    height: 150px;
-    width: 150px;
-}
-
-.header {
-    margin-top: 3rem;
+/* Add styles for links */
+.sidebar-link {
     display: flex;
-    flex-direction: column;
     align-items: center;
-    margin-bottom: auto;
+    justify-content: center;
+    padding: 10px 20px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
 }
 
-.buttonContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.list-group-item.active-link {
+    background-color: #faca04;
+    color: #000000;
 }
 
-.log {
-    background-color: aqua;
+.list-group-item:hover {
+    /* Define styles for hover state */
+    background-color: #f0f0f0;
+    color: #000000;
 }
 
-.button {
-    background-color: #222;
-    border-radius: 4px;
-    border-style: none;
-    box-sizing: border-box;
-    color: #fff;
-    cursor: pointer;
-    display: inline-block;
-    font-family: "Farfetch Basis", "Helvetica Neue", Arial, sans-serif;
-    font-size: 16px;
-    font-weight: 700;
-    line-height: 1.5;
-    max-width: none;
-    min-height: 44px;
-    min-width: 10px;
-    outline: none;
-    overflow: hidden;
-    padding: 9px 20px 8px;
-    position: relative;
+.content-container {
+    margin-top: 2%;
     text-align: center;
-    text-transform: none;
-    user-select: none;
-    -webkit-user-select: none;
-    touch-action: manipulation;
-    width: 300px;
-}
-
-.button:hover,
-.button:focus {
-    opacity: .75;
-}
-
-.logout {
-    background-color: #9c0202;
-    border-radius: 4px;
-    border-style: none;
-    box-sizing: border-box;
-    color: #fff;
-    cursor: pointer;
-    display: inline-block;
-    font-family: "Farfetch Basis", "Helvetica Neue", Arial, sans-serif;
-    font-size: 16px;
-    font-weight: 700;
-    line-height: 1.5;
-    max-width: none;
-    min-height: 44px;
-    min-width: 10px;
-    outline: none;
-    overflow: hidden;
-    padding: 9px 20px 8px;
-    position: relative;
-    text-align: center;
-    text-transform: none;
-    user-select: none;
-    -webkit-user-select: none;
-    touch-action: manipulation;
-    width: 300px;
-}
-
-.logout:hover,
-.logout:focus {
-    opacity: .75;
+    color: white;
+    backdrop-filter: blur(2px);
 }

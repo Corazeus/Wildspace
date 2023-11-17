@@ -1,228 +1,232 @@
 .content {
-    font-family: "Farfetch Basis", "Helvetica Neue", Arial, sans-serif;
-    max-width: fit-content;
-    margin: auto;
-    display: flex;
-    flex-direction: column;
+  font-family: "Farfetch Basis", "Helvetica Neue", Arial, sans-serif;
+  max-width: fit-content;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
 }
 
 .logo {
-    height: 150px;
-    width: 150px;
+  height: 150px;
+  width: 150px;
 }
 
 .header {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: -25px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: -25px;
 }
 
 .button {
-    background-color: #222;
-    border-radius: 4px;
-    border-style: none;
-    box-sizing: border-box;
-    color: #fff;
-    cursor: pointer;
-    display: inline-block;
-    font-family: "Farfetch Basis", "Helvetica Neue", Arial, sans-serif;
-    font-size: 16px;
-    font-weight: 700;
-    line-height: 1.5;
-    max-width: none;
-    min-height: 44px;
-    min-width: 10px;
-    outline: none;
-    overflow: hidden;
-    padding: 9px 20px 8px;
-    position: relative;
-    text-align: center;
-    text-transform: none;
-    user-select: none;
-    -webkit-user-select: none;
-    touch-action: manipulation;
-    width: 300px;
-    margin-top: 15px;
-    margin-bottom: -20px;
+  background-color: #222;
+  border-radius: 4px;
+  border-style: none;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  font-family: "Farfetch Basis", "Helvetica Neue", Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.5;
+  max-width: none;
+  min-height: 44px;
+  min-width: 10px;
+  outline: none;
+  overflow: hidden;
+  padding: 9px 20px 8px;
+  position: relative;
+  text-align: center;
+  text-transform: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  width: 300px;
+  margin-top: 15px;
+  margin-bottom: -20px;
 }
 
 .button:hover,
 .button:focus {
-    opacity: .75;
+  opacity: 0.75;
 }
 
 .facility-map {
-    background-color: #A5A5A5;
-    width: fit-content;
-    height: fit-content;
-    align-items: center;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    padding: 43px;
-    border-radius: 30px;
-    position: relative;
-} 
+  background-color: #a5a5a5;
+  width: fit-content;
+  height: fit-content;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  padding: 43px;
+  border-radius: 30px;
+  position: relative;
+}
 
 .facility-areas {
-    width: 100%;
-    object-fit: fill;
+  width: 100%;
+  object-fit: fill;
 }
 
 .areaA1-button {
-    position: absolute;
-    top: 26.3%;
-    left: 13%;
-    font-family: 'Poppins', sans-serif;
-    transform: translate(-50%, -50%);
-    background-color: #83CD56;
-    border: 1px solid #000000;
-    font-size: 12px;
-    border-radius: 0%;
-    width: 60px;
-    height: 25px;
-    cursor: pointer;
-  }
-  
-  .areaA2-button {
-    position: absolute;
-    top: 26.3%;
-    left: 29.5%;
-    font-family: 'Poppins', sans-serif;
-    transform: translate(-50%, -50%);
-    background-color: #83CD56;
-    border: 1px solid #000000;
-    font-size: 12px;
-    border-radius: 0%;
-    width: 60px;
-    height: 25px;
-    cursor: pointer;
-  }
+  position: absolute;
+  top: 26.3%;
+  left: 13%;
+  font-family: "Poppins", sans-serif;
+  transform: translate(-50%, -50%);
+  background-color: #83cd56;
+  border: 1px solid #000000;
+  font-size: 12px;
+  border-radius: 0%;
+  width: 60px;
+  height: 25px;
+  cursor: pointer;
+}
 
-  .areaA3-button {
-    position: absolute;
-    top: 33%;
-    left: 74%;
-    font-family: 'Poppins', sans-serif;
-    transform: translate(-50%, -50%);
-    background-color: #83CD56;
-    border: 1px solid #000000;
-    font-size: 12px;
-    border-radius: 0%;
-    width: 60px;
-    height: 25px;
-    cursor: pointer;
-  }
-  
-  .areaA4-button {
-    position: absolute;
-    top: 33%;
-    left: 86%;
-    font-family: 'Poppins', sans-serif;
-    transform: translate(-50%, -50%);
-    background-color: #83CD56;
-    border: 1px solid #000000;
-    font-size: 12px;
-    border-radius: 0%;
-    width: 60px;
-    height: 25px;
-    cursor: pointer;
-  }
-  .areaA5-button {
-    position: absolute;
-    top: 53%;
-    left: 74%;
-    font-family: 'Poppins', sans-serif;
-    transform: translate(-50%, -50%);
-    background-color: #83CD56;
-    border: 1px solid #000000;
-    font-size: 12px;
-    border-radius: 0%;
-    width: 60px;
-    height: 25px;
-    cursor: pointer;
-  }
-  .areaA6-button {
-    position: absolute;
-    top: 53%;
-    left: 86%;
-    font-family: 'Poppins', sans-serif;
-    transform: translate(-50%, -50%);
-    background-color: #83CD56;
-    border: 1px solid #000000;
-    font-size: 12px;
-    border-radius: 0%;
-    width: 60px;
-    height: 25px;
-    cursor: pointer;
-  }
-  .areaA7-button {
-    position: absolute;
-    top: 65%;
-    left: 33%;
-    font-family: 'Poppins', sans-serif;
-    transform: translate(-50%, -50%);
-    background-color: #83CD56;
-    border: 1px solid #000000;
-    font-size: 12px;
-    border-radius: 0%;
-    width: 65px;
-    height: 25px;
-    cursor: pointer;
-  }
-  
-  .areaA8-button {
-    position: absolute;
-    top: 75%;
-    left: 75%;
-    font-family: 'Poppins', sans-serif;
-    transform: translate(-50%, -50%);
-    background-color: #83CD56;
-    border: 1px solid #000000;
-    font-size: 12px;
-    border-radius: 0%;
-    width: 45px;
-    height: 25px;
-    cursor: pointer;
-  }
-  .areaA9-button {
-    position: absolute;
-    top: 75%;
-    left: 85.7%;
-    font-family: 'Poppins', sans-serif;
-    transform: translate(-50%, -50%);
-    background-color: #83CD56;
-    border: 1px solid #000000;
-    font-size: 12px;
-    border-radius: 0%;
-    width: 45px;
-    height: 25px;
-    cursor: pointer;
-  }
+.areaA2-button {
+  position: absolute;
+  top: 26.3%;
+  left: 29.5%;
+  font-family: "Poppins", sans-serif;
+  transform: translate(-50%, -50%);
+  background-color: #83cd56;
+  border: 1px solid #000000;
+  font-size: 12px;
+  border-radius: 0%;
+  width: 60px;
+  height: 25px;
+  cursor: pointer;
+}
 
+.areaA3-button {
+  position: absolute;
+  top: 33%;
+  left: 74%;
+  font-family: "Poppins", sans-serif;
+  transform: translate(-50%, -50%);
+  background-color: #83cd56;
+  border: 1px solid #000000;
+  font-size: 12px;
+  border-radius: 0%;
+  width: 60px;
+  height: 25px;
+  cursor: pointer;
+}
+
+.areaA4-button {
+  position: absolute;
+  top: 33%;
+  left: 86%;
+  font-family: "Poppins", sans-serif;
+  transform: translate(-50%, -50%);
+  background-color: #83cd56;
+  border: 1px solid #000000;
+  font-size: 12px;
+  border-radius: 0%;
+  width: 60px;
+  height: 25px;
+  cursor: pointer;
+}
+
+.areaA5-button {
+  position: absolute;
+  top: 53%;
+  left: 74%;
+  font-family: "Poppins", sans-serif;
+  transform: translate(-50%, -50%);
+  background-color: #83cd56;
+  border: 1px solid #000000;
+  font-size: 12px;
+  border-radius: 0%;
+  width: 60px;
+  height: 25px;
+  cursor: pointer;
+}
+
+.areaA6-button {
+  position: absolute;
+  top: 53%;
+  left: 86%;
+  font-family: "Poppins", sans-serif;
+  transform: translate(-50%, -50%);
+  background-color: #83cd56;
+  border: 1px solid #000000;
+  font-size: 12px;
+  border-radius: 0%;
+  width: 60px;
+  height: 25px;
+  cursor: pointer;
+}
+
+.areaA7-button {
+  position: absolute;
+  top: 65%;
+  left: 33%;
+  font-family: "Poppins", sans-serif;
+  transform: translate(-50%, -50%);
+  background-color: #83cd56;
+  border: 1px solid #000000;
+  font-size: 12px;
+  border-radius: 0%;
+  width: 65px;
+  height: 25px;
+  cursor: pointer;
+}
+
+.areaA8-button {
+  position: absolute;
+  top: 75%;
+  left: 75%;
+  font-family: "Poppins", sans-serif;
+  transform: translate(-50%, -50%);
+  background-color: #83cd56;
+  border: 1px solid #000000;
+  font-size: 12px;
+  border-radius: 0%;
+  width: 45px;
+  height: 25px;
+  cursor: pointer;
+}
+
+.areaA9-button {
+  position: absolute;
+  top: 75%;
+  left: 85.7%;
+  font-family: "Poppins", sans-serif;
+  transform: translate(-50%, -50%);
+  background-color: #83cd56;
+  border: 1px solid #000000;
+  font-size: 12px;
+  border-radius: 0%;
+  width: 45px;
+  height: 25px;
+  cursor: pointer;
+}
 
 table {
-    font-family: arial, sans-serif;
-    border-collapse: collapse;
-    width: 80%;
-    margin-bottom: 20px;
-    margin-top: 20px;
-    margin-left: auto;
-    margin-right: auto;
-  }
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 80%;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
+}
 
 caption {
   font-weight: bold;
   margin-bottom: 10px;
 }
 
-td, th {
-    border: 1px solid #dddddd;
-    text-align: center;
-    padding: 7px;
+td,
+th {
+  border: 1px solid #dddddd;
+  text-align: center;
+  padding: 7px;
 }
 
 tr:nth-child(even) {
-    background-color: #f9f9f9;
+  background-color: #f9f9f9;
 }

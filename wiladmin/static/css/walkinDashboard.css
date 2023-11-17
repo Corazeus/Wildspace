@@ -1,97 +1,104 @@
-.main {
-  display: block;
-  text-align: center;
+#page-content-wrapper {
+  background: url("../images/basebg.jpg") no-repeat;
+  background-size: cover;
+  /* Add any other styles you need for #page-content-wrapper */
 }
 
-.header {
+/* Add styles for links */
+.sidebar-link {
   display: flex;
+  align-items: center;
   justify-content: center;
-  margin-bottom: -1rem;
+  padding: 10px 20px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
 }
 
-.logo{
-  height: 105px;
-  margin-top: 21px;
-  margin-left: 150px;
+.list-group-item.active-link {
+  background-color: #faca04;
+  color: #000000;
 }
 
-h1 {
-  background: #fecc00;
-  padding-top: 30px;
-  height: 75px;
-  width: 75%;
-  font-family: "Farfetch Basis", "Helvetica Neue", Arial, sans-serif;
-  margin-right: 150px;
-  font-weight: 800;
+.list-group-item:hover {
+  /* Define styles for hover state */
+  background-color: #f0f0f0;
+  color: #000000;
+}
+
+.content-container {
+  margin-top: 2%;
+  text-align: center;
+  color: white;
+  backdrop-filter: blur(2px);
+}
+
+.my-custom-scrollbar {
+  position: relative;
+  height: 750px;
+  overflow: auto;
+}
+
+.table-wrapper-scroll-y {
+  display: block;
 }
 
 table {
-    font-family: arial, sans-serif;
-    border-collapse: collapse;
-    width: 80%;
-    margin-bottom: 20px;
-    margin-top: 20px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-caption {
-  font-weight: bold;
-  margin-bottom: 10px;
+  background-color: white;
 }
 
-td, th {
-    border: 1px solid #dddddd;
-    text-align: left;
-    padding: 7px;
+td,
+th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 4px;
+}
+
+.actions {
+  width: 100px;
 }
 
 tr:nth-child(even) {
-    background-color: #f9f9f9;
-}
-
-.actions{
-    text-align: center;
-    width: 300px;
+  background-color: #f9f9f9;
 }
 
 .book {
-    background: #020202;
-    border: 1px solid #000000;
-    border-radius: 6px;
-    box-shadow: rgba(0, 0, 0, 0.1) 1px 2px 4px;
-    box-sizing: border-box;
-    color: #FFFFFF;
-    cursor: pointer;
-    display: inline-block;
-    font-family: nunito,roboto,proxima-nova,"proxima nova",sans-serif;
-    font-size: 16px;
-    font-weight: 900;
-    line-height: 16px;
-    min-height: 40px;
-    height: 20px;
-    width: 100px;
-    outline: 0;
-    padding: 12px 14px;
-    text-align: center;
-    text-rendering: geometricprecision;
-    text-transform: none;
-    user-select: none;
-    -webkit-user-select: none;
-    touch-action: manipulation;
-    vertical-align: middle;
-  }
-  
-  .book:hover,
-  .book:active {
-    background-color: initial;
-    background-position: 0 0;
-    color: #000000;
-  }
+  background: #020202;
+  border: 1px solid #000000;
+  border-radius: 6px;
+  box-shadow: rgba(0, 0, 0, 0.1) 1px 2px 4px;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  cursor: pointer;
+  display: inline-block;
+  font-family: nunito, roboto, proxima-nova, "proxima nova", sans-serif;
+  font-size: 16px;
+  font-weight: 900;
+  line-height: 16px;
+  min-height: 40px;
+  height: 20px;
+  width: 100px;
+  outline: 0;
+  padding: 12px 14px;
+  text-align: center;
+  text-rendering: geometricprecision;
+  text-transform: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: middle;
+}
 
-  .book:active {
-    opacity: .5;
-  }
+.book:hover,
+.book:active {
+  background-color: initial;
+  background-position: 0 0;
+  color: #000000;
+}
+
+.book:active {
+  opacity: .5;
+}
 
 .logout {
   background: #FF4742;
@@ -102,7 +109,7 @@ tr:nth-child(even) {
   color: #FFFFFF;
   cursor: pointer;
   display: inline-block;
-  font-family: nunito,roboto,proxima-nova,"proxima nova",sans-serif;
+  font-family: nunito, roboto, proxima-nova, "proxima nova", sans-serif;
   font-size: 16px;
   font-weight: 900;
   line-height: 16px;
@@ -131,42 +138,7 @@ tr:nth-child(even) {
   opacity: .5;
 }
 
-
-.return {
-    background-color: #222;
-    border-radius: 4px;
-    border-style: none;
-    box-sizing: border-box;
-    color: #fff;
-    cursor: pointer;
-    display: inline-block;
-    font-family: "Farfetch Basis", "Helvetica Neue", Arial, sans-serif;
-    font-size: 16px;
-    font-weight: 700;
-    line-height: 1.5;
-    max-width: none;
-    min-height: 44px;
-    min-width: 10px;
-    width: 200px;
-    outline: none;
-    overflow: hidden;
-    padding: 9px 20px 8px;
-    position: relative;
-    text-align: center;
-    text-transform: none;
-    user-select: none;
-    -webkit-user-select: none;
-    touch-action: manipulation;
-}
-
-.return:hover,
-.return:focus {
-    opacity: .75;
-}
-
-.features {
-  display: flex;
-  justify-content: space-between;
-  margin-right: 10%;
-  margin-left: 10%;
+caption {
+  position: absolute;
+  top: -5%;
 }
