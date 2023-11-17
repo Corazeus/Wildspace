@@ -208,6 +208,41 @@ class ViewWorkspacesController(LoginRequiredMixin, View):
         area_count = self.GetAreaCount
         area = WalkinBookingModel.objects.filter(referenceid__contains=areaid) #and Booking.objects.filter(reference_number__contains=areaid)
         return render(request, 'wiladmin/workspaces.html', {'area':area, 'area_count':area_count, 'area_id':areaid})
+
+class TestController(View):
+    
+    def updateBookingStatus(self, reserved_id):
+        booking = Booking.objects.get(pk=int(reserved_id))
+        
+        if booking.status == "Pending":
+            booking.status = 'Booked'
+            booking.save()
+            
+            timer = Timer(user_id=booking.user_id, minutes=60, seconds=0)
+            timer.save()
+            
+            log = AdminReportLogsModel(referenceid=booking.reference_number, userid=booking.user_id, starttime=booking.start_time, endtime="", status='Booked')
+            log.save()
+        
+        else:
+            booking.delete()
+            
+            usertimer = Timer.objects.get(pk=str(booking.user_id))
+            usertimer.delete()
+            
+            assignedarea = AssignedArea.objects.all().filter(reference_number=booking.reference_number)
+            assignedarea.delete()
+            
+            log = AdminReportLogsModel(referenceid=booking.reference_number, userid=booking.user_id, starttime=booking.start_time, endtime=str(datetime.now().strftime("%d/%m/%Y, %H:%M")), status='Logged Out')
+            log.save()
+    
+    def get(self, request):
+        bookings = Booking.objects.all().order_by('-status')
+        return render(request, "wiladmin/reserveddashboard.html", {'bookings': bookings})
+    
+    def post(self, request, reserved_id):
+        self.updateBookingStatus(reserved_id)
+        return redirect('reserveddashboard')
         
 def handleLogout(request):
         logout(request)

@@ -1,85 +1,357 @@
-
-<!DOCTYPE html>
-
+{% extends 'wiladmin/base.html' %}
 {% load static %}
 
-<html lang="en">
+{% block body_block %}
+
+<style>
+
+    #page-content-wrapper {
+    background: url("{% static 'images/basebg.jpg' %}") no-repeat;
+    background-size: cover;
+    /* Add any other styles you need for #page-content-wrapper */
+  }
+
+        /* CSS for active and hover states */
+        .list-group-item {
+            /* Define the default styles for the list items */
+            background-color: #ffffff;
+            color: #000000;
+        }
     
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard</title>
-    <link rel="stylesheet" href="{% static 'css/walkinDashboard.css' %}">
-    <link rel="icon" type="image/x-icon" href="{% static 'images/WILLOGO.png' %}">
+        .list-group-item:hover {
+            /* Define styles for hover state */
+            background-color: #f0f0f0;
+            color: #000000;
+        }
+    
+        .list-group-item.active-link {
+            /* Define styles for active state */
+            background-color: #007bff;
+            color: #ffffff;
+        }
+          .main-scroll-div {
+            width: 90%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            /* border: 2px solid #000000; */
+          }
+          .cover {
+            position: relative;
+            width: 90%;
+            height: 50%;
+          }
+          .cover::before {
+            position: absolute;
+            content: "";
+            left: 0;
+            top: 0;
+            z-index: 99;
+            height: 100%;
+            width: 150px;
+            background-image: linear-gradient(90deg, black, transparent);
+          }
+    
+          .cover::after {
+            position: absolute;
+            content: "";
+            right: 0;
+            top: 0;
+            z-index: 99;
+            height: 100%;
+            width: 150px;
+            background-image: linear-gradient(-90deg, black, transparent);
+          }
+          .scroll-images {
+            width: 100;
+            height: auto;
+            display: flex;
+            justify-content: left;
+            align-items: center;
+            overflow: auto;
+            position: relative;
+            scroll-behavior: smooth;
+          }
+    
+          .child {
+            min-width: 600px;
+            height: 450px;
+            margin: 1px 10px;
+            cursor: pointer;
+            border: 1px solid #ffffff;
+            overflow: hidden;
+          }
+          .scroll-images::-webkit-scrollbar {
+            -webkit-appearance: none;
+          }
+    
+          .child-img {
+            width: 100%;
+            height: 100%;
+          }
+    
+          .settings-button {
+            color: #000;
+            margin-left: 10px; /* Adjust the margin as needed */
+            font-size: 24px;
+            padding: 15px 20px;
+          }
+    
+          .header-wrapper {
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+          }
+    
+          header {
+            padding: 25px 20px;
+            background-color: #faca00;
+          }
+    
+          header img {
+            margin-right: 10px;
+          }
+    
+          .navbar-toggler {
+            color: #f8f9fa; /* Set the text color */
+            background-color: #9c7b16; /* Set the background color */
+            border-color: #ffff; /* Set the border color */
+          }
+          .bg-custom-color {
+            background-color: #faca04;
+            max-height: 100px;
+            /* Add any additional styles you want */
+          }
+    
+          .active-link {
+            color: #9c7b16; /* Change this color to your desired active link color */
+          }
+    
+          /* Add styles for links */
+          .sidebar-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 20px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+          }
+    
+          .sidebar-wrapper {
+            background-color: #000000; /* Change sidebar background color */
+          }
+    
+          h2 {
+            color: #ffffff;
+          }
+    
+          .list-group-item.active-link {
+            color: #faca00;
+          }
+          /* Add spacing between links */
+          .list-group-item:not(:valid) {
+            margin-left: 5px;
+            margin-bottom: 10px;
+            max-width: 95%;
+            border-radius: 15px 5px;
+            background-color: #333333;
+            color: #ffffff;
+            text-align: center;
+            font-family: "Poppins";
+          }
+    
+          .All-Font {
+              font-family: "Poppins";
+          }
+
+          .list-group-item.active-link {
+          background-color: #faca04;
+          color: #000000;
+
+          }
+          .list-group-item:hover {
+            /* Define styles for hover state */
+              background-color: #f0f0f0;
+              color: #000000;
+          }
+
+          .content-container {
+            margin-top: 2%;
+            text-align: center;
+            color: white;
+            backdrop-filter: blur(2px);
+          }
+          .my-custom-scrollbar {
+            position: relative;
+            height: 700px;
+            overflow: auto;
+            }
+            .table-wrapper-scroll-y {
+            display: block;
+            }
+
+            table{
+                background-color: white;
+            }
+
+            td, th {
+                border: 1px solid #dddddd;
+                text-align: left;
+                padding: 4px;
+            }
+
+            .actions{
+                width: 100px;
+            }
+            
+            tr:nth-child(even) {
+                background-color: #f9f9f9;
+            }
+
+            .book {
+                background: #020202;
+                border: 1px solid #000000;
+                border-radius: 6px;
+                box-shadow: rgba(0, 0, 0, 0.1) 1px 2px 4px;
+                box-sizing: border-box;
+                color: #FFFFFF;
+                cursor: pointer;
+                display: inline-block;
+                font-family: nunito,roboto,proxima-nova,"proxima nova",sans-serif;
+                font-size: 16px;
+                font-weight: 900;
+                line-height: 16px;
+                min-height: 40px;
+                height: 20px;
+                width: 100px;
+                outline: 0;
+                padding: 12px 14px;
+                text-align: center;
+                text-rendering: geometricprecision;
+                text-transform: none;
+                user-select: none;
+                -webkit-user-select: none;
+                touch-action: manipulation;
+                vertical-align: middle;
+              }
+              
+              .book:hover,
+              .book:active {
+                background-color: initial;
+                background-position: 0 0;
+                color: #000000;
+              }
+            
+              .book:active {
+                opacity: .5;
+              }
+            
+            .logout {
+              background: #FF4742;
+              border: 1px solid #FF4742;
+              border-radius: 6px;
+              box-shadow: rgba(0, 0, 0, 0.1) 1px 2px 4px;
+              box-sizing: border-box;
+              color: #FFFFFF;
+              cursor: pointer;
+              display: inline-block;
+              font-family: nunito,roboto,proxima-nova,"proxima nova",sans-serif;
+              font-size: 16px;
+              font-weight: 900;
+              line-height: 16px;
+              min-height: 40px;
+              height: 20px;
+              width: 100px;
+              outline: 0;
+              padding: 12px 14px;
+              text-align: center;
+              text-rendering: geometricprecision;
+              text-transform: none;
+              user-select: none;
+              -webkit-user-select: none;
+              touch-action: manipulation;
+              vertical-align: middle;
+            }
+            
+            .logout:hover,
+            .logout:active {
+              background-color: initial;
+              background-position: 0 0;
+              color: #FF4742;
+            }
+            
+            .logout:active {
+              opacity: .5;
+            }
+  </style>
+
+
 </head>
-
 <body>
+    <div class="content-container">
+        <div class="table-wrapper-scroll-y my-custom-scrollbar">
 
-    <div class="main">
-        <div class="header">
-            <a href="dashboard"><img src="{% static 'images/WILLOGO.png' %}" alt="WIL LOGO" class="logo" height="50px"></a>
-            <h1> RESERVED DASHBOARD <h2>
-        </div>
-
-        <div class="bookingContainer">
-
-                <table>
-                    <caption>Booking List</caption>
-                    <tr>
-                        <th>Reference ID</th>
-                        <th>User ID</th>
-                        <th>Schedule</th>
-                        <th>Status</th>
-                        <th></th>
-                    </tr>
-                
+            <table class="table table-bordered table-striped mb-0">
+                <caption>Booking List</caption>
+              <thead>
+                <tr>
+                  <th scope="col">Reference ID</th>
+                  <th scope="col">User ID</th>
+                  <th scope="col">Schedule</th>
+                  <th scope="col">Status</th>
+                  <th scope="col" class="actions">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
                 {% for bookings in bookings %}
-                    <tr>
-                        <td>{{ bookings.reference_number }}</td>
-                        <td>{{ bookings.user_id }}</td>
-                        <td>{{ bookings.date }}</td>
+                <tr>
+                    <td>{{ bookings.reference_number }}</td>
+                    <td>{{ bookings.user_id }}</td>
+                    <td>{{ bookings.date }}</td>
+                    {% if bookings.status == 'Pending' %}
 
-                        {% if bookings.status == 'Pending' %}
+                    <td style="color:orange">{{ bookings.status }}</td>
 
-                            <td style="color:orange">{{ bookings.status }}</td>
+                    <td class="actions">
 
-                            <td class="actions">
+                        <form action="updatebooking/{{ bookings.bookingid }}" method="POST">
+                            {% csrf_token %}
+                            <input type="submit" value="Book" class="book">
+                        </form>
 
-                                <form action="updatereserved/{{ bookings.reserved_id }}" method="POST">
-                                    {% csrf_token %}
-                                    <input type="submit" value="Book" class="book">
-                                </form>
+                    </td>
 
-                            </td>
+                    {% else %}
 
-                        {% else %}
+                    <td style="color:green">{{ bookings.status }}</td>
 
-                            <td style="color:green">{{ bookings.status }}</td>
-
-                            <td class="actions">
-                                
-                                <form action="deletereserved/{{ bookings.reserved_id }}" method="POST">
-                                    {% csrf_token %}
-                                    <input type="submit" value="Logout" class="logout">
-                                </form>
-
-                            </td>
-
-                        {% endif %}
+                    <td class="actions">
                         
-                    </tr>
+                        <form action="deletebooking/{{ bookings.bookingid }}" method="POST">
+                            {% csrf_token %}
+                            <input type="submit" value="Logout" class="logout">
+                        </form>
 
+                    </td>
+
+                    {% endif %}
+                </tr>
                 {% endfor %}
-                </table>
-
-                <div class="features">
-
-                    <a href="walkindashboard"><button type="button" class="return">Switch to Walkin</button></a>
-                    <a href="logs"><button type="button" class="return">Proceed to Logs</button></a>
-                </div>
-        </div>
+              </tbody>
+            </table>
+          </div>
     </div>
+
+        <script>
+        $(document).ready(function () {
+            $('#dtDynamicVerticalScrollExample').DataTable({
+              "scrollY": "50vh",
+              "scrollCollapse": true,
+            });
+            $('.dataTables_length').addClass('bs-select');
+          });
+        </script>
 </body>
-
-
-</html>
+{% endblock %}

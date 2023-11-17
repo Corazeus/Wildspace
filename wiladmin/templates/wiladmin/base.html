@@ -239,16 +239,16 @@
             
           {% if user.is_authenticated %}
           <a
-            href="dashboard"
-            class="list-group-item list-group-item-action {% if 'dashboard' in request.path %}active-link{% endif %}"
+            href="admindashboard"
+            class="list-group-item list-group-item-action {% if 'admindashboard' in request.path %}active-link{% endif %}"
             >Dashboard</a>
           <a
             href="walkindashboard"
-            class="list-group-item list-group-item-action {% if 'user_list' in request.path %}active-link{% endif %}"
+            class="list-group-item list-group-item-action {% if 'walkindashboard' in request.path %}active-link{% endif %}"
             >Walk-in Dashboard</a>
           <a
             href="reserveddashboard"
-            class="list-group-item list-group-item-action {% if 'request' in request.path %}active-link{% endif %}"
+            class="list-group-item list-group-item-action {% if 'reserveddashboard' in request.path %}active-link{% endif %}"
             >Reserved Dashboard</a>
           <a
             href="workspaces"
