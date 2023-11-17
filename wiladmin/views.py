@@ -211,38 +211,40 @@ class ViewWorkspacesController(LoginRequiredMixin, View):
 
 class TestController(View):
     
-    def updateBookingStatus(self, reserved_id):
-        booking = Booking.objects.get(pk=int(reserved_id))
+    def exportlogs(self, request):
         
-        if booking.status == "Pending":
-            booking.status = 'Booked'
-            booking.save()
-            
-            timer = Timer(user_id=booking.user_id, minutes=60, seconds=0)
-            timer.save()
-            
-            log = AdminReportLogsModel(referenceid=booking.reference_number, userid=booking.user_id, starttime=booking.start_time, endtime="", status='Booked')
-            log.save()
+        logs = AdminReportLogsModel.objects.all()
         
+        if logs.count() == 0:
+            
+            messages.error(request, "No Logs Found")
+            return render(request, "wiladmin/logs.html", {'logs': logs})
+            
         else:
-            booking.delete()
-            
-            usertimer = Timer.objects.get(pk=str(booking.user_id))
-            usertimer.delete()
-            
-            assignedarea = AssignedArea.objects.all().filter(reference_number=booking.reference_number)
-            assignedarea.delete()
-            
-            log = AdminReportLogsModel(referenceid=booking.reference_number, userid=booking.user_id, starttime=booking.start_time, endtime=str(datetime.now().strftime("%d/%m/%Y, %H:%M")), status='Logged Out')
-            log.save()
+            response = HttpResponse(content_type="text/csv")
+            response['Content-Disposition'] = 'attachment; filename=WILReportLogs '+str(datetime.now().strftime("%d/%m/%Y"))+'.csv'
+
+            writer = csv.writer(response)
+            writer.writerow(['Log Number','Reference ID','User ID','Date and Time','Status'])
+
+            for log in logs:
+                writer.writerow([log.logid, log.referenceid, log.userid, log.starttime, log.status])
+
+            cursor = connection.cursor()
+            cursor.execute("DELETE FROM wiladmin_AdminReportLogsModel")
+
+            return response
+    
+    def getAllReportLogs(self):
+        logs = AdminReportLogsModel.objects.all().order_by('-logid')
+        return logs
     
     def get(self, request):
-        bookings = Booking.objects.all().order_by('-status')
-        return render(request, "wiladmin/reserveddashboard.html", {'bookings': bookings})
+        logs = self.getAllReportLogs
+        return render(request, "wiladmin/test.html", {'logs': logs})
     
-    def post(self, request, reserved_id):
-        self.updateBookingStatus(reserved_id)
-        return redirect('reserveddashboard')
+    def post(self, request):
+        return self.exportlogs(request)
         
 def handleLogout(request):
         logout(request)
