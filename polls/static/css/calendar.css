@@ -5,7 +5,7 @@
     width: 30px;
     height: 30px;
     background: #007BFF;
-    color: #fff;
+    color: #000000;
     text-align: center;
     line-height: 30px;
     border-radius: 50%;
@@ -18,7 +18,7 @@
     position: absolute;
     width: 90%; 
     height: 50%; 
-    background-color: #fff;
+    background-color: #000000;
     z-index: 1;
     border-radius: 1%;
     

@@ -12,31 +12,43 @@
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.9/index.global.min.js"></script>
     <link rel="stylesheet" href="{% static 'css/calendar.css' %}">
     
-
 </head>
 
-<body>
-    <div class="content">
+<body style="background-color: #FECC00;"> 
+    <div class="content" >
         <div class="header">
             <div>
                 <a href="{% url 'userprofile' %}">
                     <img src="{% static 'images/profile.png' %}" alt="Profile Icon" class="profile-icon" style="width: 32px; height: 32px; margin-right:60px">
                 </a>
-                <img src="{% static 'images/WILLOGO.png' %}" alt="WIL LOGO" class="logo" style="margin-right:100px">
+                <img src="{% static 'images/WILLOGO.png' %}" alt="WIL LOGO" class="logo" style="margin-right:100px; border: 2px solid #000000;">
             </div>
             <div class="mobile-buttons">
-                <h2><u> WILDSPACE DASHBOARD </u></h2>
+                <h2><u> WELCOME TO WILDSPACE </u></h2>
             </div>
         </div>
-        <div class="buttonContainer">
-            <div class="area-container">
+        <div class="description-pane" style="background-color:#ffffff; border: 1px solid #000000; width: 300px;padding: 20px;
+        border-radius: 21px;
+        border: 1px solid #000000;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); font-size:10px">
+            
+                <p><b>Wildspace</b> provides the key to a tranquil, organized, and productive environment. 
+                    Say goodbye to the crowding and noise - with Wildspace, 
+                    crowd control has never been so simple. Take control of your learning and working environment, 
+                    and let innovation flourish with Wildspace! </p>
+        
+            
+        </div>
+        <br>
+        <div class="buttonContainer" >
+            <div class="area-container" style = "background-color:#000000; border: 1px solid #ffffff; height:260px">
                 <div class="button-overlay">
                     <div class="mobile-buttons">
                     </div>
-                    <div class="mobile-screen">
+                    <div class="mobile-screen" >
                         <div class="mobile-buttons">
-                            <h2>FACILITY MAP</h2>
-                            <div class="small-calendar-button" id="expand-calendar-button">📅</div>
+                            <h2 style="color:#ffffff">FACILITY MAP</h2>
+                            <div class="small-calendar-button" id="expand-calendar-button" >📅</div>
                             <div id="expanded-calendar"></div>
                         </div>
                     </div>
@@ -46,22 +58,26 @@
                         {% for area in areas %}
                         <button class="area-button seat {% if area.area_id == 'A3' %}areaA3-button{% elif area.area_id == 'A4' %}areaA4-button{% elif area.area_id == 'A5' %}areaA5-button{% elif area.area_id == 'A6' %}areaA6-button{% endif %}" data-areaid="{{ area.area_id }}" data-availability="{{ area.booked_count }}/6" data-total="6">{{ area.booked_count }}/6</button>
                         <button class="area-button seat {% if area.area_id == 'A1' %}areaA1-button{% elif area.area_id == 'A2' %}areaA2-button{% endif %}" data-areaid="{{ area.area_id }}" data-availability="{{ area.booked_count }}/1" data-total="1">{{ area.booked_count }}/1</button>
-                        <button class="areaA7-button" data-areaid="{{ area.area_id }}" data-availability="{{ area.booked_count }}/24" data-total="24">{{ area.booked_count }}/24</button>
-                        <button class="areaA8-button" data-areaid="{{ area.area_id }}" data-availability="{{ area.booked_count }}/6" data-total="6">{{ area.booked_count }}/6</button>
-                        <button class="areaA9-button" data-areaid="{{ area.area_id }}" data-availability="{{ area.booked_count }}/6" data-total="6">{{ area.booked_count }}/6</button>
+                        <button class="areaA7-button" data-areaid="A7" data-availability="{{ area.booked_count }}/24" data-total="24">{{ area.booked_count }}/24</button>
+                        <button class="areaA8-button" data-areaid="A8" data-availability="{{ area.booked_count }}/6" data-total="6">{{ area.booked_count }}/6</button>
+                        <button class="areaA9-button" data-areaid="A9" data-availability="{{ area.booked_count }}/6" data-total="6">{{ area.booked_count }}/6</button>
+
                         {% endfor %}
                         
                     </div>
-                    <br>
-                    <br>
                     
-                    <a href="{% url 'map' %}">
-                        <button type="submit" class="button">WALK-IN BOOKING</button>
-                    </a>
-                    <br>
-                    <br>
+                    
+                    
+                    
+                    
                 </div>
+                
             </div>
+            <br>
+            <a href="{% url 'map' %}">
+                <button type="submit" class="button" style = "color:#ffffff;height:50px; background-color:#000000;border: 2px solid #ffffff">WALK-IN BOOKING</button>
+            </a>
+            <br>
             <br>
         </div>
         

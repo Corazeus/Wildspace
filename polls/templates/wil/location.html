@@ -14,7 +14,7 @@
 
     {% block extra_css %}{% endblock %}
 </head>
-<body>
+<body style="background-color: #FECC00;">
     <div class="content">
         <div class="header">
             <div >
@@ -24,10 +24,10 @@
                 
                 </a>
                 
-                 <img src="{% static 'images/WILLOGO.png' %}" alt="WIL LOGO" class="logo" style="margin-right:100px">
+                 <img src="{% static 'images/WILLOGO.png' %}" alt="WIL LOGO" class="logo" style="margin-right:100px; border: 2px solid #000000;">
                 
             </div>
-    <div class="arealocation-container">
+    <div class="arealocation-container" style = "color:#ffffff; background-color:#000000; border: 1px solid #ffffff; height:220px">
         <div class="button-overlay">
             <div class="mobile-buttons">
                 {% if area_id %}
@@ -63,22 +63,26 @@
         </div>
     </div>
 
-    <div class="location-container">
+    <div class="location-container" style="background-color:#ffffff; color:#000000; border: 1px solid #000000;" >
         <div class="mobile-screen">
             {% block content %}
             {% endblock %}
         </div>
 
         <div class="mobile-buttons">
-            <h5>GUIDELINES</h5>
+            <h3>GUIDELINES</h3>
 
             <div>
-                 <h2>TIME MONITORING</h2>
-                <p>1. Once your walk-in booking has been confirmed, you are automatically credited time</p>
-                <p>2. Use the facility map to locate your area.</p>
-                <p>3. To view your running time, click the time monitoring button </p>
+                 <h4>TIME MONITORING</h4>
+                 <ol style="text-align:left; margin:5px">
+                    <li>Once your walk-in booking has been confirmed, you are automatically credited time</li>
+                    <li>Use the facility map to locate your area.</li>
+                    <li>To view your running time, click the time monitoring button</li>
+                 </ol>
+                 <br>
                 <br>
-                <button class="time-button">TIME MONITORING</button>
+                <br>
+                <button class="time-button"  style = "color:#ffffff; background-color:#000000; border: 2px solid #ffffff;">TIME MONITORING</button>
             </div>
 
         </div>

@@ -23,7 +23,8 @@
                             const totalSeats = parseInt(buttonElement.getAttribute("data-total"));
                             buttonElement.setAttribute('data-availability', data[areaId]);
                             buttonElement.textContent = `${data[areaId]}/${totalSeats}`;
-        
+                            
+                            
                             if (data[areaId] === totalSeats) {
                                 buttonElement.style.backgroundColor = 'red';
                                 buttonElement.style.color = 'white';
@@ -38,6 +39,7 @@
                     console.error('Error:', error);
                 });
         }
+        
         
         setInterval(updateBookingInfo, 3000);
         window.onload = updateBookingInfo;

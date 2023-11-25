@@ -1,4 +1,5 @@
 import csv
+import random
 from django.db import connection
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
@@ -9,6 +10,7 @@ from .models import WalkinBookingModel, AdminReportLogsModel
 from polls.models import Timer, AssignedArea, Booking
 from django.views import View
 from datetime import datetime
+from .forms import BookGuest
 
 class AdminLoginController(View):
     
@@ -42,29 +44,36 @@ class AdminWalkinDashboardController(LoginRequiredMixin, View):
     
     def updateBookingStatus(self, bookingid):
         booking = WalkinBookingModel.objects.get(pk=int(bookingid))
-        
-        if booking.status == "Pending":
-            booking.status = 'Booked'
-            booking.save()
+        try:
+            if booking.status == "Pending":
+                booking.status = 'Booked'
+                booking.save()
+                
+                timer = Timer(user_id=booking.userid, minutes=30, seconds=0)
+                timer.save()
+                
+                log = AdminReportLogsModel(referenceid=booking.referenceid, userid=booking.userid, starttime=booking.schedule, endtime="", status='Booked')
+                log.save()
             
-            timer = Timer(user_id=booking.userid, minutes=30, seconds=0)
-            timer.save()
-            
-            log = AdminReportLogsModel(referenceid=booking.referenceid, userid=booking.userid, starttime=booking.schedule, endtime="", status='Booked')
-            log.save()
-        
-        else:
-            booking.delete()
-            
-            usertimer = Timer.objects.get(pk=str(booking.userid))
-            usertimer.delete()
-            
+            else:
+                booking.delete()
+                
+                usertimer = Timer.objects.get(pk=str(booking.userid))
+                usertimer.delete()
+                
+                assignedarea = AssignedArea.objects.all().filter(reference_number=booking.referenceid)
+                assignedarea.delete()
+                
+                log = AdminReportLogsModel(referenceid=booking.referenceid, userid=booking.userid, starttime=booking.schedule,endtime=str(datetime.now().strftime("%d/%m/%Y, %H:%M")), status='Logged Out')
+                log.save()
+                
+        except Timer.DoesNotExist:
             assignedarea = AssignedArea.objects.all().filter(reference_number=booking.referenceid)
             assignedarea.delete()
-            
             log = AdminReportLogsModel(referenceid=booking.referenceid, userid=booking.userid, starttime=booking.schedule,endtime=str(datetime.now().strftime("%d/%m/%Y, %H:%M")), status='Logged Out')
             log.save()
-    
+            return redirect('walkindashboard')
+        
     def get(self, request):
         bookings = WalkinBookingModel.objects.all().order_by('-status', '-bookingid')
         return render(request, "wiladmin/walkindashboard.html", {'bookings': bookings})
@@ -166,8 +175,22 @@ class BookGuestController(LoginRequiredMixin, View):
     def get(self, request):
         return render(request, 'wiladmin/bookguest.html',{})
     
-    def post(self, rquest):
-        self.CreateNewBooking()
+    def post(self, request):
+        form = BookGuest(request.POST)
+        
+        if form.is_valid():
+            referenceid = 'A'+str(random.randint(3, 9))+'GUEST'.upper()
+            userid = request.POST.get('userid')
+            schedule = str(datetime.now().strftime("%d/%m/%Y, %H:%M"))
+            status = 'Booked'
+            booking = WalkinBookingModel(referenceid = referenceid, userid = userid, schedule = schedule, status = status)
+            booking.save()
+            
+            reference = AssignedArea(reference_number=referenceid, area_id=referenceid[:2])
+            reference.save()
+            
+            log = AdminReportLogsModel(referenceid=booking.referenceid, userid=booking.userid, starttime=booking.schedule, endtime="", status='Booked')
+            log.save()
         return redirect('bookguest')
     
 class ViewWorkspacesController(LoginRequiredMixin, View):
@@ -211,42 +234,9 @@ class ViewWorkspacesController(LoginRequiredMixin, View):
 
 class TestController(View):
     
-    
-    def GetAreaCount(self):
-        countA1 = AssignedArea.objects.filter(area_id='A1').count()
-        countA2 = AssignedArea.objects.filter(area_id='A2').count()
-        countA3 = AssignedArea.objects.filter(area_id='A3').count()
-        countA4 = AssignedArea.objects.filter(area_id='A4').count()
-        countA5 = AssignedArea.objects.filter(area_id='A5').count()
-        countA6 = AssignedArea.objects.filter(area_id='A6').count()
-        countA7 = AssignedArea.objects.filter(area_id='A7').count()
-        countA8 = AssignedArea.objects.filter(area_id='A8').count()
-        countA9 = AssignedArea.objects.filter(area_id='A9').count()
-        
-        area_count = [{
-            'countA1':countA1, 
-            'countA2':countA2, 
-            'countA3':countA3, 
-            'countA4':countA4, 
-            'countA5':countA5,
-            'countA6':countA6,
-            'countA7':countA7,
-            'countA8':countA8,
-            'countA9':countA9,
-            }]
-        return area_count
-     
     def get(self, request):
-        
-        area_count = self.GetAreaCount
-
-        return render(request, 'wiladmin/test.html', {'area_count': area_count})
+        return render(request, 'wiladmin/test.html')
     
-    def post(self, request, areaid):
-        area_count = self.GetAreaCount
-        area = WalkinBookingModel.objects.filter(referenceid__contains=areaid) #and Booking.objects.filter(reference_number__contains=areaid)
-        return render(request, 'wiladmin/test.html', {'area':area, 'area_count':area_count, 'area_id':areaid})
-        
 def handleLogout(request):
         logout(request)
         return redirect('adminlogin')
