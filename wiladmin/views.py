@@ -1,7 +1,7 @@
 import csv
 import random
 from django.db import connection
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -196,8 +196,37 @@ class BookGuestController(LoginRequiredMixin, View):
 class ViewWorkspacesController(LoginRequiredMixin, View):
     
     login_url = 'adminlogin'
+    countA1 = AssignedArea.objects.filter(area_id='A1').count()
+    countA2 = AssignedArea.objects.filter(area_id='A2').count()
+    countA3 = AssignedArea.objects.filter(area_id='A3').count()
+    countA4 = AssignedArea.objects.filter(area_id='A4').count()
+    countA5 = AssignedArea.objects.filter(area_id='A5').count()
+    countA6 = AssignedArea.objects.filter(area_id='A6').count()
+    countA7 = AssignedArea.objects.filter(area_id='A7').count()
+    countA8 = AssignedArea.objects.filter(area_id='A8').count()
+    countA9 = AssignedArea.objects.filter(area_id='A9').count()
     
+    #Thsi will GET current count
     def GetAreaCount(self):
+        
+        area_count = [{
+            'countA1':self.countA1, 
+            'countA2':self.countA2, 
+            'countA3':self.countA3, 
+            'countA4':self.countA4, 
+            'countA5':self.countA5,
+            'countA6':self.countA6,
+            'countA7':self.countA7,
+            'countA8':self.countA8,
+            'countA9':self.countA9,
+            }]
+        return area_count
+    
+    #This will get the area count into a JSON response
+    #This function will be called in urls.py (url: wiladmin/workspaces)
+    #Using the refresh.js this will be called in interval of 2 seconds
+    #The refresh.js ajax will then replace the value with the new value
+    def update_workspaces(request):
         countA1 = AssignedArea.objects.filter(area_id='A1').count()
         countA2 = AssignedArea.objects.filter(area_id='A2').count()
         countA3 = AssignedArea.objects.filter(area_id='A3').count()
@@ -207,8 +236,8 @@ class ViewWorkspacesController(LoginRequiredMixin, View):
         countA7 = AssignedArea.objects.filter(area_id='A7').count()
         countA8 = AssignedArea.objects.filter(area_id='A8').count()
         countA9 = AssignedArea.objects.filter(area_id='A9').count()
-        
-        area_count = [{
+            
+        area_count = {
             'countA1':countA1, 
             'countA2':countA2, 
             'countA3':countA3, 
@@ -218,8 +247,8 @@ class ViewWorkspacesController(LoginRequiredMixin, View):
             'countA7':countA7,
             'countA8':countA8,
             'countA9':countA9,
-            }]
-        return area_count
+            }
+        return JsonResponse({'area_count':area_count})
      
     def get(self, request):
         
