@@ -14,7 +14,7 @@
 
     {% block extra_css %}{% endblock %}
 </head>
-<body>
+<body style="background-color: #FECC00;">
     <div class="content">
         <div class="header">
             <div >
@@ -24,10 +24,10 @@
                 
                 </a>
                 
-                 <img src="{% static 'images/WILLOGO.png' %}" alt="WIL LOGO" class="logo" style="margin-right:100px">
+                 <img src="{% static 'images/WILLOGO.png' %}" alt="WIL LOGO" class="logo" style="margin-right:100px; border: 2px solid #000000;">
                 
             </div>
-    <div class="arealocation-container">
+    <div class="arealocation-container" style = "color:#ffffff; background-color:#000000; border: 1px solid #ffffff; height:220px">
         <div class="button-overlay">
             <div class="mobile-buttons">
                 {% if area_id %}
@@ -39,7 +39,7 @@
 
             <div class="image-container">
 
-                <img src="{% static 'images/area.jpg' %}" alt="area" class="image-fit"/>
+                <img src="{% static 'images/area.png' %}" alt="area" class="image-fit"/>
                 {% if area_id == "A1" %}
                 <button class="areaA1-button"><i class="fas fa-map-marker-alt"></i></button>
                 {% elif area_id == "A2" %}
@@ -55,14 +55,14 @@
         </div>
     </div>
 
-    <div class="location-container">
+    <div class="location-container" style="background-color:#ffffff; color:#000000; border: 1px solid #000000;">
         <div class="mobile-screen">
             {% block content %}
             {% endblock %}
         </div>
 
         <div class="mobile-buttons">
-            <h5>GUIDELINES</h5>
+            <h4>GUIDELINES</h4>
 
             <div>
                 <h5>You arleady have an existing reservation on {{date}}</h5>
