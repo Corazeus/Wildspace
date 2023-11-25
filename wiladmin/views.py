@@ -223,7 +223,7 @@ class ViewWorkspacesController(LoginRequiredMixin, View):
         
         return area_count
     
-    #This will get the area count into a JSON response
+    #This will JSON response the area count
     #This function will be called in urls.py (url: wiladmin/workspaces)
     #Using the refresh.js this will be called in interval of 2 seconds
     #The refresh.js ajax will then replace the value with the new value
