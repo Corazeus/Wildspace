@@ -11,7 +11,7 @@
     <link rel="icon" type="image/x-icon" href="{% static 'images/WILLOGO.png' %}">
 </head>
 
-<body>
+<body >
     <div class="content">
         <a href="{% url 'user_dashboard' %}" >
             <img src="{% static 'images/arrow.png' %}" alt="Back Arrow Icon" class="back-icon" style="width: 32px; height: 32px;">
@@ -25,7 +25,7 @@
                         <div class="mobile-buttons">
                             
                         </div>
-                        <div class="image-container">
+                        <div class="">
                             <div>
                                 <img src="{% static 'images/profile.png' %}" alt="Profile Icon" class="profile-icon" style="width: 50px; height: 50px; margin-right: 20px; margin-top: -17px">
                                 {{user.username}}

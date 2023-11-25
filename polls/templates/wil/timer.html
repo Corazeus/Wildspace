@@ -9,17 +9,17 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" />
     {% block extra_css %}{% endblock %}
 </head>
-<body>
+<body style="background-color: #FECC00;">
 <a href="{% url 'location' %}" class="left-button"><i class="fas fa-arrow-left"></i></a>
 <div>
-<div class="name-container">
+<div class="name-container" style="background-color:#000000">
   <div>
-    <h4>Welcome {{ user.username }}</h4>
+    <h4 >Welcome {{ user.username }}</h4>
   </div>
   <div class="button-overlay"></div>
 </div>  
 <br>
-<div class="reminders-container">
+<div class="reminders-container" style="background-color:#000000; color:#ffffff">
     <div class="">
         <div class="mobile-buttons">
           <h4 STYLE="text-align: left">Reminders for WILDSPACE:</h4>
@@ -34,7 +34,7 @@
     </div>
 </div>
 <br>
-<div class="information-container">
+<div class="information-container" style="background-color:#000000; color:#ffffff; border: 1px solid #ffffff">
     <div class="mobile-screen">
         {% block content %}
         {% endblock %}
@@ -51,7 +51,7 @@
     </div>
     <br>
 
-    <div class="time-container">
+    <div class="time-container" style="background-color:#ffffff;border: 1px solid #000000"> 
       <h4 id="timer">{{ timer_data.minutes }}:{{ timer_data.seconds|default:"00" }}</h4>
     </div>
     <br>

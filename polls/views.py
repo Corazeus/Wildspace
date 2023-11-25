@@ -114,8 +114,6 @@ def user_dashboard(request):
         area_data = next((item for item in area_bookings if item['area_id'] == area_id), {'booked_count': 0})
         areas.append({'area_id': area_id, 'booked_count': area_data['booked_count'], 'total_count': total_count})
 
-
-
     
     try:
         reservedbookingcount = Booking.objects.filter(user_id=request.user.username).count()

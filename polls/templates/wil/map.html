@@ -8,19 +8,19 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link rel="icon" type="image/x-icon" href="{% static 'images/WILLOGO.png' %}">
 </head>
-<body>
+<body style="background-color: #FECC00;"> 
     <div class="content">
         <div class="header">
             <div >
                 <a href="{% url 'userprofile' %}">
                     <img src="{% static 'images/profile.png' %}" alt="Profile Icon" class="profile-icon" style="width: 32px; height: 32px; margin-right:60px">
                 </a>
-                 <img src="{% static 'images/WILLOGO.png' %}" alt="WIL LOGO" class="logo" style="margin-right:100px">
+                 <img src="{% static 'images/WILLOGO.png' %}" alt="WIL LOGO" class="logo" style="margin-right:100px; border: 2px solid #000000;">
             </div>
-            <div class="area-container">
+            <div class="area-container" style = " background-color:#000000; border: 1px solid #ffffff; height:230px">
                 <div class="button-overlay">
                     <div class="mobile-buttons">
-                        <h2>SELECT AN AREA</h2>
+                        <h2 style="color: #ffffff">SELECT AN AREA</h2>
                     </div>
                     
                     <div class="image-container">
@@ -47,7 +47,7 @@
                 </div>
             </div>
             <br>
-            <div class="guidelines-container">
+            <div class="guidelines-container" style="background-color:#000000; color:#ffffff; border: 1px solid #ffffff;">
                 <div class="mobile-screen">
                     {% block content %}
                     {% endblock %}
