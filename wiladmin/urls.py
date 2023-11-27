@@ -31,6 +31,7 @@ urlpatterns = [
     path('wiladmin/bookguest', views.BookGuestController.as_view(), name='bookguest'),
     path('wiladmin/workspaces', views.ViewWorkspacesController.as_view(), name='workspaces'),
     path('wiladmin/workspaces/<str:areaid>', views.ViewWorkspacesController.as_view(), name='usersinarea'),
+    path('wiladmin/updateworkspaces', views.ViewWorkspacesController.update_workspaces, name='updateworkspaces'),
     path('wiladmin/test', views.TestController.as_view(), name='test'),
     path('wiladmin/test/<str:areaid>', views.TestController.as_view(), name='testusers'),
 ]
